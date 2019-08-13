@@ -20,54 +20,29 @@
 
 ## :pencil2: 算法
 
-- [剑指 Offer 题解](https://github.com/believeszw/CS-Notes/blob/master/notes/剑指offer/剑指%20Offer%20题解%20-%20目录.md)
-- [Leetcode 题解](https://github.com/believeszw/CS-Notes/blob/master/notes/Leetcode/Leetcode%20题解%20-%20目录.md)
-- [算法](https://github.com/believeszw/CS-Notes/blob/master/notes/算法/算法%20-%20目录.md)
 
 ## :computer: 操作系统
 
-- [计算机操作系统](https://github.com/believeszw/CS-Notes/blob/master/notes/操作系统/计算机操作系统%20-%20目录.md)
-- [Linux](https://github.com/believeszw/CS-Notes/blob/master/notes/Linux/Linux.md)
 
 ## :cloud: 网络
 
-- [计算机网络](https://github.com/believeszw/CS-Notes/blob/master/notes/网络/计算机网络%20-%20目录.md)
-- [HTTP](https://github.com/believeszw/CS-Notes/blob/master/notes/网络/HTTP.md)
-- [Socket](https://github.com/believeszw/CS-Notes/blob/master/notes/网络/Socket.md)
 
 ## :art: 面向对象
 
-- [设计模式](https://github.com/believeszw/CS-Notes/blob/master/notes/面向对象/设计模式.md)
-- [面向对象思想](https://github.com/believeszw/CS-Notes/blob/master/notes/面向对象/面向对象思想.md)
 
 ## :floppy_disk: 数据库
 
-- [数据库系统原理](https://github.com/believeszw/CS-Notes/blob/master/notes/数据库/数据库系统原理.md)
-- [SQL](https://github.com/believeszw/CS-Notes/blob/master/notes/数据库/SQL.md)
-- [Leetcode-Database 题解](https://github.com/believeszw/CS-Notes/blob/master/notes/数据库/Leetcode-Database%20题解.md)
-- [MySQL](https://github.com/believeszw/CS-Notes/blob/master/notes/数据库/MySQL.md)
-- [Redis](https://github.com/believeszw/CS-Notes/blob/master/notes/数据库/Redis.md)
 
 ## :tea: Cplusplus
 
+- [Qt远程更新](https://github.com/believeszw/CS-Notes/blob/master/notes/C++/Qt远程更新.md)
 - 性能提升
 
 ## :coffee: Java
 
-- [Java 基础](https://github.com/believeszw/CS-Notes/blob/master/notes/Java/Java%20基础.md)
-- [Java 容器](https://github.com/believeszw/CS-Notes/blob/master/notes/Java/Java%20容器.md)
-- [Java 并发](https://github.com/believeszw/CS-Notes/blob/master/notes/Java/Java%20并发.md)
-- [Java 虚拟机](https://github.com/believeszw/CS-Notes/blob/master/notes/Java/Java%20虚拟机.md)
-- [Java I/O](https://github.com/believeszw/CS-Notes/blob/master/notes/Java/Java%20IO.md)
 
 ## :bulb: 系统设计
 
-- [系统设计基础](https://github.com/believeszw/CS-Notes/blob/master/notes/系统设计/系统设计基础.md)
-- [分布式](https://github.com/believeszw/CS-Notes/blob/master/notes/系统设计/分布式.md)
-- [集群](https://github.com/believeszw/CS-Notes/blob/master/notes/系统设计/集群.md)
-- [攻击技术](https://github.com/believeszw/CS-Notes/blob/master/notes/系统设计/攻击技术.md)
-- [缓存](https://github.com/believeszw/CS-Notes/blob/master/notes/系统设计/缓存.md)
-- [消息队列](https://github.com/believeszw/CS-Notes/blob/master/notes/系统设计/消息队列.md)
 
 ## :wrench: 工具
 
@@ -89,7 +64,7 @@
 - 简历模版：[Markdown-Resume](https://github.com/believeszw/Markdown-Resume)
 - 面经：[2018 这一年](https://www.nowcoder.com/discuss/137593)
 - 简历：https://believeszw.github.io -->
-- 小专栏：[后端面试进阶指南](https://xiaozhuanlan.com/believeszw)
+<!-- - 小专栏：[后端面试进阶指南](https://xiaozhuanlan.com/believeszw) -->
 <!-- - QQ 交流群：[857210598](assets/group.png) -->
 
 ### 工具
