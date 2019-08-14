@@ -35,7 +35,8 @@
 
 ## :tea: Cplusplus
 
-- [Qt远程更新](https://github.com/believeszw/CS-Notes/blob/master/notes/C++/Qt远程更新.md)
+- [Qt](https://github.com/believeszw/CS-Notes/blob/master/notes/C++/Qt)
+- [C++11新特性](https://github.com/believeszw/CS-Notes/blob/master/notes/C++/C++11)
 - 性能提升
 
 ## :coffee: Java
