@@ -172,7 +172,7 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 |#|语法|效果|
 |---|----|:---:|
-|1|`[![weibo-logo]](http://weibo.com/linpiaochen)`|[![weibo-logo]](http://weibo.com/linpiaochen)|
+|1|`[![weibo-logo]](https://www.weibo.com/believeszw)`|[![weibo-logo]](https://www.weibo.com/believeszw)|
 |2|`[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]`|[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]|
 |3|`[![csdn-logo]][csdn]`|[![csdn-logo]][csdn]|
 
