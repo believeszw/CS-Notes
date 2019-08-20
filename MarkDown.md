@@ -4,9 +4,9 @@ README
 
 ****
 
-|Author|果冻虾仁|
+|Author|believeszw|
 |---|---
-|E-mail|Jelly.K.Wang@qq.com
+|E-mail|765846560@qq.com
 
 
 ****
@@ -150,8 +150,8 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 |#|语法|效果|
 |---|----|-----|
-|1|`[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")`|[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")|
-|2|`[我的知乎][zhihu] `|[我的知乎][zhihu] |
+|1|`[我的博客](https://blog.csdn.net/believe_s "悬停显示")`|[我的博客](https://blog.csdn.net/believe_s "悬停显示")|
+
 
 语法2由两部分组成：
 - 第一部分使用两个中括号，[ ]里的标识符（本例中zhihu），可以是数字，字母等的组合，标识符上下对应就行了（**姑且称之为URL标识符**）
@@ -164,8 +164,7 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 |语法|效果|
 |----|-----|
-|`[我的简介](/example/profile.md)`|[我的简介](/example/profile.md)|
-|`[example](./example)`|[example](./example)|
+|`[README](./README.md)`|[README](./README.md)|
 
 ### 图片链接
 给图片加链接的本质是混合图片显示语法和普通的链接语法。普通的链接中[ ]内部是链接要显示的文本，而图片链接[ ]里面则是要显示的图片。  
@@ -195,14 +194,12 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 ### 无序列表
 #### 语法
 ```
-* 昵称：果冻虾仁
-- 别名：隔壁老王
-* 英文名：Jelly
+* 昵称：believe_s
+* 英文名：believe
 ```
 #### 效果
-* 昵称：果冻虾仁
-- 别名：隔壁老王
-* 英文名：Jelly
+* 昵称：believe_s
+* 英文名：believe
 
 ### 多级无序列表
 #### 语法
@@ -388,9 +385,9 @@ GFM中可以显示的展示diff效果。使用绿色表示新增，红色表示�
 ```
 
 --------------------------------
-[csdn]:http://blog.csdn.net/guodongxiaren "我的博客"
-[zhihu]:https://www.zhihu.com/people/jellywong "我的知乎，欢迎关注"
-[weibo]:http://weibo.com/linpiaochen
+[csdn]:https://blog.csdn.net/believe_s "我的博客"
+[zhihu]:https://www.zhihu.com/people/believechen-24/activities "我的知乎，欢迎关注"
+[weibo]:https://www.weibo.com/believeszw
 [baidu-logo]:http://www.baidu.com/img/bdlogo.gif "百度logo"
 [weibo-logo]:/img/weibo.png "点击图片进入我的微博"
 [csdn-logo]:/img/csdn.png "我的CSDN博客"
