@@ -1,6 +1,6 @@
-| 算法 | 操作系统 | 网络 | 面向对象 | 数据库 | C++ | Java | 系统设计 |  工具 | 编码实践 | 后记 | 问题记录 |
-| :---: | :----: | :---: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |:----:|:----:|
-| [:pencil2:](#pencil2-算法) | [:computer:](#computer-操作系统) | [:cloud:](#cloud-网络) | [:art:](#art-面向对象) | [:floppy_disk:](#floppy_disk-数据库) |[:tea:](#tea-Cpp)|[:coffee:](#coffee-java)| [:bulb:](#bulb-系统设计) |[:wrench:](#wrench-工具)| [:watermelon:](#watermelon-编码实践) |[:memo:](#memo-后记)|[:book:](#book-问题记录)||
+| 算法 | 操作系统 | 网络 | 面向对象 | 数据库 | 语言 |占位 | 系统设计 |  工具 | 编码实践 | 后记 | 问题记录 |
+| :---: | :----: | :---: | :----: | :----: | :----: | :----: | :----:| :----: | :----: |:----:|:----:|
+| [:pencil2:](#pencil2-算法) | [:computer:](#computer-操作系统) | [:cloud:](#cloud-网络) | [:art:](#art-面向对象) | [:floppy_disk:](#floppy_disk-数据库) |[:tea:](#tea-Cpp)|[:coffee:](#coffee-占位) | [:bulb:](#bulb-系统设计) |[:wrench:](#wrench-工具)| [:watermelon:](#watermelon-编码实践) |[:memo:](#memo-后记)|[:book:](#book-问题记录)|
 
 <br>
 
@@ -25,13 +25,13 @@
 ## :floppy_disk: 数据库
 
 
-## :tea: Cpp
-
-- [Qt](https://github.com/believeszw/CS-Notes/blob/master/notes/C++/Qt)
-- [C++11新特性](https://github.com/believeszw/CS-Notes/blob/master/notes/C++/C++11)
+## :tea: 语言
+- [C++](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++)
+- [Qt](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/Qt)
+- [Python](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/Python)
 - 性能提升
 
-## :coffee: Java
+## :coffee: 占位
 
 
 ## :bulb: 系统设计
