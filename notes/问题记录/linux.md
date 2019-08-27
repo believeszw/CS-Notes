@@ -1,5 +1,5 @@
 ## 目录
-* [VM中与主机共享SS](###VM中与主机共享SS)
+* [VM中与主机共享SS](#VM中与主机共享SS)
 
 ### pip install doesnt work , InvalidSchema: Missing dependencies for SOCKS support
 * `export all_proxy="socks5://127.0.0.1:1080/"`
