@@ -1,10 +1,14 @@
-###  pip install doesnt work , InvalidSchema: Missing dependencies for SOCKS support
+## 目录
+* [VM中与主机共享SS](###VM中与主机共享SS)
+
+### pip install doesnt work , InvalidSchema: Missing dependencies for SOCKS support
 * `export all_proxy="socks5://127.0.0.1:1080/"`
 * `unset all_proxy`
 * `unset ALL_PROXY`
 * `pip install pysocks`
 * `printenv | grep -i proxy`查看所有代理
 * `export all_proxy="https://127.0.0.1:1080/"`指定代理
+
 ### VM中与主机共享SS
 * `VM`选择`NAT`模式
 * `SS`选择允许其他设备连入

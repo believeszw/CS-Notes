@@ -29,7 +29,6 @@
 - [C++](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++)
 - [Qt](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/Qt)
 - [Python](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/Python)
-- 性能提升
 
 ## :coffee: 占位
 
