@@ -9,12 +9,15 @@
   * [解析和序列化](#解析和序列化)
 * [写一条消息](#写一条消息)
 * [阅读消息](#阅读消息)    
+* [编译](#编译)    
 * [Protobuf扩展](#Protobuf扩展)    
 * [优化](#优化)    
 * [高级用法](#高级用法)    
 
 ### 定义协议格式
 `.proto`文件中的定义很简单：为要序列化的每个数据结构添加消息，然后为消息中的每个字段指定名称和类型。这是`.proto`定义您的消息的文件`addressbook.proto`。
+
+(好的`.proto`文件命名风格是：`packagename.messagename.proto`)
 ```Cpp
 syntax = "proto2";
 
@@ -66,6 +69,7 @@ protoc -I = $ SRC_DIR --cpp_out = $ DST_DIR $ SRC_DIR / addressbook.proto
 
 ```cpp
 protoc -I=. --cpp_out=. ./addressbook.proto
+protoc --cpp_out=. lm.helloworld.proto // 这种也可以
 ```
 
 因为您需要`C++`类，所以使用该`--cpp_out`选项 - 为其他支持的语言提供了类似的选项。
@@ -256,7 +260,6 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 ```
-编译命令：`g++ write.cpp addressbook.pb.cc -lprotobuf -pthread`
 
 注意`GOOGLE_PROTOBUF_VERIFY_VERSION`宏。在使用`C ++`协议缓冲区库之前执行此宏是一种很好的做法 - 尽管不是绝对必要的。它验证您没有意外链接到与您编译的标头版本不兼容的库版本。如果检测到版本不匹配，程序将中止。请注意，每个`.pb.cc`文件在启动时都会自动调用此宏。
 
@@ -332,6 +335,10 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 ```
+
+### 编译
+    g++ -Wall -std=c++11 write.cpp addressbook.pb.cc -o write `pkg-config --cflags --libs protobuf`
+    g++ -Wall -std=c++11 read.cpp lm.helloworld.pb.cc -o read `pkg-config --cflags --libs protobuf`
 
 ### Protobuf扩展
 在释放使用协议缓冲区的代码之后迟早，您无疑会想要“改进”协议缓冲区的定义。如果你希望你的新缓冲区向后兼容，并且你的旧缓冲区是向前兼容的 - 而且你几乎肯定想要这个 - 那么你需要遵循一些规则。在新版本的协议缓冲区中：
