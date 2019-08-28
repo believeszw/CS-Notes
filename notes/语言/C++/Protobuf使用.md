@@ -69,7 +69,7 @@ protoc -I = $ SRC_DIR --cpp_out = $ DST_DIR $ SRC_DIR / addressbook.proto
 
 ```cpp
 protoc -I=. --cpp_out=. ./addressbook.proto
-protoc --cpp_out=. lm.helloworld.proto // 这种也可以
+protoc --cpp_out=. addressbook.proto // 这种也可以
 ```
 
 因为您需要`C++`类，所以使用该`--cpp_out`选项 - 为其他支持的语言提供了类似的选项。
@@ -281,7 +281,7 @@ void ListPeople(const tutorial::AddressBook& address_book) {
 
     cout << "Person ID: " << person.id() << endl;
     cout << "  Name: " << person.name() << endl;
-    if (person.email() ！=  "") {
+    if (person.email() !=  "") {
       cout << "  E-mail address: " << person.email() << endl;
     }
 
@@ -338,7 +338,7 @@ int main(int argc, char* argv[]) {
 
 ### 编译
     g++ -Wall -std=c++11 write.cpp addressbook.pb.cc -o write `pkg-config --cflags --libs protobuf`
-    g++ -Wall -std=c++11 read.cpp lm.helloworld.pb.cc -o read `pkg-config --cflags --libs protobuf`
+    g++ -Wall -std=c++11 read.cpp addressbook.pb.cc -o read `pkg-config --cflags --libs protobuf`
 
 ### Protobuf扩展
 在释放使用协议缓冲区的代码之后迟早，您无疑会想要“改进”协议缓冲区的定义。如果你希望你的新缓冲区向后兼容，并且你的旧缓冲区是向前兼容的 - 而且你几乎肯定想要这个 - 那么你需要遵循一些规则。在新版本的协议缓冲区中：
