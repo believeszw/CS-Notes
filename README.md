@@ -69,7 +69,7 @@
 ## :book: 问题记录
 - Ringbuffer
 - Queue
-- [linux](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/linux.md)
+- [linux](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Linux.md)
 - windows
 
 ### 排版
