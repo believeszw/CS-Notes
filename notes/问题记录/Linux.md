@@ -30,3 +30,13 @@
 * `sudo apt-get install gparted`
 * `sudo gparted`
 * 进行扩容
+
+### snap安装失败
+* `error: snap "clion" has "install-snap" change in progress`
+run:
+```Cpp
+$ snap changes
+<snip>
+203  Doing   2016-06-24T12:17:45Z  -  Install "nextcloud" snap
+$ sudo snap abort 203
+```

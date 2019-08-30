@@ -53,6 +53,8 @@ example:
 map<string, Project> projects = 3;
 ```
 
+* 在 proto3 中，纯数字类型的 repeated 字段编码时候默认采用 packed 编码（具体原因见 [Protocol Buffer 编码原理](https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-encode.md#六-protocol-buffer-编码原理) 这一章节）
+
 ### 定义协议格式
 `.proto`文件中的定义很简单：为要序列化的每个数据结构添加消息，然后为消息中的每个字段指定名称和类型。这是`.proto`定义您的消息的文件`addressbook.proto`。
 
@@ -89,6 +91,8 @@ message AddressBook {
 该`.proto`文件以包声明开头，这有助于防止不同项目之间的命名冲突。在`C++`中，生成的类将放在与包名匹配的命名空间中。
 
 每个元素上的“= 1”，“= 2”标记标识该字段在二进制编码中使用的唯一“标记”。标签号1-15需要少于一个字节来编码而不是更高的数字，因此作为优化，您可以决定将这些标签用于常用或重复的元素，将标签16和更高版本留给不太常用的可选元素。重复字段中的每个元素都需要重新编码标记号，因此重复字段特别适合此优化。
+
+可以指定的最小字段编号为1，最大字段编号为2^29^-1 或 536,870,911。也不能使用数字 19000 到 19999（FieldDescriptor :: kFirstReservedNumber 到 FieldDescriptor :: kLastReservedNumber），因为它们是为 Protocol Buffers实现保留的。
 
 必须使用以下修饰符之一注释每个字段：
 
