@@ -67,10 +67,8 @@
 - Logo：[logomakr](https://logomakr.com/)
 
 ## :book: 问题记录
-- Ringbuffer
-- Queue
-- [linux](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Linux.md)
-- windows
+- [问题记录](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/README.md)
+
 
 ### 排版
 
