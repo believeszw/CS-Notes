@@ -61,7 +61,7 @@ echo $PATH
 
   * 方法二：修改 `~/.bashrc` 或 `~/.bash_profile`或系统级别的`/etc/profile`
   >1. 在其中添加例如export PATH=/opt/ActivePython/bin:$PATH
-   2. source .bashrc  (Source命令也称为“点命令”，也就是一个点符号（.）。\
+  > 2. source .bashrc  (Source命令也称为“点命令”，也就是一个点符号（.）。\
    source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录)
 
 * `LD_LIBRARY_PATH`: 动态库的查找路径\
@@ -70,11 +70,11 @@ echo $PATH
 
   * 方法二： 修改`~/.bashrc`或`~/.bash_profile`或系统级别的`/etc/profile`
   >1. 在其中添加例如export LD_LIBRARY_PATH=/opt/ActiveP/lib:$LD_LIBRARY_PATH
-  >2. source .bashrc  (Source命令也称为“点命令”，也就是一个点符号（.）。source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录)
+  > 2. source .bashrc  (Source命令也称为“点命令”，也就是一个点符号（.）。source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录)
 
   * 方法三：这个没有修改`LD_LIBRARY_PATH`但是效果是一样的实现动态库的查找，
   >1. /etc/ld.so.conf下面加一行/usr/local/mysql/lib
-  >2. 保存后执行 ldconfig  生效\
+  > 2. 保存后执行 ldconfig  生效\
     ( ldconfig 命令的用途,主要是在默认搜寻目录(/lib和/usr/lib)以及动态库配置文件/etc/ld.so.conf内所列的目录下,搜索出可共享的动态链接库(格式如前介绍,lib*.so*),进而创建出动态装入程序(ld.so)所需的连接和缓存文件.缓存文件默认为/etc/ld.so.cache,此文件保存已排好序的动态链接库名字列表.）\
 
     方法三设置稍微麻烦，好处是比较不受用户的限制。
