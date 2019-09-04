@@ -7,7 +7,7 @@
 * [linux环境变量设置方法总结](#linux环境变量设置方法总结)
 * [NFS的安装与使用](#NFS的安装与使用)
 * [boot空间不足的解决办法](#boot空间不足的解决办法)
-* [GLIBCXX3.4.22_not_found](#GLIBCXX3.4.22_not_found)
+* [GLIBCXX未发现](#GLIBCXX未发现)
 
 
 ### pip安装失败缺少SOCKS依赖
@@ -70,11 +70,11 @@ echo $PATH
 
   * 方法二： 修改`~/.bashrc`或`~/.bash_profile`或系统级别的`/etc/profile`
   >1. 在其中添加例如export LD_LIBRARY_PATH=/opt/ActiveP/lib:$LD_LIBRARY_PATH
-    2. source .bashrc  (Source命令也称为“点命令”，也就是一个点符号（.）。source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录)
+  >2. source .bashrc  (Source命令也称为“点命令”，也就是一个点符号（.）。source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录)
 
   * 方法三：这个没有修改`LD_LIBRARY_PATH`但是效果是一样的实现动态库的查找，
   >1. /etc/ld.so.conf下面加一行/usr/local/mysql/lib
-    2. 保存后执行 ldconfig  生效\
+  >2. 保存后执行 ldconfig  生效\
     ( ldconfig 命令的用途,主要是在默认搜寻目录(/lib和/usr/lib)以及动态库配置文件/etc/ld.so.conf内所列的目录下,搜索出可共享的动态链接库(格式如前介绍,lib*.so*),进而创建出动态装入程序(ld.so)所需的连接和缓存文件.缓存文件默认为/etc/ld.so.cache,此文件保存已排好序的动态链接库名字列表.）\
 
     方法三设置稍微麻烦，好处是比较不受用户的限制。
@@ -185,15 +185,18 @@ uname -a
   sudo apt purge linux-image-4.15.0-58-generic
   ```
   <div align="center"> <img src="../pics/2019/boot_full2.png" width="900px"> </div><br>
+
   * `deinstall` 说明：系统没有安装此内核，但是在配置文件中还残留它的信息（有可能是以前卸载的时候不彻底）
   ```shell
   sudo dpkg -P linux-image-extra-4.4.0-31-generic
   ```
 
 * 最后看下效果
-<div align="center"> <img src="../pics/2019/boot_full3.png" width="600px"> <
 
-### GLIBCXX3.4.22_not_found
+<div align="center"> <img src="../pics/2019/boot_full3.png" width="600px"> </div><br>
+
+
+### GLIBCXX未发现
 项目中遇到`libstdc++.so.6: version GLIBCXX3.4.22’ not found`
 
 这是因为当前版本的`libstdc++.so.6`缺少`GLIBCXX_3.4.22`查看当前版本的`GLIBCXX`命令为,
@@ -220,8 +223,3 @@ sudo apt-get dist-upgrade
 strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
 ```
 可以发现当前版本一包含GLIBCXX_3.4.22
-
-
-
-
-111
