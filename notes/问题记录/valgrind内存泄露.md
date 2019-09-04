@@ -20,8 +20,41 @@
 
 
 <div align="center"> <img src="../pics/2019/mem_leak_4.png" width="900px"> </div><br>
-已经没有泄露了，剩下来的`72704`是和`gcc`版本有关，在`gcc 7.40`上是没有这个问题的。库的内存泄露解决了，下面我们到生产环境中去，发现还是存在泄露，明明我们在析构中已经做了处理，我在库代码中加入了日志信息，发现并没有进入析构函数，也就没有执行挥手的代码，出现了内存泄露。定位到原因在这里：
+
+已经没有泄露了，剩下来的`72704 bytes in 1 blocks`是和`gcc`版本有关，在`gcc 7.40`上是没有这个问题的。库的内存泄露解决了，下面我们到生产环境中去，发现还是存在泄露，明明我们在析构中已经做了处理，我在库代码中加入了日志信息，发现并没有进入析构函数，也就没有执行回收的代码，出现了内存泄露。定位到原因在这里：
 
 <div align="center"> <img src="../pics/2019/mem_leak_5.png" width="900px"> </div><br>
 
-我们需要把这里的类声明去掉，具体原因见我另一篇文章。最终将所有存在内存泄露都给解决了。
+我们需要把这里的类声明去掉，具体原因见我[另一篇文章](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Cpp没有调用析构函数.md)。最终将所有存在内存泄露都给解决了。
+
+# 附录：memcheck 常见错误
+
+* 使用未初始化的内存
+```cpp
+==1001== Use of uninitialised value of size 8
+```
+
+* 在内存被释放后进行读 / 写
+```cpp
+==1001== Invalid read of size 1
+```
+
+* 从已分配内存块的尾部进行读 / 写
+```cpp
+==1001== Invalid read of size 1
+```
+
+* 内存泄露
+```cpp
+==1001== LEAK SUMMARY
+```
+
+* 不匹配地使用 `malloc/new/new []` 和 `free/delete/delete []`
+```cpp
+==1001== Mismatched free() / delete / delete []
+```
+
+* 两次释放内存
+```cpp
+==1001== Invalid free() / delete / delete[]
+```

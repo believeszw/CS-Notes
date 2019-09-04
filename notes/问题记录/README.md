@@ -3,6 +3,8 @@
 ## 目录
 * [Linux](#Linux)
 * [编译常见问题](#编译常见问题)
+* [valgrind检测libevent内存泄露](#valgrind检测libevent内存泄露)
+* [Cpp没有调用析构函数](#Cpp没有调用析构函数)
 
 
 ## Linux
@@ -13,3 +15,6 @@
 
 ### valgrind检测libevent内存泄露
 - [valgrind内存泄露](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/valgrind内存泄露.md)
+
+### Cpp没有调用析构函数
+- [Cpp没有调用析构函数](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Cpp没有调用析构函数.md)
