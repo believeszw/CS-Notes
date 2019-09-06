@@ -17,7 +17,7 @@ make
 然后是可执行程序
 <div align="center"> <img src="../pics/2019/Jenkins2.png" width="900px"> </div><br>
 
-这里第一步是先将正在运行的服务杀死，第二步是设置动态库的查找路径，第三部是给程序赋予可执行权限，最后一步是执行后台运行的[shell脚本]()。方便我们之后通过`jenkins`测试程序运行稳定性。
+这里第一步是先将正在运行的服务杀死，第二步是设置动态库的查找路径，第三部是给程序赋予可执行权限，最后一步是执行程序后台运行的`shell`脚本。方便我们之后通过`jenkins`测试程序运行稳定性。
 
 最后通过企业微信发送通知。
 <div align="center"> <img src="../pics/2019/Jenkins3.png" width="900px"> </div><br>
