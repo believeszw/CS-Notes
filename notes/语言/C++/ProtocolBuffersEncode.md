@@ -470,7 +470,7 @@ const char* GetVarint32PtrFallback(const char* p,
   return NULL;
 }
 ```
-至此，`Varint` 处理过程读者应该都熟悉了。上面列举出了 Varint 32 的算法，64 位的同理，只不过不再用 10 个分支来写代码了，太丑了。（32位 是 5 个 字节，64位 是 10 个字节）
+至此，`Varint` 处理过程读者应该都熟悉了。上面列举出了 `Varint 32` 的算法，64 位的同理，只不过不再用 10 个分支来写代码了，太丑了。（32位 是 5 个 字节，64位 是 10 个字节）
 
 64 位 `Varint` 编码实现：
 ```cpp
@@ -559,28 +559,190 @@ Zigzag(n) = (n << 1) ^ (n >> 63), n 为 sint64 时
 
 需要注意的是，第二个转换 `(n >> 31)` 部分，是一个算术转换。所以，换句话说，移位的结果要么是一个全为0（如果n是正数），要么是全部1（如果n是负数）。
 
-当 sint32 或 sint64 被解析时，它的值被解码回原始的带符号的版本。
+当 `sint32` 或 `sint64` 被解析时，它的值被解码回原始的带符号的版本。
 
 ### Non-varintNumbers
 `Non-varint` 数字比较简单，`double` 、`fixed64` 的 `wire_type` 为 1，在解析时告诉解析器，该类型的数据需要一个 64 位大小的数据块即可。同理，`float` 和 `fixed32` 的 `wire_type` 为5，给其 32 位数据块即可。两种情况下，都是高位在后，低位在前。
 
 **说 Protocol Buffer 压缩数据没有到极限，原因就在这里，因为并没有压缩 float、double 这些浮点类型。**
 
+### 字符串
+<div align="center"> <img src="../../pics/2019/protobuf_example.png" width="900px"> </div><br>
 
+`wire_type` 类型为 2 的数据，是一种指定长度的编码方式：`key + length + content` ， `key` 的编码方式是统一的， `length` 采用 `varints` 编码方式， `content` 就是由 `length` 指定长度的 `Bytes` 。
 
+举例，假设定义如下的 `message` 格式：
+```cpp
+message Test2 {
+  optional string b = 2;
+}
+```
+设置该值为 `testing` ，二进制格式查看：
 
+```cpp
+12 07 74 65 73 74 69 6e 67
+```
 
+`74 65 73 74 69 6e 67` 是 `testing` 的 `UTF8` 代码。
 
+此处， `key` 是16进制表示的，所以展开是：
 
+`12 -> 0001 0010` ，后三位 `010` 为 `wire type = 2` ，`0001 0010` 右移三位为 `0000 0010` ，即 `tag = 2` 。
 
+`length` 此处为 7，后边跟着 7 个 `bytes` ，即我们的字符串 `testing` 。
 
+所以 `wire_type` 类型为 2 的数据，编码的时候会默认转换为 `T-L-V (Tag - Length - Value)` 的形式。
 
+### 嵌套式Message
+假设，定义如下嵌套消息：
+```cpp
+message Test3 {
+  optional Test1 c = 3;
+}
+```
+设置字段为整数150，编码后的字节为：
+```cpp
+1a 03 08 96 01
+```
+`08 96 01` 这三个代表的是 150，上面讲解过，这里就不再赘述了。
 
+`1a -> 0001 1010` ，后三位 010 为 `wire type = 2`，`0001 1010` 右移三位为 `0000 0011` ，即 `tag = 3` 。
 
+`length` 为 3，代表后面有 3 个字节，即 `08 96 01`  。
 
-<div align="center"> <img src="../../pics/2019/pb_wire_type.png" width="900px"> </div><br>
+需要转变为 `T - L - V` 形式的还有 `string` , `bytes` , `embedded messages` , `packed repeated fields` （即 `wire_type` 为 2 的形式都会转变成 `T - L - V` 形式）
+
+### Optional和Repeated的编码
+在 `proto2` 中定义成 `repeated` 的字段，（没有加上 `[packed=true] option` ），编码后的 `message` 有一个或者多个包含相同 `tag` 数字的 `key-value` 对。这些重复的 `value` 不需要连续的出现；他们可能与其他的字段间隔的出现。尽管他们是无序的，但是在解析时，他们是需要有序的。在 `proto3` 中 `repeated` 字段默认采用 `packed` 编码（具体原因见 [Packed Repeated Fields](#PackedRepeatedFields) 这一章节）
+
+对于 `proto3` 中的任何非重复字段或 `proto2` 中的可选字段，编码的 `message` 可能有也可能没有包含该字段号的键值对。
+
+通常，编码后的 `message` ，其 `required` 字段和 `optional` 字段最多只有一个实例。但是解析器却需要处理多对一的情况。对于数字类型和 `string` 类型，如果同一值出现多次，解析器接受最后一个它收到的值。对于内嵌字段，解析器合并 `(merge)` 它接收到的同一字段的多个实例。就如 `MergeFrom` 方法一样，所有单数的字段，后来的会替换先前的，所有单数的内嵌 `message` 都会被合并 `(merge)` ，所有的 `repeated` 字段，都会串联起来。这样的规则的结果是，**解析两个串联的编码后的 `message` ，与分别解析两个 `message` 然后 `merge` ，结果是一样的**。例如：
+```cpp
+MyMessage message;
+message.ParseFromString(str1 + str2);
+```
+等价于
+```cpp
+MyMessage message, message2;
+message.ParseFromString(str1);
+message2.ParseFromString(str2);
+message.MergeFrom(message2);
+```
+这种方法有时是非常有用的。比如，即使不知道 `message` 的类型，也能够将其合并。
+
+### PackedRepeatedFields
+在 2.1.0 版本以后，`protocol buffers` 引入了该种类型，其与 `repeated` 字段一样，只是在末尾声明了 `[packed=true]` 。类似 `repeated` 字段却又不同。在 `proto3` 中 `Repeated` 字段默认就是以这种方式处理。对于 `packed repeated` 字段，如果 `message` 中没有赋值，则不会出现在编码后的数据中。否则的话，该字段所有的元素会被打包到单一一个 `key-value` 对中，且它的 `wire_type=2` ，长度确定。每个元素正常编码，只不过其前没有标签 `tag` 。例如有如下 `message` 类型：
+```cpp
+message Test4 {
+  repeated int32 d = 4 [packed=true];
+}
+```
+构造一个 `Test4` 字段，并且设置 `repeated` 字段 `d` 3个值：3，270 和 86942，编码后：
+```cpp
+22 // tag 0010 0010(field number 010 0 = 4, wire type 010 = 2)
+
+06 // payload size (设置的length = 6 bytes)
+
+03 // first element (varint 3)
+
+8E 02 // second element (varint 270)
+
+9E A7 05 // third element (varint 86942)
+```
+**形成了 Tag - Length - Value - Value - Value …… 对。**
+只有原始数字类型（使用 `varint` ，32位或64位）的重复字段才可以声明为 `"packed"` 。
+
+有一点需要注意，对于 `packed` 的 `repeated` 字段，尽管通常没有理由将其编码为多个 `key-value` 对，编码器必须有接收多个 `key-pair` 对的准备。这种情况下，`payload` 必须是串联的，每个 `pair` 必须包含完整的元素。
+
+`Protocol Buffer` 解析器必须能够解析被重新编译为 `packed` 的字段，就像它们未被 `packed` 一样，反之亦然。这允许以正向和反向兼容的方式将 `[packed = true]` 添加到现有字段。
+
+### FieldOrder
+编码/解码与字段顺序无关，这一点由 `key-value` 机制保证。
+
+如果消息具有未知字段，则当前的 `Java` 和 `C++` 实现在按顺序排序的已知字段之后以任意顺序写入它们。当前的 `Python` 实现不会跟踪未知字段。
+
 [回到顶部](#readme)
+
+## protocolBuffers的优缺点
+<div align="center"> <img src="../../pics/2019/serializerxgames.jpg" width="900px"> </div><br>
+
+`protocol buffers` 在序列化方面，与 `XML` 相比，有诸多优点：
+
+
+* 更加简单
+
+* 数据体积小 3- 10 倍
+
+* 更快的反序列化速度，提高 20 - 100 倍
+
+* 可以自动化生成更易于编码方式使用的数据访问类
+
+举个例子：
+
+如果要编码一个用户的名字和 `email` 信息，用 `XML` 的方式如下：
+```XML
+<person>
+   <name>John Doe</name>
+   <email>jdoe@example.com</email>
+ </person>
+ ```
+
+ 相同需求，如果换成 `protocol buffers` 来实现，定义文件如下：
+
+```Proto3
+# Textual representation of a protocol buffer.
+# This is *not* the binary format used on the wire.
+person {
+  name: "John Doe"
+  email: "jdoe@example.com"
+}
+```
+`protocol buffers` 通过编码以后，以二进制的方式进行数据传输，最多只需要 `28 bytes` 空间和 100-200 ns 的反序列化时间。但是 `XML` 则至少需要 69 `bytes` 空间（经过压缩以后，去掉所有空格）和 5000-10000 的反序列化时间。
+
+上面说的是性能方面的优势。接下来说说编码方面的优势。
+
+`protocol buffers` 自带代码生成工具，可以生成友好的数据访问存储接口。从而开发人员使用它来编码更加方便。例如上面的例子，如果用 `C++` 的方式去读取用户的名字和 `email` ，直接调用对应的 `get` 方法即可（所有属性的 `get` 和 `set` 方法的代码都自动生成好了，只需要调用即可）
+```cpp
+  cout << "Name: " << person.name() << endl;
+  cout << "E-mail: " << person.email() << endl;
+  ```
+而 `XML` 读取数据会麻烦一些：
+```cpp
+cout << "Name: "
+       << person.getElementsByTagName("name")->item(0)->innerText()
+       << endl;
+  cout << "E-mail: "
+       << person.getElementsByTagName("email")->item(0)->innerText()
+       << endl;
+```
+`Protobuf` 语义更清晰，无需类似 `XML` 解析器的东西（因为 `Protobuf` 编译器会将 `.proto` 文件编译生成对应的数据访问类以对 `Protobuf` 数据进行序列化、反序列化操作）。
+
+使用 `Protobuf` 无需学习复杂的文档对象模型，`Protobuf` 的编程模式比较友好，简单易学，同时它拥有良好的文档和示例，对于喜欢简单事物的人们而言， `Protobuf` 比其他的技术更加有吸引力。
+
+`protocol buffers` 最后一个非常棒的特性是，即“向后”兼容性好，人们不必破坏已部署的、依靠“老”数据格式的程序就可以对数据结构进行升级。这样您的程序就可以不必担心因为消息结构的改变而造成的大规模的代码重构或者迁移的问题。因为添加新的消息中的 `field` 并不会引起已经发布的程序的任何改变(因为存储方式本来就是无序的，`k-v` 形式)。
+
+当然 `protocol buffers` 也并不是完美的，在使用上存在一些局限性。
+
+由于文本并不适合用来描述数据结构，所以 `Protobuf` 也不适合用来对基于文本的标记文档（如 `HTML` ）建模。另外，由于 `XML` 具有某种程度上的自解释性，它可以被人直接读取编辑，在这一点上 `Protobuf` 不行，它以二进制的方式存储，除非你有 `.proto` 定义，否则你没法直接读出 `Protobuf` 的任何内容。
+
 [回到顶部](#readme)
-[回到顶部](#readme)
-[回到顶部](#readme)
+
+## 最后
+读完本篇 `Protocol Buffer` 编码原理以后，读者应该能明白以下几点：
+
+`Protocol Buffer` 利用 `varint` 原理压缩数据以后，二进制数据非常紧凑， `option` 也算是压缩体积的一个举措。所以 `pb` 体积更小，如果选用它作为网络数据传输，势必相同数据，消耗的网络流量更少。但是并没有压缩到极限，`float`、`double` 浮点型都没有压缩。
+
+`Protocol Buffer` 比 `JSON` 和 `XML` 少了 `{、}、` : 这些符号，体积也减少一些。再加上 `varint` 压缩，`gzip` 压缩以后体积更小！
+
+`Protocol Buffer` 是 `Tag - Value`  (`Tag - Length - Value`) 的编码方式的实现，减少了分隔符的使用，数据存储更加紧凑。
+
+`Protocol Buffer` 另外一个核心价值在于提供了一套工具，一个编译工具，自动化生成 `get/set` 代码。简化了多语言交互的复杂度，使得编码解码工作有了生产力。
+
+`Protocol Buffer` 不是自我描述的，离开了数据描述 `.proto` 文件，就无法理解二进制数据流。这点即是优点，使数据具有一定的“加密性”，也是缺点，数据可读性极差。所以 `Protocol Buffer` 非常适合内部服务之间 `RPC` 调用和传递数据。
+
+`Protocol Buffer` 具有向后兼容的特性，更新数据结构以后，老版本依旧可以兼容，这也是 `Protocol Buffer` 诞生之初被寄予解决的问题。因为编译器对不识别的新增字段会跳过不处理。
+
+`Protocol Buffer` 编码原理篇到此结束，下篇来讲讲 `Protocol Buffer` 反序列化解包性能快的原因。
+
 [回到顶部](#readme)
