@@ -1,4 +1,5 @@
 ## 目录
+* [根据进程名杀死进程](#根据进程名杀死进程)
 * [pip安装失败缺少SOCKS依赖](#pip安装失败缺少SOCKS依赖)
 * [VM中与主机共享SS](#VM中与主机共享SS)
 * [Linux下安装libsodium启用ss的chacha20高级加密](#启用ss的chacha20高级加密)
@@ -8,7 +9,17 @@
 * [NFS的安装与使用](#NFS的安装与使用)
 * [boot空间不足的解决办法](#boot空间不足的解决办法)
 * [GLIBCXX未发现](#GLIBCXX未发现)
+* [Shell后台运行程序](#Shell后台运行程序)
 
+### 根据进程名杀死进程
+* ```shell
+#kill -9 $(ps -ef|grep 进程名关键字|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ')
+```
+这个是利用管道和替换将 进程名对应的进程号提出来作为kill的参数。
+很显然上面的方法能完成但是过于复杂，下面这种就显得简单的多了
+* ```shell
+#kill -9 $(pidof 进程名关键字)
+```
 
 ### pip安装失败缺少SOCKS依赖
 报错：`pip install doesnt work , InvalidSchema: Missing dependencies for SOCKS support`
@@ -86,6 +97,7 @@ echo $PATH
     `/usr/local/fan/lib`\
     `/usr/local/fan/lib64`
 
+[回到顶部](#readme)
 
 ### NFS的安装与使用
 一、服务器端：
@@ -163,7 +175,8 @@ sudo mount -t nfs 192.168.3.167:/data /mnt/data
 # 解除锁定
 sudo mount -t -o nolock nfs 192.168.3.167:/logs /mnt/logs
 ```
-[超全面的NFS详解](http://server.51cto.com/sManage-150923.htm)
+[超全面的NFS详解](http://server.51cto.com/sManage-150923.htm)\
+[回到顶部](#readme)
 
 ### boot空间不足的解决办法
 在安装ubuntu的时候，根据网上教程给其分配了单独的物理分区，大小为200M。然而每当系统升级的时候，旧的内核版本并不会被清理，升级几次就提示boot内存不足了。思路就是卸载旧的版本内核，腾出空间，记录下自己尝试过的命令。
@@ -195,6 +208,7 @@ uname -a
 
 <div align="center"> <img src="../pics/2019/boot_full3.png" width="600px"> </div><br>
 
+[回到顶部](#readme)
 
 ### GLIBCXX未发现
 项目中遇到`libstdc++.so.6: version GLIBCXX3.4.22’ not found`
@@ -222,4 +236,112 @@ sudo apt-get dist-upgrade
 ```shell
 strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
 ```
-可以发现当前版本一包含GLIBCXX_3.4.22
+可以发现当前版本一包含GLIBCXX_3.4.22\
+[回到顶部](#readme)
+
+### Shell后台运行程序
+在脚本中将程序名替换即可\
+脚本名为`shell.sh`,启动命令为：`./shell.sh start`，再次运行如果提示正在运行则表示正常，否则代表程序挂掉。终止命令为：`./shell.sh stop`。控制台运行`./shell.sh console`。或者直接在运行程序命令后加` &`。重启为`restart`,查看状态为`status`。
+
+**注意点 ：** 如果程序中是通过`getchar()`阻塞的，这里程序可以正常启动，但是会立马挂掉，需要把`getchar()`换成`while()`，除非你通过`console`启动
+```shell
+#!/bin/sh
+# chkconfig: 2345 80 20
+# description: mediaserver
+waittime=0
+waitExit(){
+   while true;do
+   if [ ! -d "/proc/$1" ]; then
+       echo "process is finished"
+       break
+    else
+      waittime=$(($waittime+1))
+      sleep 1s
+      echo "process is alive " $waittime
+    fi
+    if [ "$waittime" -eq 10 ]; then
+      kill -9 $1
+      break
+
+    fi
+   done
+}
+running(){
+if [ -f $PID_PATH_NAME ]; then
+    PID=$(cat $PID_PATH_NAME)
+    if [ -d "/proc/$PID" ]; then
+      return 1
+    else
+      return 0
+    fi
+  else
+   return 0
+  fi
+}
+printRed(){
+ echo -e "\033[31m$1\033[0m"
+}
+printGreen(){
+ echo -e "\033[32m$1\033[0m"
+}
+SERVICE_NAME=mediaserver
+PID_PATH_NAME=~/run/mediaserver-pid
+case $1 in
+    start)
+        echo "Starting $SERVICE_NAME ..."
+ running
+        if [ ! $? -eq 1 ]; then
+            nohup /home/believe/tcap/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
+                        echo $! > $PID_PATH_NAME
+            printGreen "$SERVICE_NAME started ..."
+        else
+            printRed "$SERVICE_NAME is already running ..."
+        fi
+    ;;
+    console)
+       /home/believe/tcap/mediaService/bin/hisi500/TuMediaService
+    ;;
+    status)
+      running
+      if [ $? -eq 1 ]; then
+        printGreen "running "
+      else
+        printRed "not running"
+      fi
+    ;;
+    stop)
+ running
+        if [ $? -eq 1 ]; then
+            PID=$(cat $PID_PATH_NAME);
+            echo "$SERVICE_NAME stoping ..."
+            kill  $PID;
+     waitExit $PID;
+            printRed "$SERVICE_NAME stopped ..."
+            rm $PID_PATH_NAME
+        else
+            printRed "$SERVICE_NAME is not running ..."
+        fi
+    ;;
+    restart)
+ running
+        if [ $? -eq 1 ]; then
+            PID=$(cat $PID_PATH_NAME);
+            echo "$SERVICE_NAME stopping ...";
+            kill  $PID;
+     waitExit $PID;
+            echo "$SERVICE_NAME stopped ...";
+            rm $PID_PATH_NAME
+            echo "$SERVICE_NAME starting ..."
+            nohup /home/believe/tcap/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
+                        echo $! > $PID_PATH_NAME
+            printGreen "$SERVICE_NAME started ..."
+        else
+            echo "$SERVICE_NAME starting ..."
+            nohup /home/believe/tcap/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
+                        echo $! > $PID_PATH_NAME
+            printGreen "$SERVICE_NAME started ..."
+        fi
+    ;;
+esac
+```
+[回到顶部](#readme)
