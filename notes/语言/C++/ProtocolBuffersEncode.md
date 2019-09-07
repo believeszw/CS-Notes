@@ -1,9 +1,9 @@
 # 高效的数据压缩编码方式 Protobuf
 
 ## 目录
-* [protocol_buffers是什么](#protocol_buffers是什么)
-* [为什么要发明protocol_buffers](#为什么要发明protocol_buffers)
-* [proto3定义message](#proto3定义message)
+* [ProtocolBuffers 是什么](#ProtocolBuffers是什么)
+* [为什么要发明 ProtocolBuffers](#为什么要发明ProtocolBuffers)
+* [proto3 定义 Message](#proto3定义Message)
   * [分配字段编号](#分配字段编号)
   * [保留字段](#保留字段)
   * [默认字段规则](#默认字段规则)
@@ -12,9 +12,9 @@
   * [枚举中的保留值](#枚举中的保留值)
   * [允许嵌套](#允许嵌套)
   * [枚举不兼容性](#枚举不兼容性)
-  * [更新 message](#更新 message)
+  * [更新 Message](#更新Message)
   * [未知字段](#未知字段)
-  * [Map类型](#Map类型)
+  * [Map 类型](#Map类型)
   * [JsonMapping](#JsonMapping)
 * [proto3 定义 Services](#proto3定义Services)
 * [ProtocolBuffer 命名规范](#ProtocolBuffer命名规范)
