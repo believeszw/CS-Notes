@@ -32,14 +32,14 @@
 * [最后](#最后)
 
 
-## protocol_buffers是什么
+## ProtocolBuffers是什么
 `Protocol buffers` 是一种语言中立，平台无关，可扩展的序列化数据的格式，可用于通信协议，数据存储等。
 
 `Protocol buffers` 在序列化数据方面，它是灵活的，高效的。相比于 `XML` 来说，`Protocol buffers` 更加小巧，更加快速，更加简单。一旦定义了要处理的数据的数据结构之后，就可以利用 `Protocol buffers` 的代码生成工具生成相关的代码。甚至可以在无需重新部署程序的情况下更新数据结构。只需使用 `Protobuf` 对数据结构进行一次描述，即可利用各种不同语言或从各种不同数据流中对你的结构化数据轻松读写。
 
 **Protocol buffers 很适合做数据存储或 RPC 数据交换格式。可用于通讯协议、数据存储等领域的语言无关、平台无关、可扩展的序列化结构数据格式。**
 
-## 为什么要发明protocol_buffers
+## 为什么要发明ProtocolBuffers
 
 <div align="center"> <img src="../../pics/2019/google_protocolbuffers.png" width="900px"> </div><br>
 
@@ -92,7 +92,7 @@ The name originates from the early days of the format, before we had the protoco
 
 [回到顶部](#readme)
 
-## proto3定义message
+## proto3定义Message
 <div align="center"> <img src="../../pics/2019/intro_protobuf.png" width="900px"> </div> <br>
 
 目前 `protocol buffers` 最新版本是 `proto3`，与老的版本 `proto2` 还是有些区别的。这两个版本的 `API` 不完全兼容。
@@ -244,7 +244,7 @@ message Outer {                  // Level 0
 ### 枚举不兼容性
 可以导入 `proto2` 消息类型并在 `proto3` 消息中使用它们，反之亦然。然而， `proto2` 枚举不能直接用在 `proto3` 语法中（但是如果导入的 `proto2` 消息使用它们，这是可以的）。
 
-### 更新message
+### 更新Message
 如果后面发现之前定义 `message` 需要增加字段了，这个时候就体现出 `Protocol Buffer` 的优势了，不需要改动之前的代码。不过需要满足以下 10 条规则：
 
 * 不要改动原有字段的数据结构。
@@ -743,6 +743,6 @@ cout << "Name: "
 
 `Protocol Buffer` 具有向后兼容的特性，更新数据结构以后，老版本依旧可以兼容，这也是 `Protocol Buffer` 诞生之初被寄予解决的问题。因为编译器对不识别的新增字段会跳过不处理。
 
-`Protocol Buffer` 编码原理篇到此结束，下篇来讲讲 `Protocol Buffer` 反序列化解包性能快的原因。
+`Protocol Buffer` 编码原理篇到此结束，下篇来讲讲 [Protocol Buffer 反序列化](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++/ProtocolBuffersDecode.md)解包性能快的原因。
 
 [回到顶部](#readme)
