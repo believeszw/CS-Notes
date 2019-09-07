@@ -26,3 +26,6 @@
 
 ### jenkins自动化部署
 - [jenkins自动化部署](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/jenkins自动化部署.md)
+
+### Google插件导出导入
+- [Google插件导出导入](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Google插件导出导入.md)
