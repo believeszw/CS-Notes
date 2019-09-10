@@ -171,9 +171,9 @@ sudo mkdir -p /mnt/logs
 * 挂载共享目录
 ```shell
 # 将NFS服务器192.168.3.167上的目录，挂载到本地的/mnt/目录下
-sudo mount -t nfs 192.168.3.167:/data /mnt/data
+mount -t nfs 192.168.1.87:/data /mnt/data
 # 解除锁定
-sudo mount -t nfs -o nolock  192.168.3.167:/logs /mnt/logs
+mount -t nfs -o nolock  192.168.1.87:/home/believe/git/lab/tcap/ /home/believe
 ```
 [超全面的NFS详解](http://server.51cto.com/sManage-150923.htm)\
 [回到顶部](#readme)
