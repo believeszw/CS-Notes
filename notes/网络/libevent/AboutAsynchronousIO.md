@@ -118,6 +118,153 @@ while (i_still_want_to_read()) {
 
 有时人们使用多线程或多进程来解决这个问题。进行多线程处理的最简单方法之一是使用单独的进程（或线程）来处理每个连接。 由于每个连接都有自己的进程，因此等待一个连接的阻塞 `IO` 调用不会使任何其他连接的进程阻塞。
 
+这是另一个示例程序。 它是一个简单的服务器，它监听端口 40713 上的 `TCP` 连接，一次从其输入中读取一行数据，并在它到达时通过 `ROT13` 做处理并输出。 它使用 `Unix fork()` 调用为每个传入连接创建一个新进程。
+
+```c
+Example: Forking ROT13 server
+/* For sockaddr_in */
+#include <netinet/in.h>
+/* For socket functions */
+#include <sys/socket.h>
+
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_LINE 16384
+
+char rot13_char(char c)
+{
+    // We don't want to use isalpha here; setting the locale would change
+    // which characters are considered alphabetical.
+    if ((c >= 'a' && c <= 'm') || (c >= 'A' && c <= 'M'))
+        return c + 13;
+    else if ((c >= 'n' && c <= 'z') || (c >= 'N' && c <= 'Z'))
+        return c - 13;
+    else
+        return c;
+}
+
+void child(int fd)
+{
+    char outbuf[MAX_LINE+1];
+    size_t outbuf_used = 0;
+    ssize_t result;
+
+    while (1) {
+        char ch;
+        result = recv(fd, &ch, 1, 0);
+        if (result == 0) {
+            break;
+        } else if (result == -1) {
+            perror("read");
+            break;
+        }
+
+        // We do this test to keep the user from overflowing the buffer.
+        if (outbuf_used < sizeof(outbuf)) {
+            outbuf[outbuf_used++] = rot13_char(ch);
+        }
+
+        if (ch == '\n') {
+            send(fd, outbuf, outbuf_used, 0);
+            outbuf_used = 0;
+            continue;
+        }
+    }
+}
+
+void run(void)
+{
+    int listener;
+    struct sockaddr_in sin;
+
+    sin.sin_family = AF_INET;
+    sin.sin_addr.s_addr = 0;
+    sin.sin_port = htons(40713);
+
+    listener = socket(AF_INET, SOCK_STREAM, 0);
+
+#ifndef WIN32
+    {
+        int one = 1;
+        setsockopt(listener, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+    }
+#endif
+
+    if (bind(listener, (struct sockaddr*)&sin, sizeof(sin)) < 0) {
+        perror("bind");
+        return;
+    }
+
+    if (listen(listener, 16)<0) {
+        perror("listen");
+        return;
+    }
+
+
+
+    while (1) {
+        struct sockaddr_storage ss;
+        socklen_t slen = sizeof(ss);
+        int fd = accept(listener, (struct sockaddr*)&ss, &slen);
+        if (fd < 0) {
+            perror("accept");
+        } else {
+            if (fork() == 0) {
+                child(fd);
+                exit(0);
+            }
+        }
+    }
+}
+
+int main(int c, char **v)
+{
+    run();
+    return 0;
+}
+```
+
+那我们是否拥有一次处理多个连接的完美解决方案？ 首先，在某些平台上创建进程（甚至创建线程）可能相当昂贵。 在现实生活中，您需要使用线程池而不是创建新进程。 但更重要的是，线程不会像你想的那样扩展。 如果你的程序需要同时处理数千或数万个连接，那么处理成千上万个线程就不会像每个 `CPU` 只有几个线程一样高效。
+
+但如果线程不是多个连接的答案，那答案是什么？ 在 `Unix` 范例中，可以使非阻塞 `socket` 。 执行此操作的 `Unix` 调用是：
+```c
+fcntl(fd, F_SETFL, O_NONBLOCK);
+```
+其中 `fd` 是 `socket` 的文件描述符。\
+文件描述符是内核在打开时分配给 `socket` 的编号。 你使用这个数字来指代 `socket` 的 `Unix` 调用。\
+一旦你生成了非阻塞 `fd` （套接字），从那时起，每当你对 `fd` 进行网络调用时，调用将立即完成操作或者返回一个特殊的错误代码来表示 `I couldn’t make any progress now, try again.` ， 所以我们的双套接字示例可能天真地写成：
+```c
+Bad Example: busy-polling all sockets
+// This will work, but the performance will be unforgivably bad.
+int i, n;
+char buf[1024];
+for (i=0; i < n_sockets; ++i)
+    fcntl(fd[i], F_SETFL, O_NONBLOCK);
+
+while (i_still_want_to_read()) {
+    for (i=0; i < n_sockets; ++i) {
+        n = recv(fd[i], buf, sizeof(buf), 0);
+        if (n == 0) {
+            handle_close(fd[i]);
+        } else if (n < 0) {
+            if (errno == EAGAIN)
+                 ;// The kernel didn't have any data for us to read.
+            else
+                 handle_error(fd[i], errno);
+         } else {
+            handle_input(fd[i], buf, n);
+         }
+    }
+}
+```
+
+
+
+
+
 
 
 
