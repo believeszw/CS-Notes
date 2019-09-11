@@ -78,6 +78,7 @@ echo $PATH
 * `LD_LIBRARY_PATH`: 动态库的查找路径\
 设置：
   * 方法一： `export  LD_LIBRARY_PATH=LD_LIBRARY_PATH:/XXX` 但是退出当前终端后就失效
+  还可以把这段代码写进 `sh` 中，运行 `source xxx.sh`
 
   * 方法二： 修改`~/.bashrc`或`~/.bash_profile`或系统级别的`/etc/profile`
   >1. 在其中添加例如export LD_LIBRARY_PATH=/opt/ActiveP/lib:$LD_LIBRARY_PATH
