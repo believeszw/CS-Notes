@@ -27,4 +27,4 @@ make
 <div align="center"> <img src="../pics/2019/Jenkins4.png" width="900px"> </div><br>
 
 通过`curl`发送`post`请求
-<div align="center"> <img src="../pics/2019/Jenkins5.png" width="900px"> </div><br>
+<div align="center"> <img src="../pics/2019/Jenkins_5.png" > </div><br>
