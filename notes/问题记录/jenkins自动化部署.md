@@ -28,3 +28,22 @@ make
 
 通过`curl`发送`post`请求
 <div align="center"> <img src="../pics/2019/Jenkins_5.png" > </div><br>
+
+代码：
+```shell
+result=$(curl --connect-timeout 2 -m 5 -d"{\"cmd\":\"stop_chn\",\"chn_id\":1}" 192.168.1.97:8081)
+succ="{\"code\":0}"
+#if [ "$result"x != "$succ"x ]
+#then
+#  exit 1
+#fi
+curl --connect-timeout 2 -m 5 -d "{\"cmd\":\"set_destination\",\"chn_id\":1,\"address\":\"192.168.1.211\",\"port\":554,\"destination_type\":\"onvif\",\"stream_id\":\"live1\"}" 192.168.1.97:8081
+curl --connect-timeout 2 -m 5 -d "{\"cmd\":\"set_codec_source\",\"chn_id\":1,\"source_type\":\"onvif\",\"address\":\"192.168.1.19\",\"port\":554,\"username\": \"admin\",\"password\": \"nj123456\",\"output_w\":1024,\"output_h\":768,\"output_playload\":\"H265\",\"gop_sec\":2,\"bitrate\":1000,\"frame_rate_in\":25,\"profile\":\"MAIN\",\"en_rc_mode\":\"RC_MODE_VBR\"}" 192.168.1.97:8081
+result=$(curl --connect-timeout 2 -m 5 -d "{\"cmd\":\"start_chn\",\"chn_id\":1}" 192.168.1.97:8081)
+if [ "$result"x != "$succ"x ]
+then
+  exit 1
+fi
+exit 0
+```
+还可以通过 `postman` 模拟 `Http` 请求。
