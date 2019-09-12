@@ -8,16 +8,19 @@
 
 执行 `shell` 脚本进行构建
 ```shell
-echo "build NetWorkLayer x86"
+cd networklayer
+
+echo "build json x86"
 cmake -S . -B cmake-build-release -DCMAKE_BUILD_TYPE=Release  -G "CodeBlocks - Unix Makefiles" ./
 cd cmake-build-release
 make
 
-echo "build NetWorkLayer hisi500"
+echo "build json hisi500"
 cd ..
 cmake -S . -B cmake-build-release-hisi3531 -DCMAKE_C_COMPILER=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin/arm-hisiv500-linux-gcc -DCMAKE_CXX_COMPILER=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin/arm-hisiv500-linux-g++ -G "CodeBlocks - Unix Makefiles"
 cd cmake-build-release-hisi3531
 make
+
 
 echo "make dir"
 if [ ! -d "/var/www/html/libs/networklayer" ]; then
@@ -57,6 +60,11 @@ cp -dprf ${WORKSPACE}/networklayer/src/net_work_common_data.h /var/www/html/libs
 
 ls -lh /var/www/html/libs/networklayer/lib/*
 ls -lh /var/www/html/libs/networklayer/include/*
+
+#bak
+#cmake -S . -B cmake-build-release-hisi3531 -DCMAKE_C_COMPILER=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin/arm-hisiv500-linux-gcc -DCMAKE_CXX_COMPILER=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin/arm-hisiv500-linux-g++ -G "CodeBlocks - Unix Makefiles"
+#cd cmake-build-release-hisi3531
+#make
 ```
 这里成功添加到了服务器上
 <div align="center"> <img src="../pics/2019/Jenkins7.png" width="900px"> </div><br>
