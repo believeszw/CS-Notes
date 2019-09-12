@@ -33,6 +33,9 @@
 ### Google插件导出导入
 - [Google插件导出导入](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Google插件导出导入.md)
 
+### Jenkins自动编译库并上传服务器
+- [Jenkins自动编译库并上传服务器](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Jenkins自动编译库并上传服务器.md)
+
 ### gdb调试
 - [gdb调试](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/gdb调试TuMediaService.md)
 
