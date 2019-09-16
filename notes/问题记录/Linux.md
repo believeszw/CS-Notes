@@ -10,6 +10,7 @@
 * [boot空间不足的解决办法](#boot空间不足的解决办法)
 * [GLIBCXX未发现](#GLIBCXX未发现)
 * [Shell后台运行程序](#Shell后台运行程序)
+* [wget下载目录下所有文件](#wget下载目录下所有文件)
 
 ### 根据进程名杀死进程
 * ```shell
@@ -346,3 +347,31 @@ case $1 in
 esac
 ```
 [回到顶部](#readme)
+
+### wget下载目录下所有文件
+```shell
+wget http://192.168.1.132/libs/hi3531_video_transcode/lib/ -r -c -np -nH -E -R html --cut-dirs 3
+```
+参数说明
+* -r 递归下载子目录
+* -c 断点续传
+* -np 不下载父目录
+* -nH 不创建主机名目录
+* --cut-dirs  剪掉主机名后面的相对目录数，避免创建N多层目录
+* --restrict-file-names=nocontrol 下载后文件名正常保存，文件名为中文时可以避免乱码
+* --level=5 默认只下5层子目录，需要更深的修改这个目录
+
+存在问题是会保存 `index.html?C=D;O=A` 等页面文件
+
+方法一： 下载完后删除
+```shell
+find -name "index.html*" | xargs rm
+```
+
+方法二：用 `-E -R html` 参数删除
+
+* -E 将所有text/html文档以.html扩展名保存
+
+* -R html 不保存html文件
+
+这种方法适用于下载目录里没有 `text/html` 的文档

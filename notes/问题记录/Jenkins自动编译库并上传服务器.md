@@ -68,3 +68,82 @@ ls -lh /var/www/html/libs/networklayer/include/*
 ```
 这里成功添加到了服务器上
 <div align="center"> <img src="../pics/2019/Jenkins7.png" width="900px"> </div><br>
+
+然后将本地库上传修改为统一从服务器获取：
+```shell
+cd mediaService
+if [ ! -d "include" ]; then
+  mkdir include
+fi
+cd include
+rm -fr *
+wget http://192.168.1.132/libs/rtspclient/include/ -r -c -np -nH -E -R html --cut-dirs 3
+wget http://192.168.1.132/libs/tulog/include/ -r -c -np -nH -E -R html --cut-dirs 3
+wget http://192.168.1.132/libs/networklayer/include/ -r -c -np -nH -E -R html --cut-dirs 3
+
+if [ ! -d "trcode" ]; then
+  mkdir trcode
+fi
+cd trcode
+wget http://192.168.1.132/libs/hi3531_video_transcode/include/ -r -c -np -nH -E -R html --cut-dirs 3
+cd ../
+
+if [ ! -d "libevent" ]; then
+  mkdir libevent
+fi
+cd libevent
+wget http://192.168.1.132/libs/libevent/include/ -r -c -np -nH -E -R html --cut-dirs 3
+cd ../
+
+if [ ! -d "json" ]; then
+  mkdir json
+fi
+cd json
+wget http://192.168.1.132/libs/json/include/ -r -c -np -nH -E -R html --cut-dirs 3
+cd ../
+
+if [ ! -d "gtest" ]; then
+  mkdir gtest
+fi
+cd gtest
+wget http://192.168.1.132/libs/gtest/include/ -r -c -np -nH -E -R html --cut-dirs 3
+cd ../
+
+cd ../
+if [ ! -d "libs" ]; then
+  mkdir libs
+fi
+cd libs
+rm -fr *
+if [ ! -d "hisi500" ]; then
+  mkdir hisi500
+fi
+cd hisi500
+wget http://192.168.1.132/libs/hi3531_video_transcode/lib/ -r -c -np -nH -E -R html --cut-dirs 3
+wget http://192.168.1.132/libs/json/lib/hisi500/ -r -c -np -nH -E -R html --cut-dirs 4
+wget http://192.168.1.132/libs/networklayer/lib/hisi500/ -r -c -np -nH -E -R html --cut-dirs 4
+wget http://192.168.1.132/libs/rtspclient/lib/hisi500/ -r -c -np -nH -E -R html --cut-dirs 4
+wget http://192.168.1.132/libs/tulog/lib/hisi500/ -r -c -np -nH -E -R html --cut-dirs 4
+
+if [ ! -d "gtest" ]; then
+  mkdir gtest
+fi
+cd gtest
+wget http://192.168.1.132/libs/gtest/lib/hisi500/ -r -c -np -nH -E -R html --cut-dirs 4
+cd ../
+if [ ! -d "libevent" ]; then
+  mkdir libevent
+fi
+cd libevent
+wget http://192.168.1.132/libs/libevent/lib/hisi500/ -r -c -np -nH -E -R html --cut-dirs 4
+cd ../
+cd ../
+cd ../
+
+ls -lh ${WORKSPACE}/mediaService/include/*
+ls -lh ${WORKSPACE}/mediaService/libs/*
+
+cmake -S . -B cmake-build-release-hisi3531 -DCMAKE_C_COMPILER=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin/arm-hisiv500-linux-gcc -DCMAKE_CXX_COMPILER=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin/arm-hisiv500-linux-g++ -G "CodeBlocks - Unix Makefiles"
+cd cmake-build-release-hisi3531
+make
+```
