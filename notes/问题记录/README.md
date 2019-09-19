@@ -8,6 +8,8 @@
 * [Postman接口测试神器](#Postman接口测试神器)
 * [jenkins自动化部署](#jenkins自动化部署)
 * [Google插件导出导入](#Google插件导出导入)
+* [Jenkins自动编译库并上传服务器](#Jenkins自动编译库并上传服务器)
+* [Ubuntu下selenium+Chrome的安装使用](#Ubuntu下selenium+Chrome的安装使用)
 * [gdb调试](#gdb调试)
 * [其他问题](#其他问题)
 
@@ -35,6 +37,9 @@
 
 ### Jenkins自动编译库并上传服务器
 - [Jenkins自动编译库并上传服务器](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Jenkins自动编译库并上传服务器.md)
+
+### Ubuntu下selenium+Chrome的安装使用
+- [Ubuntu下selenium+Chrome的安装使用](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Ubuntu下selenium+Chrome的安装使用.md)
 
 ### gdb调试
 - [gdb调试](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/gdb调试TuMediaService.md)
