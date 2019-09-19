@@ -26,3 +26,9 @@
 <div align="center"> <img src="../../pics/2019/PyQtInstall06.png" width="900px"> </div><br>
 
 到这里就全部配置好了。
+
+由于项目中需要用到 `MySQL` ， 所以还需要安装，`pip3 install MySQLdb` ，但是安装失败，原因：
+
+`python2` 对应的模块是 `MySQLdb` , `MySQLdb` 不支持 `python3`
+
+`python3` 对应的模块是 `pymysql`
