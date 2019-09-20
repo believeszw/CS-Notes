@@ -34,6 +34,11 @@
 ==1001== Use of uninitialised value of size 8
 ```
 
+* 
+```cpp
+Conditional jump or move depends on uninitialised value(s)
+```
+
 * 在内存被释放后进行读 / 写
 ```cpp
 ==1001== Invalid read of size 1
