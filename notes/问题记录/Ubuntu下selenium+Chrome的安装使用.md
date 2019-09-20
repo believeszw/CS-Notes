@@ -15,4 +15,4 @@
 
 下载后,将 `chromedriver` 文件放到 `/usr/bin` 下
 
-`   sudo mv chromedriver路径 /usr/bin`
+`sudo mv chromedriver路径 /usr/bin`
