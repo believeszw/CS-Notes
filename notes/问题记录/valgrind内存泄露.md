@@ -1,5 +1,10 @@
 # valgrind检测libevent内存泄露
 
+格式:
+```shell
+valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --show-reachable=yes --trace-children=yes ./ArrayTest
+```
+
 在使用封装好的`http`库时，遇到了如下的内存泄露，一开始在`definitely`处还存在泄露，这里就不贴图了，已经被淹没了。
 
 <div align="center"> <img src="../pics/2019/mem_leak.png" width="900px"> </div><br>
@@ -34,7 +39,7 @@
 ==1001== Use of uninitialised value of size 8
 ```
 
-* 
+*
 ```cpp
 Conditional jump or move depends on uninitialised value(s)
 ```
