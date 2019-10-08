@@ -12,6 +12,7 @@
 * [Ubuntu下selenium+Chrome的安装使用](#Ubuntu下selenium+Chrome的安装使用)
 * [Git](#Git)
 * [gdb调试](#gdb调试)
+* [板子清理](#板子清理)
 * [其他问题](#其他问题)
 
 
@@ -47,6 +48,9 @@
 
 ### gdb调试
 - [gdb调试](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/gdb调试TuMediaService.md)
+
+### 板子清理
+- [板子清理](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/板子清理.md)
 
 ### 其他问题
 - [其他问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/其他问题.md)
