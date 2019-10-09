@@ -302,7 +302,7 @@ case $1 in
         fi
     ;;
     console)
-       /home/believe/tcap/mediaService/bin/hisi500/TuMediaService
+       /link/apps/bin/mediaService/bin/hisi500/TuMediaService
     ;;
     status)
       running
@@ -335,12 +335,12 @@ case $1 in
             echo "$SERVICE_NAME stopped ...";
             rm $PID_PATH_NAME
             echo "$SERVICE_NAME starting ..."
-            nohup /home/believe/tcap/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
+            nohup /link/apps/bin/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
                         echo $! > $PID_PATH_NAME
             printGreen "$SERVICE_NAME started ..."
         else
             echo "$SERVICE_NAME starting ..."
-            nohup /home/believe/tcap/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
+            nohup /link/apps/bin/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
                         echo $! > $PID_PATH_NAME
             printGreen "$SERVICE_NAME started ..."
         fi
