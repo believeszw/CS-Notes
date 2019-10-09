@@ -294,7 +294,7 @@ case $1 in
         echo "Starting $SERVICE_NAME ..."
  running
         if [ ! $? -eq 1 ]; then
-            nohup /home/believe/tcap/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
+            nohup /link/apps/bin/mediaService/bin/hisi500/TuMediaService /tmp 2>> /dev/null >> /dev/null &
                         echo $! > $PID_PATH_NAME
             printGreen "$SERVICE_NAME started ..."
         else
