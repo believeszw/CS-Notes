@@ -1,6 +1,6 @@
-| 算法 | 操作系统 | 网络 | 面向对象 | 数据库 | 语言 |占位 | 系统设计 |  工具 | 编码实践 | 后记 | 问题记录 |
+| 算法 | 操作系统 | 网络 | 面向对象 | 数据库 | 语言 |学习方法 | 流媒体 |  工具 | 编码实践 | 后记 | 问题记录 |
 | :---: | :----: | :---: | :----: | :----: | :----: | :----: | :----:| :----: | :----: |:----:|:----:|
-| [:pencil2:](#pencil2-算法) | [:computer:](#computer-操作系统) | [:cloud:](#cloud-网络) | [:art:](#art-面向对象) | [:floppy_disk:](#floppy_disk-数据库) |[:tea:](#tea-语言)|[:coffee:](#coffee-学习方法) | [:bulb:](#bulb-系统设计) |[:wrench:](#wrench-工具)| [:watermelon:](#watermelon-编码实践) |[:memo:](#memo-后记)|[:book:](#book-问题记录)|
+| [:pencil2:](#pencil2-算法) | [:computer:](#computer-操作系统) | [:cloud:](#cloud-网络) | [:art:](#art-面向对象) | [:floppy_disk:](#floppy_disk-数据库) |[:tea:](#tea-语言)|[:coffee:](#coffee-学习方法) | [:bulb:](#bulb-流媒体) |[:wrench:](#wrench-工具)| [:watermelon:](#watermelon-编码实践) |[:memo:](#memo-后记)|[:book:](#book-问题记录)|
 
 <br>
 
@@ -33,8 +33,9 @@
 ## :coffee: 学习方法
 - [如何持续学习](https://github.com/believeszw/CS-Notes/blob/master/notes/学习方法/如何持续学习.md)
 
-## :bulb: 系统设计
-
+## :bulb: 流媒体
+- [Onvif](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/Onvif)
+- [国标](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/国标)
 
 ## :wrench: 工具
 
