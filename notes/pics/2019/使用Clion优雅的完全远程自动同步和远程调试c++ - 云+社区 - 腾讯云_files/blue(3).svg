@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>数据处理</title>
+    <desc>Created with Sketch.</desc>
+    <g id="数据处理" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M13.5,10 C12.704,10 12.06,10.622 12.01,11.405 L8,13.696 L3,10.839 L3,9.732 L10.049,5.663 L8.038,4.514 L1,8.577 L1,12 L4.052,13.744 L8,16 L13.287,12.979 C13.357,12.989 13.427,13 13.5,13 C14.328,13 15,12.329 15,11.5 C15,10.671 14.328,10 13.5,10 Z M15,4 L15,7.423 L7.962,11.486 L5.951,10.337 L13,6.268 L13,5.161 L8,2.304 L3.99,4.595 C3.94,5.378 3.296,6 2.5,6 C1.672,6 1,5.329 1,4.5 C1,3.671 1.672,3 2.5,3 C2.573,3 2.643,3.011 2.713,3.021 L8,0 L15,4 Z" id="Fill-1" fill="#00A4FF"></path>
+    </g>
+</svg>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>金融风控</title>
+    <desc>Created with Sketch.</desc>
+    <g id="金融风控" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M6.5546376,3 L3.3453624,3 L11.4166776,11.968128 C12.0962085,11.2473277 12.4843274,10.4792974 12.7059571,9.83479943 L6.5546376,3 Z M9.2453624,3 L13,7.17181955 L13,3 L9.2453624,3 Z M3,5.60595823 L3,8.4 C3.013,8.803 3.268,12.589 8,13.934 C8.70325292,13.7341109 9.30762306,13.4802857 9.82701165,13.1915267 L3,5.60595823 Z M1,1 L15,1 L15,8.4 C15,8.4 14.946,14.359 8,16 C1.054,14.359 1,8.4 1,8.4 L1,1 Z" id="Combined-Shape" fill="#00A4FF"></path>
+    </g>
+</svg>

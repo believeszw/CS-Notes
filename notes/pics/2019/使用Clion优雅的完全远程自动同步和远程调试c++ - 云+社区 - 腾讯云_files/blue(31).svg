@@ -1,0 +1,10 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <title>智能机器人</title>
+  <g id="智能机器人">
+    <rect id="Rectangle" x="1" y="5" width="14" height="10" style="fill: none;stroke: #00a4ff;stroke-width: 2px"/>
+    <rect id="Rectangle-2" data-name="Rectangle" x="7" width="2" height="4" style="fill: #00a4ff"/>
+    <rect id="Rectangle-3" data-name="Rectangle" x="4.5" y="9.5" width="1" height="1" style="fill: none;stroke: #00a4ff"/>
+    <rect id="Rectangle-4" data-name="Rectangle" x="10.5" y="9.5" width="1" height="1" style="fill: none;stroke: #00a4ff"/>
+    <rect id="Rectangle-5" data-name="Rectangle" x="6" width="4" height="2" style="fill: #00a4ff"/>
+  </g>
+</svg>

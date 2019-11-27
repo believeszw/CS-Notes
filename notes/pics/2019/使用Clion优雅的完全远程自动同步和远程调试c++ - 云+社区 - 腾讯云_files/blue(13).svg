@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>终端安全</title>
+    <desc>Created with Sketch.</desc>
+    <g id="终端安全" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M1,1 L15,1 L15,8.4 C15,8.4 14.946,14.359 8,16 C1.054,14.359 1,8.4 1,8.4 L1,1 Z M8,13.934 C12.732,12.589 12.987,8.802 13,8.362 L13,3 L3,3 L3,8.4 C3.013,8.803 3.268,12.589 8,13.934 Z" id="Combined-Shape" fill="#00A4FF"></path>
+        <polygon id="Rectangle" fill="#00A4FF" fill-rule="nonzero" points="5 4 8 6 8 8 5 6"></polygon>
+        <polygon id="Rectangle-Copy" fill="#00A4FF" fill-rule="nonzero" transform="translate(6.500000, 8.000000) scale(1, -1) translate(-6.500000, -8.000000) " points="5 6 8 8 8 10 5 8"></polygon>
+        <rect id="Rectangle" fill="#00A4FF" fill-rule="nonzero" x="9" y="6" width="2" height="2"></rect>
+    </g>
+</svg>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>人脸识别-16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="人脸识别-16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#444444" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <g id="Group" transform="translate(6.000000, 4.000000)" fill="#00A4FF">
+            <path d="M0,2 C0,0.8955 0.8955,0 2,0 C3.1045,0 4,0.8955 4,2 C4,3.1045 3.1045,4 2,4 C0.8955,4 0,3.1045 0,2 Z" id="XMLID_2_"></path>
+        </g>
+        <path d="M12.2675644,15 L0,15 L0,5 L2,5 L2,13 L12.2675644,13 C12.6133738,12.4021986 13.2597176,12 14,12 C15.1045695,12 16,12.8954305 16,14 C16,15.1045695 15.1045695,16 14,16 C13.2597176,16 12.6133738,15.5978014 12.2675644,15 Z M3.73243561,3 C3.38662619,3.59780137 2.74028236,4 2,4 C0.8954305,4 0,3.1045695 0,2 C0,0.8954305 0.8954305,0 2,0 C2.74028236,0 3.38662619,0.40219863 3.73243561,1 L16,1 L16,11 L14,11 L14,3 L3.73243561,3 Z" id="Combined-Shape" fill="#00A4FF" fill-rule="nonzero"></path>
+        <path d="M3.41604369,12 C4.18760031,10.2340952 5.94968096,9 8,9 C10.050319,9 11.8123997,10.2340952 12.5839563,12 L10.2361065,12 C9.68678595,11.3862506 8.88849981,11 8,11 C7.11150019,11 6.31321405,11.3862506 5.76389349,12 L3.41604369,12 Z" id="Combined-Shape" fill="#00A4FF" fill-rule="nonzero"></path>
+    </g>
+</svg>

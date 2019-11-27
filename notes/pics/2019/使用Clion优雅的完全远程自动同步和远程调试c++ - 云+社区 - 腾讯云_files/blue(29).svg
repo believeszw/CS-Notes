@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>云智AI平台服务</title>
+    <desc>Created with Sketch.</desc>
+    <g id="云智AI平台服务" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M3,3 L3,13 L13,13 L13,3 L3,3 Z M1,1 L15,1 L15,15 L1,15 L1,1 Z" id="Rectangle" fill="#00A4FF" fill-rule="nonzero"></path>
+        <rect id="Rectangle" stroke="#979797" fill="#D8D8D8" fill-rule="nonzero" x="5.5" y="5.5" width="1" height="1"></rect>
+        <path d="M5,5 L7,5 L7,7 L5,7 L5,5 Z M5,9 L7,9 L7,11 L5,11 L5,9 Z M9,5 L11,5 L11,7 L9,7 L9,5 Z M9,9 L11,9 L11,11 L9,11 L9,9 Z" id="Combined-Shape" fill="#00A4FF" fill-rule="nonzero"></path>
+    </g>
+</svg>

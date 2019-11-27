@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>管理与审计</title>
+    <desc>Created with Sketch.</desc>
+    <g id="管理与审计" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M2,14 L14,14 L14,2 L2,2 L2,14 Z" id="Path" stroke="#00A4FF" stroke-width="2"></path>
+        <circle id="Oval" stroke="#00A4FF" stroke-width="2" fill-rule="nonzero" cx="7.5" cy="7.5" r="2.5"></circle>
+        <rect id="Rectangle" fill="#00A4FF" fill-rule="nonzero" transform="translate(10.121320, 10.121320) rotate(-45.000000) translate(-10.121320, -10.121320) " x="9.12132034" y="8.12132034" width="2" height="4"></rect>
+    </g>
+</svg>

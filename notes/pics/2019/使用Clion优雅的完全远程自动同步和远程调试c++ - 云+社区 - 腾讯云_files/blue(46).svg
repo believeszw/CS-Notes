@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>云资源管理</title>
+    <desc>Created with Sketch.</desc>
+    <g id="云资源管理" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M10,6 L14,6 L14,2 L10,2 L10,6 Z" id="Path" stroke="#00A4FF" stroke-width="2" transform="translate(12.000000, 4.000000) rotate(45.000000) translate(-12.000000, -4.000000) "></path>
+        <path d="M2,6 L6,6 L6,2 L2,2 L2,6 Z" id="Path" stroke="#00A4FF" stroke-width="2"></path>
+        <path d="M10,14 L14,14 L14,10 L10,10 L10,14 Z" id="Path" stroke="#00A4FF" stroke-width="2"></path>
+        <path d="M2,14 L6,14 L6,10 L2,10 L2,14 Z" id="Path" stroke="#00A4FF" stroke-width="2"></path>
+    </g>
+</svg>

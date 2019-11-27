@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>文字识别-16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="文字识别-16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#444444" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M7,10 L7,12 L5,12 L5,6 C5,4.9 5.77142857,4 6.71428571,4 L9.28571429,4 C10.2285714,4 11,4.9 11,6 L11,12 L9,12 L9,10 L7,10 Z M7,8 L9,8 L9,6 L7,6 L7,8 Z" id="Combined-Shape" fill="#00A4FF" fill-rule="nonzero"></path>
+        <path d="M12.2675644,15 L0,15 L0,5 L2,5 L2,13 L12.2675644,13 C12.6133738,12.4021986 13.2597176,12 14,12 C15.1045695,12 16,12.8954305 16,14 C16,15.1045695 15.1045695,16 14,16 C13.2597176,16 12.6133738,15.5978014 12.2675644,15 Z M3.73243561,3 C3.38662619,3.59780137 2.74028236,4 2,4 C0.8954305,4 0,3.1045695 0,2 C0,0.8954305 0.8954305,0 2,0 C2.74028236,0 3.38662619,0.40219863 3.73243561,1 L16,1 L16,11 L14,11 L14,3 L3.73243561,3 Z" id="Combined-Shape" fill="#00A4FF" fill-rule="nonzero"></path>
+    </g>
+</svg>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>开发者工具</title>
+    <desc>Created with Sketch.</desc>
+    <g id="开发者工具" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M10,1.143 L10,3.446 L13,5.161 L13,10.84 L10,12.554 L10,14.857 L15,12 L15,4 L10,1.143 Z M6,1.143 L1,4 L1,12 L6,14.857 L6,12.554 L3,10.84 L3,5.161 L6,3.446 L6,1.143 Z M8.577,5 L5.113,11 L7.423,11 L10.887,5 L8.577,5 Z" id="Fill-1" fill="#00A4FF"></path>
+    </g>
+</svg>

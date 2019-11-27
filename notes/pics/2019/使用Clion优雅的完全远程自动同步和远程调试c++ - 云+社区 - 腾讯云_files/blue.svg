@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>计算</title>
+    <desc>Created with Sketch.</desc>
+    <g id="计算" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-7-Copy">
+            <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="16" height="16"></rect>
+            <path d="M3.281,5 L8,2.304 L12.719,5 L8,7.696 L3.281,5 Z M8,0 L1,4 L1,12 L4.027,13.73 C4.075,13.019 4.296,12.354 4.669,11.793 L3,10.839 L3,7.143 L8,10 L13,7.143 L13,10.839 L9.584,12.792 C9.218,12.313 8.648,12 8,12 C6.895,12 6,12.896 6,14 C6,15.104 6.895,16 8,16 C8.729,16 9.361,15.605 9.71,15.022 L15,12 L15,4 L8,0 Z" id="Fill-1" fill="#00A4FF"></path>
+        </g>
+    </g>
+</svg>

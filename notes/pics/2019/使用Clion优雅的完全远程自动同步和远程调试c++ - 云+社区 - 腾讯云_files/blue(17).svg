@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>流量风控</title>
+    <desc>Created with Sketch.</desc>
+    <g id="流量风控" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M1,1 L15,1 L15,8.4 C15,8.4 14.946,14.359 8,16 C1.054,14.359 1,8.4 1,8.4 L1,1 Z M8,13.934 C12.732,12.589 12.987,8.802 13,8.362 L13,3 L3,3 L3,8.4 C3.013,8.803 3.268,12.589 8,13.934 Z" id="Combined-Shape" fill="#00A4FF"></path>
+        <polygon id="Path" fill="#00A4FF" points="13 7 13 9 11.39 9 9.406 12.436 6.594 7.564 5.765 9 3 9 3 7 4.61 7 6.594 3.564 9.406 8.436 10.235 7"></polygon>
+    </g>
+</svg>

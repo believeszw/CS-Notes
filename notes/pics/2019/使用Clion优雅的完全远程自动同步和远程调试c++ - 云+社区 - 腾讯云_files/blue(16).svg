@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>内容风控</title>
+    <desc>Created with Sketch.</desc>
+    <g id="内容风控" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M1,1 L15,1 L15,8.4 C15,8.4 14.946,14.359 8,16 C1.054,14.359 1,8.4 1,8.4 L1,1 Z M8,13.934 C12.732,12.589 12.987,8.802 13,8.362 L13,3 L3,3 L3,8.4 C3.013,8.803 3.268,12.589 8,13.934 Z M8,8 L11,8 L11,10 L8,10 L8,8 Z M5,5 L7,5 L7,10 L5,10 L5,5 Z M8,5 L11,5 L11,7 L8,7 L8,5 Z" id="Combined-Shape" fill="#00A4FF"></path>
+    </g>
+</svg>

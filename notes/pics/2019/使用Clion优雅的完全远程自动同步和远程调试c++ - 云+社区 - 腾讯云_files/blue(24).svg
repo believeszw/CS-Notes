@@ -1,0 +1,14 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <title>人脸识别</title>
+  <g id="人脸识别">
+    <rect id="Rectangle" x="1" y="1" width="5" height="2" style="fill: #00a4ff"/>
+    <rect id="Rectangle-2" data-name="Rectangle" x="1" y="1" width="2" height="5" style="fill: #00a4ff"/>
+    <rect id="Rectangle-3" data-name="Rectangle" x="10" y="1" width="5" height="2" style="fill: #00a4ff"/>
+    <rect id="Rectangle-4" data-name="Rectangle" x="13" y="1" width="2" height="5" style="fill: #00a4ff"/>
+    <rect id="Rectangle-5" data-name="Rectangle" x="1" y="13" width="5" height="2" style="fill: #00a4ff"/>
+    <rect id="Rectangle-6" data-name="Rectangle" x="1" y="10" width="2" height="5" style="fill: #00a4ff"/>
+    <rect id="Rectangle-7" data-name="Rectangle" x="10" y="13" width="5" height="2" style="fill: #00a4ff"/>
+    <rect id="Rectangle-8" data-name="Rectangle" x="13" y="10" width="2" height="5" style="fill: #00a4ff"/>
+    <rect id="Rectangle-9" data-name="Rectangle" x="1" y="7" width="14" height="2" style="fill: #00a4ff"/>
+  </g>
+</svg>

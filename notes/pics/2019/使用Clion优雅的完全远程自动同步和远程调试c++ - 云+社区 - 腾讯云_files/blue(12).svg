@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>数据安全</title>
+    <desc>Created with Sketch.</desc>
+    <g id="数据安全" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M1,1 L15,1 L15,8.4 C15,8.4 14.946,14.359 8,16 C1.054,14.359 1,8.4 1,8.4 L1,1 Z M8,13.934 C12.732,12.589 12.987,8.802 13,8.362 L13,3 L3,3 L3,8.4 C3.013,8.803 3.268,12.589 8,13.934 Z" id="Combined-Shape" fill="#00A4FF"></path>
+        <path d="M9,8 L11,8 C11,9.65685425 9.65685425,11 8,11 C6.34314575,11 5,9.65685425 5,8 L7,8 C7,8.55228475 7.44771525,9 8,9 C8.55228475,9 9,8.55228475 9,8 Z" id="Combined-Shape" fill="#00A4FF" fill-rule="nonzero"></path>
+        <path d="M9,4 L11,4 C11,5.65685425 9.65685425,7 8,7 C6.34314575,7 5,5.65685425 5,4 L7,4 C7,4.55228475 7.44771525,5 8,5 C8.55228475,5 9,4.55228475 9,4 Z" id="Combined-Shape-Copy" fill="#00A4FF" fill-rule="nonzero" transform="translate(8.000000, 5.500000) scale(1, -1) translate(-8.000000, -5.500000) "></path>
+    </g>
+</svg>

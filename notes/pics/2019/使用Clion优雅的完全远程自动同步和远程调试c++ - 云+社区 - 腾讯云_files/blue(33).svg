@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>物联网</title>
+    <desc>Created with Sketch.</desc>
+    <g id="物联网" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M11,6.538 L9,7.681 L9,8.944 L4.883,11.296 L3,10.22 L3,5.161 L6.962,2.896 C7.13,2.961 7.31,3 7.5,3 C8.329,3 9,2.329 9,1.5 C9,0.671 8.329,0 7.5,0 C6.808,0 6.23,0.472 6.058,1.11 L1,4 L1,11.381 L4.883,13.6 L11,10.104 L11,6.538 Z M15,12 L9.942,14.89 C9.77,15.528 9.192,16 8.5,16 C7.671,16 7,15.329 7,14.5 C7,13.671 7.671,13 8.5,13 C8.69,13 8.87,13.039 9.038,13.103 L13,10.839 L13,5.78 L11.117,4.704 L7,7.056 L7,8.319 L5,9.462 L5,5.896 L11.117,2.4 L15,4.619 L15,12 Z" id="Fill-1" fill="#00A4FF"></path>
+    </g>
+</svg>

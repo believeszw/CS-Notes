@@ -1,0 +1,18 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <title>语音识别</title>
+  <g id="语音识别">
+    <rect id="Rectangle" x="4" y="6" width="2" height="4" style="fill: #00a4ff"/>
+    <rect id="Rectangle-Copy" x="7" y="4" width="2" height="8" style="fill: #00a4ff"/>
+    <rect id="Rectangle-Copy-2" x="10" y="6" width="2" height="4" style="fill: #00a4ff"/>
+    <g id="Group">
+      <rect id="Rectangle-2" data-name="Rectangle" x="1" y="1" width="5" height="2" style="fill: #00a4ff"/>
+      <rect id="Rectangle-3" data-name="Rectangle" x="1" y="1" width="2" height="5" style="fill: #00a4ff"/>
+      <rect id="Rectangle-4" data-name="Rectangle" x="10" y="1" width="5" height="2" style="fill: #00a4ff"/>
+      <rect id="Rectangle-5" data-name="Rectangle" x="13" y="1" width="2" height="5" style="fill: #00a4ff"/>
+      <rect id="Rectangle-6" data-name="Rectangle" x="1" y="13" width="5" height="2" style="fill: #00a4ff"/>
+      <rect id="Rectangle-7" data-name="Rectangle" x="1" y="10" width="2" height="5" style="fill: #00a4ff"/>
+      <rect id="Rectangle-8" data-name="Rectangle" x="10" y="13" width="5" height="2" style="fill: #00a4ff"/>
+      <rect id="Rectangle-9" data-name="Rectangle" x="13" y="10" width="2" height="5" style="fill: #00a4ff"/>
+    </g>
+  </g>
+</svg>

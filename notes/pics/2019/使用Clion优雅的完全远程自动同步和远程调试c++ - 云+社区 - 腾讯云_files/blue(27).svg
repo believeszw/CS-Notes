@@ -1,0 +1,8 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <title>图像识别</title>
+  <g id="图像识别">
+    <path id="Combined-Shape" d="M2,4v8H14V4ZM0,2H16V14H0Z" style="fill: #00a4ff"/>
+    <polyline id="Path-8" points="1 10 4.82 6 10 12.82" style="fill: none;stroke: #00a4ff;stroke-width: 2px"/>
+    <polyline id="Path-10" points="8 11.01 11.5 7.632 15 13.01" style="fill: none;stroke: #00a4ff;stroke-width: 2px"/>
+  </g>
+</svg>

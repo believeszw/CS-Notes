@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>监控与运维</title>
+    <desc>Created with Sketch.</desc>
+    <g id="监控与运维" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#00A4FF" stroke-width="2" fill-rule="nonzero" x="2" y="2" width="12" height="9"></rect>
+        <polygon id="Path" fill="#00A4FF" points="13 6 13 8 11.39 8 9.406 11.436 6.594 6.564 5.765 8 3 8 3 6 4.61 6 6.594 2.564 9.406 7.436 10.235 6"></polygon>
+        <rect id="Rectangle" fill="#00A4FF" fill-rule="nonzero" x="1" y="14" width="14" height="2"></rect>
+    </g>
+</svg>

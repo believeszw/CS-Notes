@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>数据库</title>
+    <desc>Created with Sketch.</desc>
+    <g id="数据库" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-8-Copy">
+            <path d="M3,12.905 L3,10.197 C4.334,10.74 6.169,11 8,11 C9.831,11 11.666,10.74 13,10.197 L13,12.905 C12.738,13.246 11.027,14 8,14 C4.973,14 3.262,13.246 3,12.905 Z M8,2 C10.764,2 12.439,2.63 12.909,3 C12.439,3.37 10.764,4 8,4 C5.236,4 3.561,3.37 3.091,3 C3.561,2.63 5.236,2 8,2 Z M13,7.905 C12.738,8.246 11.027,9 8,9 C4.973,9 3.262,8.246 3,7.905 L3,5.197 C4.334,5.74 6.169,6 8,6 C9.831,6 11.666,5.74 13,5.197 L13,7.905 Z M8,0 C4.516,0 1,0.927 1,3 L1,13 C1,15.072 4.516,16 8,16 C11.484,16 15,15.072 15,13 L15,3 C15,0.927 11.484,0 8,0 Z" id="Fill-1" fill="#00A4FF"></path>
+            <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="16" height="16"></rect>
+        </g>
+    </g>
+</svg>
