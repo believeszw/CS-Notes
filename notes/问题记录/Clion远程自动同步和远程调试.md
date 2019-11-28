@@ -22,11 +22,13 @@
 * 设置本地的代码根目录 Local path
 
 * 设置远程的代码根目录 Deployment path (从刚刚设置的根目录开始)
+
 <div align="center"> <img src="../pics/2019/CLion远程2.png" width="900px"> </div><br>
 
 * 上传一个文件
 
 * Upload 是上传，Download 是下载，本地与远程所映射的目录我们在上面设置过了
+
 <div align="center"> <img src="../pics/2019/CLion远程3.png" width="900px"> </div><br>
 
 * 在 Tool - Deployment - Automatic Upload(always) 设置为自动同步
@@ -131,8 +133,29 @@ gdbserver的还支持动态绑定到已经启动的进程
 
 <div align="center"> <img src="../pics/2019/CLion远程14.png" width="900px"> </div><br>
 
-* 远程运行，本地输出结果
+* 远程运行，本地输出结果(这里可以是用查看本地 ip 来检测程序是否运行在远程机器)
 
-<div align="center"> <img src="../pics/2019/CLion远程15.png" width="900px"> </div><br>
+<div align="center"> <img src="../pics/2019/CLion远程16.png" width="900px"> </div><br>
 
+这里的 ip 就是我服务器的地址，成功！
 * 远程运行，本地自动调试
+
+## 总结
+
+* 配置CLion中的同步信息：同步到哪台机器的哪个目录。
+
+* 使用 Deployment 让本地和远程可以自动同步和自动下载，手动同步和手动下载代码
+
+* 配置GDB remote Debug设置
+
+* 使用gdbserver来启动程序进行调试
+
+* 使用gdbserver attach依附已经启动的程序进行调试
+
+* 完全在本地进行远程代码调试
+
+## 其他
+
+* 这种方式是不是非常的优雅，这样我们只要不断的添加工具链（Toolchains）就可以在本地应对数不清的远程环境了。
+
+* 这种方式应该适用于JetBrain全家桶
