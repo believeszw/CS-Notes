@@ -144,6 +144,8 @@ gdbserver的还支持动态绑定到已经启动的进程
 
 * 配置CLion中的同步信息：同步到哪台机器的哪个目录。
 
+* 每个项目都会生成一个 tmp 目录，这个是自动生成的无需我们设置，我们需要设置的是每一个项目对应的 Deployment ，如果 cmake 出错则删除原来生成 tmp 目录的 Deployment 设置，重新设置项目的 Deployment ，删除原来的缓存数据，invalidate caches/restart 一下就可以了
+
 * 使用 Deployment 让本地和远程可以自动同步和自动下载，手动同步和手动下载代码
 
 * 配置GDB remote Debug设置
