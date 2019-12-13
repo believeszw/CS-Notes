@@ -12,6 +12,7 @@
 * [Shell后台运行程序](#Shell后台运行程序)
 * [wget下载目录下所有文件](#wget下载目录下所有文件)
 * [虚拟机中复制粘贴失效](#虚拟机中复制粘贴失效)
+* [ubuntu本地server扩容磁盘](ubuntu本地server扩容磁盘)
 
 ### 根据进程名杀死进程
 * ```shell
@@ -381,3 +382,78 @@ find -name "index.html*" | xargs rm
 * 选中虚拟机，右击设置
 * 切换到选项页面
 * 第一个常规中将增强型键盘改为非禁用即可
+
+[回到顶部](#readme)
+
+### ubuntu本地server扩容磁盘
+本地磁盘出现磁盘满了的情况，所以进行lvm的扩容（截图的都是扩容后的 所以忽略容量）
+
+* 查看磁盘情况
+```Shell
+df -h
+```
+
+<div align="center"> <img src="../pics/2019/server扩容1.png" width="600px"> </div><br>
+
+原本发现 `/dev/mapper/ubuntu–vg-ubuntu–lv` 这个磁盘满了
+所以要进行扩容的就是这个了
+
+* 显示存在的卷组
+
+```Shell
+sudo vgdisplay
+````
+
+<div align="center"> <img src="../pics/2019/server扩容2.png" width="600px"> </div><br>
+
+可以看出
+
+Alloc PE / Size 12800 / 50.00 GiB\
+Free PE / Size 44049 / <172.07 GiB\
+这两个 第一个就是我的 /dev/mapper/ubuntu–vg-ubuntu–lv 这个磁盘\
+第二个是 这个磁盘可以扩容的大小 也就是剩余可以扩容多少
+
+* 扩容开始
+
+```Shell
+sudo lvextend -L 50G /dev/mapper/ubuntu--vg-ubuntu--lv
+# 扩容50G给这个盘 如果出现 New size (12800 extents) matches existing size (12800 extents).
+```
+
+这里我扩容多50G 给他
+
+这里是报错！！！
+
+<div align="center"> <img src="../pics/2019/server扩容3.png" width="600px"> </div><br>
+
+如果出现以上问题 则
+
+```Shell
+# 则用以下方式 全部空间都给这个盘
+sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+```
+
+<div align="center"> <img src="../pics/2019/server扩容4.png" width="600px"> </div><br>
+
+这个才是正确的提示
+
+* 重新计算磁盘大小
+
+```Shell
+sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+```
+
+<div align="center"> <img src="../pics/2019/server扩容5.png" width="600px"> </div><br>
+
+* 重新查看磁盘情况
+
+```Shell
+df -h
+sudo vgdisplay
+```
+
+<div align="center"> <img src="../pics/2019/server扩容6.png" width="600px"> </div><br>
+
+大功告成！！！
+
+[回到顶部](#readme)
