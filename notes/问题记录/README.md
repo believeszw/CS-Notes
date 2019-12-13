@@ -14,6 +14,7 @@
 * [gdb调试](#gdb调试)
 * [板子清理](#板子清理)
 * [Clion远程自动同步和远程调试](#Clion远程自动同步和远程调试)
+* [linux下使用TC模拟弱网络环境](#linux下使用TC模拟弱网络环境)
 * [其他问题](#其他问题)
 
 
@@ -55,6 +56,9 @@
 
 ### Clion远程自动同步和远程调试
 - [Clion远程自动同步和远程调试](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Clion远程自动同步和远程调试.md)
+
+### linux下使用TC模拟弱网络环境
+- [linux下使用TC模拟弱网络环境](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/linux下使用TC模拟弱网络环境.md)
 
 ### 其他问题
 - [其他问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/其他问题.md)
