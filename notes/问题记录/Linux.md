@@ -12,7 +12,7 @@
 * [Shell后台运行程序](#Shell后台运行程序)
 * [wget下载目录下所有文件](#wget下载目录下所有文件)
 * [虚拟机中复制粘贴失效](#虚拟机中复制粘贴失效)
-* [ubuntu本地server扩容磁盘](ubuntu本地server扩容磁盘)
+* [ubuntu本地server扩容磁盘](#ubuntu本地server扩容磁盘)
 
 ### 根据进程名杀死进程
 * ```shell
@@ -386,6 +386,7 @@ find -name "index.html*" | xargs rm
 [回到顶部](#readme)
 
 ### ubuntu本地server扩容磁盘
+
 本地磁盘出现磁盘满了的情况，所以进行lvm的扩容（截图的都是扩容后的 所以忽略容量）
 
 * 查看磁盘情况
