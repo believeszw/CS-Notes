@@ -16,6 +16,7 @@
 
 ## Cpp primer
 - [CppPrimer第一章整理](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++/CppPrimer第一章整理.md)
+- [CppPrimer第二章整理](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++/CppPrimer第二章整理.md)
 
 ## C++11新特性
 - [移动语义](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++/移动语义.md)
