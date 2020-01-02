@@ -13,6 +13,7 @@
 * [wget下载目录下所有文件](#wget下载目录下所有文件)
 * [虚拟机中复制粘贴失效](#虚拟机中复制粘贴失效)
 * [ubuntu本地server扩容磁盘](#ubuntu本地server扩容磁盘)
+* [使用ls可以查看到执行文件，执行却提示不存在](#使用ls可以查看到执行文件，执行却提示不存在)
 
 ### 根据进程名杀死进程
 * ```shell
@@ -456,5 +457,12 @@ sudo vgdisplay
 <div align="center"> <img src="../pics/2019/server扩容6.png" width="600px"> </div><br>
 
 大功告成！！！
+
+[回到顶部](#readme)
+
+### 使用ls可以查看到执行文件，执行却提示不存在
+原因：Ubuntu系统是 64 位的，而可执行程序是 32 位的，需要支持32位的运行库 lib32ncurses5 lib32z1，
+
+解决：sudo apt-get install lib32ncurses5 lib32z1
 
 [回到顶部](#readme)
