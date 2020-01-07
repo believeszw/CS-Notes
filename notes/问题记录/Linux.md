@@ -155,6 +155,28 @@ sudo rpcinfo
 sudo netstat -tu -4
 ```
 
+* Mac 下设置配置文件
+```Shell
+sudo vi /etc/exports
+/Users/my-name/Documents/Projects -alldirs -rw -maproot=my-name:staff -network 192.168.0.0 -mask 255.255.255.0
+```
+
+* Mac 下控制服务
+```Shell
+sudo nfsd enable
+sudo nfsd disable
+sudo nfsd
+sudo nfsd stop
+sudo nfsd restart
+sudo nfsd status
+```
+
+* Mac 查看共享状态
+```Shell
+showmount -e
+showmount -e 192.168.99.1
+```
+
 二、客户端：
 * 安装客户端工具：
 ```shell
