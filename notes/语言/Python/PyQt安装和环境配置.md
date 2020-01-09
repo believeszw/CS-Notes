@@ -32,3 +32,7 @@
 `python2` 对应的模块是 `MySQLdb` , `MySQLdb` 不支持 `python3`
 
 `python3` 对应的模块是 `pymysql`
+
+
+>`python3.7 -m pip install numpy
+`
