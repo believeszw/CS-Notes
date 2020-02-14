@@ -26,7 +26,7 @@ SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} --coverage")
 >很显然，带 --coverage 编译参数得到的编译产物会比不带这个参数要包含更多的信息，因此编译产物会更大。所以这个参数只适合在需要生成代码覆盖率的时候才加上。对于正式发布的编译产物，不应该添加这个编译参数。
 
 ## 编译
-当我们执行上面编译出来的可执行文件 a.out 时，我们还会得到每个源码文件对应的 gcda 后缀的文件。由 array_test.gcno 和 array_test.gcda 这两个文件，便可以得到代码的覆盖率结果了。文件在 `/cmake-build-debug/02-Arrays/test/CMakeFiles/ArraysTest.dir/` 下
+当我们执行上面编译出来的可执行文件 a.out 时，我们还会得到每个源码文件对应的 gcda 后缀的文件。由 array_test.gcno 和 array_test.gcda 这两个文件，便可以得到代码的覆盖率结果了。文件在 `/cmake-build-debug/02-Arrays/test/CMakeFiles/ArraysTest.dir/` 下，可以使用 `find -name ".gcno"` 查找。
 
 >只需要通过 gcov 指定源文件的名称（不需要带后缀）：gcov array_test，便可以得到包含覆盖率的结果文件 array_test.c.gcov了。不过是文本形式
 
