@@ -7,7 +7,8 @@
 git clone https://github.com/google/googletest.git
 // 修改 CMakeList.txt 添加 add_compile_options(-fPIC) 提供跨平台支持
 cd googletest
-cmake -Dgtest_build_samples=ON .
+mkdir build && cd build
+cmake -Dgtest_build_samples=ON ../
 make
 ```
 * 安装 lcov
