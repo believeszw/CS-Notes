@@ -161,3 +161,5 @@ gdbserver的还支持动态绑定到已经启动的进程
 * 这种方式是不是非常的优雅，这样我们只要不断的添加工具链（Toolchains）就可以在本地应对数不清的远程环境了。
 
 * 这种方式应该适用于JetBrain全家桶
+
+* Cpplint 参数：`--linelength=200 --filter=-build/include_subdir file.cpp, -runtime/references`

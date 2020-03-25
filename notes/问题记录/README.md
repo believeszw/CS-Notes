@@ -16,6 +16,7 @@
 * [Clion远程自动同步和远程调试](#Clion远程自动同步和远程调试)
 * [linux下使用TC模拟弱网络环境](#linux下使用TC模拟弱网络环境)
 * [高科交叉编译](#高科交叉编译)
+* [github连接慢](#github连接慢)
 * [其他问题](#其他问题)
 
 
@@ -63,6 +64,9 @@
 
 ### 高科交叉编译
 - [高科交叉编译](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/高科交叉编译.md)
+
+### github连接慢
+- [其他问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/github连接慢.md)
 
 ### 其他问题
 - [其他问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/其他问题.md)
