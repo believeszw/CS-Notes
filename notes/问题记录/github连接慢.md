@@ -15,3 +15,9 @@ github.com
 ```
 
 在host里面做一下映射就好了。
+
+example
+```Cpp
+151.101.72.249 github.http://global.ssl.fastly.net
+192.30.253.112 github.com
+```
