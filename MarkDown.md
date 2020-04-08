@@ -388,6 +388,22 @@ GFM中可以显示的展示diff效果。使用绿色表示新增，红色表示�
 # 时鸣春涧中。
 ```
 
+可折叠
+----------
+<details><summary><code>预设配置2 通用 按大陆IP与域名分流</code></summary><br>
+
+使用中国大陆IP表`chn.list`和域名表`chn_domain.list`分流。国内域名使用`阿里云DNS`解析，国际域名使用`OpenDNS`解析。
+
+    {
+        "bind_addr": "127.0.0.1:53",
+        "local_server": "223.5.5.5:53",
+        "remote_server": "208.67.222.222:443",
+        "local_allowed_ip_list": "./chn.list",
+        "local_forced_domain_list": "./chn_domain.list"
+    }
+
+</details>
+
 --------------------------------
 [csdn]:https://blog.csdn.net/believe_s "我的博客"
 [zhihu]:https://www.zhihu.com/people/believechen-24/activities "我的知乎，欢迎关注"
