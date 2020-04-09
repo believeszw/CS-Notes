@@ -140,5 +140,8 @@ git push test HEAD:master
 git remote rm test
 git reset --hard origin/HEAD
 git checkout arsenal
+
+# git push -d origin rtsa_demo
 git branch -D rtsa_demo
+git push origin :rtsa_demo
 ```
