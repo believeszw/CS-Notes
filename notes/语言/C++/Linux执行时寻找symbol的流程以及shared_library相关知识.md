@@ -145,7 +145,7 @@ LD_DEBUG=libs ./RTSAQuickstart
 
 执行期间寻找 **symbol** 的流程
 
-有了 **shared library** 的路径列表后，每看到一個 symbol，先从 **executable** 找，找不到再照 **shared library** 的顺序找，找到第一个符合的 **symbol** 就用。**shared library** 的顺序是链接 **executable** 时決定的，和 **ldd** 列的顺序一致。注意，**executable** 可以替换掉 **shared library** 內使用的 **global symbol** ，甚至是 **shared library** 自己定义的 **global symbol** (例如标准函数库內使用自己定义的 **malloc**)。编译 **shared library** 时添加参数改变此行为，详情可参考[传送门]()。
+有了 **shared library** 的路径列表后，每看到一個 symbol，先从 **executable** 找，找不到再照 **shared library** 的顺序找，找到第一个符合的 **symbol** 就用。**shared library** 的顺序是链接 **executable** 时決定的，和 **ldd** 列的顺序一致。注意，**executable** 可以替换掉 **shared library** 內使用的 **global symbol** ，甚至是 **shared library** 自己定义的 **global symbol** (例如标准函数库內使用自己定义的 **malloc**)。编译 **shared library** 时添加参数改变此行为，详情可参考[传送门](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++/Linux编译shared_library的方法和注意事项.md)。
 
 例子：
 ```shell
@@ -167,7 +167,7 @@ ldd RTSAQuickstart
 	libagora_rtc_sdk.so => /tmp/tmp.FPJ1Snt7Un/libs/agora_media_sdk/libagora_rtc_sdk.so (0x00007ff5ea103000)
 ```
 
-可以用 **[LD_DEBUG=symbols]()** 看找 **symbol** 的流程.
+可以用 **[LD_DEBUG=symbols](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++/LD_DEBUG环境变量.md)** 看找 **symbol** 的流程.
 
 ```Cpp
 LD_DEBUG=symbols ./RTSAQuickstart
