@@ -17,6 +17,7 @@
 * [linux下使用TC模拟弱网络环境](#linux下使用TC模拟弱网络环境)
 * [高科交叉编译](#高科交叉编译)
 * [github连接慢](#github连接慢)
+* [mips编译出错合集](#mips编译出错合集)
 * [其他问题](#其他问题)
 
 
@@ -67,6 +68,9 @@
 
 ### github连接慢
 - [其他问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/github连接慢.md)
+
+### mips编译出错合集
+- [mips编译出错合集](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/mips编译出错合集.md)
 
 ### 其他问题
 - [其他问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/其他问题.md)
