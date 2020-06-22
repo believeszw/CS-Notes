@@ -94,4 +94,87 @@
 std::string s5 = std::string(10, 'c');
 ```
 
-* string 对象上的操作
+### string 对象上的操作
+
+* 读写 string 对象
+
+```cpp
+#include <iostream>
+
+int main(){
+  std::string s;                // 空字符串
+  std::cin >> s;                // 将 string 对象读入 s ，遇到空白为止（自动忽略开头的空白，包括空格符，换行符，制表符等）
+  std::cout << s << std::endl;  // 输出 s
+  return 0;
+}
+
+input : "     Hello World     "
+output: "Hello"
+
+
+```
+
+string 对象的输入输出操作也是返回运算符左侧运算对象作为结果。因此，多个输入或者多个输出可以连写在一起。
+
+```cpp
+string s1, s2;
+cin >> s1 >> s2;              // 把第一个输入读到 s1 中， 第二个输入读到 s2 中
+cout << s1 << s2 << endl;     // 输出两个 string 对象
+
+input : "     Hello World     "
+output: "HelloWorld"
+
+```
+
+* 使用 getline 读取一整行
+
+当需要保留输入的 **空白符** 时，用 **getline** ，从给定输入流中读入内容，直到遇到换行符为止**（换行符也被读进来了）** ， getline 只要一遇到换行符就结束读取操作并返回结果，哪怕输入一开始就是换行符，会得到一个空 string
+
+>触发 getline 函数返回的那个换行符实际上被丢弃掉了，得到的 string 对象中并不包含该换行符
+
+* string::size_type 类型
+
+string::size_type 是一个无符号类型的值，而且足够放下任何 string 对象的大小。**如果一条表达式中已经有了 size() 函数就不要再使用 int 了，这样可以避免混用 int 和 unsigned 可能带来的问题。**
+
+* 比较 string 对象
+
+1. 如果两个 string 对象的长度不同，而且较短 string 对象的每个字符都与较长 string 对象对应位置的字符相同，则较短 string 对象小于较长 string 对象。
+
+2. 如果两个 string 对象在某些对应位置上不一致，则 string 对象比较的结果其实是 string 对象中第一对相异字符比较的结果。
+
+```cpp
+// eg
+string str    = "Hello";
+string phrase = "Hello World";
+string slang  = "Hiya";
+
+slang > phrase > str
+
+
+```
+
+* 两个字符串对象相加
+
+```cpp
+string s1 = "hello, ", s2 = "world\n";
+string s3 = s1 + s2;  // s3 的内容是 hello, world\n
+s1 += s2;             // 等价于 s1 = s1 + s2;
+
+
+```
+
+* 字面值和 string 类型相加
+
+即使一种类型并非所需，我们也可以使用它，不过前提是改种类型可以自动转换成所需类型。**但是在 stirng 对象和字符字面值及字符串字面值混在一条语句中使用时，必须确保每个加法运算符(+)的两侧的运算对象至少有一个是 string :**
+
+```cpp
+string s4 = s1 + ", ";      // 正确：把一个 string 对象和一个字面值相加
+string s5 = "hello" + ", "; // 错误：两个运算对象都不是 string
+string s6 = s1 + ", " + "world";  // 正确：每个加法运算符都有一个运算对象是 string
+string s6 = (s1 + ", ") + "world"; // 正确，分组
+string s7 = "hello" + ", " + s2;  // 错误：不能把字面值直接相加
+
+
+```
+
+>为了与 C 兼容，C++ 语言中的字符串字面值并不是标准库类型 string 的对象。切记，字符串字面值与 string 是不同的类型。
