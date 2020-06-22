@@ -67,7 +67,7 @@
 - [高科交叉编译](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/高科交叉编译.md)
 
 ### github连接慢
-- [其他问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/github连接慢.md)
+- [github连接慢](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/github连接慢.md)
 
 ### mips编译出错合集
 - [mips编译出错合集](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/mips编译出错合集.md)
