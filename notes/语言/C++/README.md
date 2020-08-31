@@ -1,5 +1,16 @@
 # C++
 
+## C++ 书籍
+* C++ primer [Stanley B. Lippman]
+
+* C++ Programming Language [Bjarne Stroustrup]
+
+* Effective C++ [Scott Meyers]
+
+* The C++ Standard Library [Nicolai M. Josuttis]
+
+* STL 源码剖析 [侯捷]
+
 ## 宏定义及相关用法
 - [CMake预定义变量](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/C++/宏定义及相关用法.md)
 
