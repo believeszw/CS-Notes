@@ -23,6 +23,8 @@ README
     * 粗体
     * 删除线
     * 空格
+    * 字体
+    * 文字添加背景色
 * [图片](#图片)
     * 来源于网络的图片
     * GitHub仓库中的图片
@@ -120,7 +122,29 @@ ___
 
     斜体、粗体、删除线可混合使用
 
+#### 字体
 
+<font face="黑体">我是黑体字</font>
+
+<font face="微软雅黑">我是微软雅黑</font>
+
+<font face="STCAIYUN">我是华文彩云</font>
+
+<font color=red>我是红色</font>
+
+<font color=#008000>我是绿色</font>
+
+<font color=Blue>我是蓝色</font>
+
+<font size=5>我是尺寸</font>
+
+<font face="黑体" color=green size=5>我是黑体，绿色，尺寸为5</font>
+
+#### 文字添加背景色
+
+<table><tr><td bgcolor=yellow>背景色yellow</td></tr></table>
+
+对应 [RGB表](https://blog.csdn.net/wsp_1138886114/article/details/80954960)
 
 图片
 ------
@@ -334,6 +358,29 @@ string &operator+(const string& A,const string& B) //cpp
 | ---------- | -----------|
 | 表格单元   | 表格单元   |
 | 表格单元   | 表格单元   |
+
+<table>
+<tr>
+    <td bgcolor=yellow><font face="黑体" color=GoldenRod size=5>
+<b>第一列</b></font></td>
+    <td bgcolor=yellow><font face="黑体" color=RoyalBlue size=5>
+<b>第二列</b></font></td>
+    <td bgcolor=yellow><font face="黑体" color=red size=5>
+<b>第三列</b></font></td>
+    <td bgcolor=yellow><font face="黑体" color=red size=5>
+<b>第四列</b></font></td>
+</tr>
+<tr>
+    <td bgcolor=#EEE9BF	><font face="黑体" color=GoldenRod size=5>
+<b>10</b></font></td>
+    <td bgcolor=#EEE9BF	><font face="黑体" color=RoyalBlue size=5>
+<b>5000</b></font></td>
+    <td bgcolor=#EEE9BF	><font face="黑体" color=red size=5>
+<b>5</b></font></td>
+    <td bgcolor=#EEE9BF	><font face="黑体" color=red size=5>
+<b>25000</b></font></td>
+</tr>
+</table>
 
 ### 对齐
 表格可以指定对齐方式
