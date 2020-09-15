@@ -1,8 +1,8 @@
 # GNU 编译选项
 
 ## 目录
-* [总览(SYNOPSIS)](##总览(SYNOPSIS))
-* [预处理器选项(PreprocessorOption)](###预处理器选项(PreprocessorOption))
+* [总览(SYNOPSIS)](#总览(SYNOPSIS))
+* [预处理器选项(PreprocessorOption)](#预处理器选项(PreprocessorOption))
 
 ## 总览(SYNOPSIS)
 
