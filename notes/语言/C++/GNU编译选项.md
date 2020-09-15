@@ -1,10 +1,10 @@
 # GNU 编译选项
 
 ## 目录
-* [总览(SYNOPSIS)](#总览(SYNOPSIS))
-* [预处理器选项(PreprocessorOption)](#预处理器选项(PreprocessorOption))
+* [总览SYNOPSIS](#总览SYNOPSIS)
+* [预处理器选项PreprocessorOption](#预处理器选项PreprocessorOption)
 
-## 总览(SYNOPSIS)
+## 总览SYNOPSIS
 
 ```shell
 gcc[option|filename ]...
@@ -70,61 +70,61 @@ C 和 C++ 编译器是集成的.他们都要用四个步骤中的一个或多个
 -c -S -E -o file -pipe -v -x language
 ```
 
-## 语言选项(Language Option)
+### 语言选项(Language Option)
 
 ```shell
 -ansi -fall-virtual -fcond-mismatch -fdollars-in-identifiers -fenum-int-equiv -fexternal-templates -fno-asm -fno-builtin -fhosted -fno-hosted -ffreestanding -fno-freestanding -fno-strict-prototype -fsigned-bitfields -fsigned-char -fthis-is-variable -funsigned-bitfields -funsigned-char -fwritable-strings -traditional -traditional-cpp -trigraphs
 ```
 
-## 警告选项(Warning Option)
+### 警告选项(Warning Option)
 
 ```shell
 -fsyntax-only -pedantic -pedantic-errors -w -W -Wall -Waggregate-return -Wcast-align -Wcast-qual -Wchar-subscript -Wcomment -Wconversion -Wenum-clash -Werror -Wformat -Wid-clash-len -Wimplicit -Wimplicit-int -Wimplicit-function-declaration -Winline -Wlong-long -Wmain -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Wno-import -Wparentheses -Wpointer-arith -Wredundant-decls -Wreturn-type -Wshadow -Wstrict-prototypes -Wswitch -Wtemplate-debugging -Wtraditional -Wtrigraphs -Wuninitialized -Wunused -Wwrite-strings
 ```
 
-## 调试选项(Debugging Option)
+### 调试选项(Debugging Option)
 
 ```shell
 -a -dletters -fpretend-float -g -glevel -gcoff -gxcoff -gxcoff+ -gdwarf -gdwarf+ -gstabs -gstabs+ -ggdb -p -pg -save-temps -print-file-name=library -print-libgcc-file-name -print-prog-name=program
 ```
 
-## 优化选项(Optimization Option)
+### 优化选项(Optimization Option)
 
 ```shell
 -fcaller-saves -fcse-follow-jumps -fcse-skip-blocks -fdelayed-branch -felide-constructors -fexpensive-optimizations -ffast-math -ffloat-store -fforce-addr -fforce-mem -finline-functions -fkeep-inline-functions -fmemoize-lookups -fno-default-inline -fno-defer-pop -fno-function-cse -fno-inline -fno-peephole -fomit-frame-pointer -frerun-cse-after-loop -fschedule-insns -fschedule-insns2 -fstrength-reduce -fthread-jumps -funroll-all-loops -funroll-loops -O -O2 -O3
 ```
 
-## 预处理器选项(Preprocessor Option)
+### 预处理器选项(Preprocessor Option)
 
 ```shell
 -Aassertion -C -dD -dM -dN -Dmacro[=defn] -E -H -idirafter dir -include file -imacros file -iprefix file -iwithprefix dir -M -MD -MM -MMD -nostdinc -P -Umacro -undef
 ```
 
-## 汇编器选项(Assembler Option)
+### 汇编器选项(Assembler Option)
 
 ```shell
 -Wa,option
 ```
 
-## 连接器选项(Linker Option)
+### 连接器选项(Linker Option)
 
 ```shell
 -llibrary -nostartfiles -nostdlib -static -shared -symbolic -Xlinker option -Wl,option -u symbol
 ```
 
-## 目录选项(Directory Option)
+### 目录选项(Directory Option)
 
 ```shell
 -Bprefix -Idir -I- -Ldir
 ```
 
-## 目标机选项(Target Option)
+### 目标机选项(Target Option)
 
 ```shell
 -b machine -V version
 ```
 
-## 配置相关选项(Configuration Dependent Option)
+### 配置相关选项(Configuration Dependent Option)
 
 ```shell
 M680x0 选项
@@ -169,7 +169,7 @@ System V选项
 -G -Qy -Qn -YP,paths -Ym,dir
 ```
 
-## 代码生成选项(Code Generation Option)
+### 代码生成选项(Code Generation Option)
 
 ```shell
 -fcall-saved-reg -fcall-used-reg -ffixed-reg -finhibit-size-directive -fnonnull-objects -fno-common -fno-ident -fno-gnu-linker -fpcc-struct-return -fpic -fPIC -freg-struct-return -fshared-data -fshort-enums -fshort-double -fvolatile -fvolatile-global -fverbose-asm
@@ -326,7 +326,7 @@ char 的类型始终应该明确定义为 signed char 或 unsigned char, 即使 
 篡改字符串常量是一个非常糟糕的想法; 常量就应该是常量.
 
 
-### 预处理器选项(PreprocessorOption)
+### 预处理器选项PreprocessorOption
 
 下列选项针对C预处理器,预处理器用在正式编译以前,对C 源文件进行某种处理.
 如果指定了 `-E'选项, GCC只进行预处理工作.下面的某些选项必须和`-E'选项一起才 有意义,因为他们的输出结果不能用于编译.
