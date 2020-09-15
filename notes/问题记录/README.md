@@ -1,25 +1,28 @@
 # 问题汇总
 
 ## 目录
-* [Linux](#Linux)
+* [板子清理](#板子清理)
 * [编译常见问题](#编译常见问题)
-* [valgrind检测libevent内存泄露](#valgrind检测libevent内存泄露)
+* [高科交叉编译](#高科交叉编译)
+* [其他问题](#其他问题)
+* [Clion远程自动同步和远程调试](#Clion远程自动同步和远程调试)
 * [Cpp没有调用析构函数](#Cpp没有调用析构函数)
-* [Postman接口测试神器](#Postman接口测试神器)
-* [jenkins自动化部署](#jenkins自动化部署)
+* [gdb调试](#gdb调试)
+* [Git](#Git)
+* [github连接慢](#github连接慢)
 * [Google插件导出导入](#Google插件导出导入)
 * [Jenkins自动编译库并上传服务器](#Jenkins自动编译库并上传服务器)
-* [Ubuntu下selenium+Chrome的安装使用](#Ubuntu下selenium+Chrome的安装使用)
-* [Git](#Git)
-* [gdb调试](#gdb调试)
-* [板子清理](#板子清理)
-* [Clion远程自动同步和远程调试](#Clion远程自动同步和远程调试)
+* [jenkins自动化部署](#jenkins自动化部署)
+* [Linux](#Linux)
 * [linux下使用TC模拟弱网络环境](#linux下使用TC模拟弱网络环境)
-* [高科交叉编译](#高科交叉编译)
-* [github连接慢](#github连接慢)
 * [mips编译出错合集](#mips编译出错合集)
-* [其他问题](#其他问题)
+* [Ubuntu下selenium+Chrome的安装使用](#Ubuntu下selenium+Chrome的安装使用)
+* [valgrind检测libevent内存泄露](#valgrind检测libevent内存泄露)
+* [Postman接口测试神器](#Postman接口测试神器)
 
+
+### 板子清理
+- [板子清理](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/板子清理.md)
 
 ## Linux
 - [Linux常见问题](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Linux.md)
@@ -53,9 +56,6 @@
 
 ### gdb调试
 - [gdb调试](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/gdb调试TuMediaService.md)
-
-### 板子清理
-- [板子清理](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/板子清理.md)
 
 ### Clion远程自动同步和远程调试
 - [Clion远程自动同步和远程调试](https://github.com/believeszw/CS-Notes/blob/master/notes/问题记录/Clion远程自动同步和远程调试.md)
