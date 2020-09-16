@@ -21,9 +21,8 @@
 ## bitbucket仓库子目录镜像到github新仓库
 - [bitbucket仓库子目录镜像到github新仓库](https://github.com/believeszw/CS-Notes/blob/master/notes/编码实践/bitbucket仓库子目录镜像到github新仓库.md)
 
-## github调试
-- [github调试](https://github.com/believeszw/CS-Notes/blob/master/notes/编码实践/github调试.md)
-
+## gdb调试
+- [gdb调试](https://github.com/believeszw/CS-Notes/blob/master/notes/编码实践/gdb调试.md)
 
 ## Off-CPU分析
 - [Off-CPU分析](https://github.com/believeszw/CS-Notes/blob/master/notes/编码实践/Off-CPU分析.md)
