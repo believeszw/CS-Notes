@@ -553,3 +553,7 @@ offcputime工具具有-f选项，用于以“折叠格式”发出堆栈跟踪�
 ## 备注
 
 可能会发现许多CPU外堆栈显示了阻止路径，但没有显示阻止路径的完整原因。原因和代码路径与另一个线程有关，该线程在被阻塞的线程上调用唤醒。这事儿常常发生。
+
+# 参考
+
+[Off-CPU Analysis](http://www.brendangregg.com/offcpuanalysis.html)
