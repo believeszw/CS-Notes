@@ -53,8 +53,9 @@ class AVEngineEventHandler; // expose callback from Agora Rtc Engine
 class IAVDispatcher; // external A/V source pushing to pipeline
 class IAVIO; // base class of module, it define all public fuction for controling. the wrapper of AVIO, which is the internal impl
 class IAVHandler; // Callback handle for getting A/V data
+class IAVData;
 # endline
 ```
+# 11.09 分割线
 
-
-* 模仿 sample wrapper 层
+  * srs 从 1.x 升级到 3.x
