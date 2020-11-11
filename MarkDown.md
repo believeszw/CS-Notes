@@ -359,6 +359,26 @@ string &operator+(const string& A,const string& B) //cpp
 | 表格单元   | 表格单元   |
 | 表格单元   | 表格单元   |
 
+<style>th{text-align:center}</style>
+<table>
+<thead>
+<tr>
+<th>A</th><th>B</th><th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>占位符</td><td colspan="2">合并了两列</td>
+</tr>
+<tr>
+<td rowspan="2" colspan="2">合并了两行两列</td><td>$F(x)=x^2$</td>
+</tr>
+<tr>
+<td><b>加粗</b></td>
+</tr>
+</tbody>
+<table>
+
 <table>
 <tr>
     <td bgcolor=yellow><font face="黑体" color=GoldenRod size=5>
