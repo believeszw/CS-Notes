@@ -73,6 +73,8 @@ vhost __defaultVhost__ {
 * 启动推流编码器
 ```Shell
 ffmpeg -re -i ./doc/source.200kbps.768x320.flv -vcodec copy -acodec copy -f flv -y rtmp://localhost/live/livestream;
+# or
+ffmpeg -re -i ./doc/source.200kbps.768x320.flv -c copy -f flv -y rtmp://localhost/live/livestream;
 ```
 
 * 观看RTMP流。（可以通过 VLC 或者 srs 官方 [player](http://ossrs.net/srs.release/trunk/research/players/srs_player.html?vhost=__defaultVhost__&autostart=true&server=192.168.1.170&app=live&stream=livestream&port=1935)）
