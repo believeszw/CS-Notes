@@ -16,6 +16,11 @@
 * [使用ls可以查看到执行文件，执行却提示不存在](#使用ls可以查看到执行文件，执行却提示不存在)
 * [将linux镜像源改为阿里云镜像源](#将linux镜像源改为阿里云镜像源)
 * [PS1应用-修改linux终端命令行字体颜色](#PS1应用-修改linux终端命令行字体颜色)
+* [ubuntu降级](#ubuntu降级)
+* [vim粘贴乱码](#vim粘贴乱码)
+* [bitbucket_clone不了](#bitbucket_clone不了)
+* [查看系统版本](#查看系统版本)
+* [git无法拉取chromium等仓库的代码](#git无法拉取chromium等仓库的代码)
 
 ### 根据进程名杀死进程
 * ```shell
@@ -493,22 +498,28 @@ sudo vgdisplay
 
 ### 将linux镜像源改为阿里云镜像源
 
-`vim /etc/apt/sources.list`
+```Shell
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+vim /etc/apt/sources.list
+```
 
 把sources.list文件内容替换成如下
 ```Shell
-# 阿里云源：
-# https://opsx.alibaba.com/mirror
-deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+# 阿里云源：14.04<->trusty 16.04<->xenial 18.04<->bionic 20.04<->focal
+deb https://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+
+deb https://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe 20.04<->multiversefocal
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+
+deb https://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+
+## Not recommended
+# deb https://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+# deb-src https://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
 ```
 ```Shell
 # 清华源：
@@ -607,7 +618,69 @@ PS1="\[\e[37;40m\]\[\e[33;1m\]\u@\h \[\e[33;1m\]\W\[\e[0m\] \\$\n"
 source ~/.bashrc
 ```
 
+[回到顶部](#readme)
 
+### ubuntu降级
+```Shell
+1）找到两个系统的代号：saucy(13.10)｜trusty（14.04）
+2) 修改/etc/apt/sources.list文件，只放入两行（注意着色一样的字体内容一致）
+deb http://archive.ubuntu.com/ubuntu saucy main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse
+3）修改或增加文件/etc/apt/preferences，只填入以下内容：
+Package: *
+Pin: release a=saucy
+Pin-Priority: 1001
+Package: *
+Pin: release a=trusty
+Pin-Priority: 60
+4）sudo apt-get update && sudo apt-get dist-upgrade
 
+Create /etc/apt/preferences with the contents:
+
+Package: *
+Pin: release a=stable
+Pin-Priority: 1001
+
+Package: *
+Pin: release a=testing
+Pin-Priority: 60
+
+Package: *
+Pin: release a=unstable
+Pin-Priority: 50
+```
+
+[回到顶部](#readme)
+
+### vim粘贴乱码
+```Shell
+vim ~/.vimrc
+set encoding=utf-8
+set fileencoding=utf-8
+```
+
+[回到顶部](#readme)
+
+### bitbucket_clone不了
+```Shell
+deb http://security.ubuntu.com/ubuntu trusty-security main
+deb http://cz.archive.ubuntu.com/ubuntu trusty main universe
+```
+
+[回到顶部](#readme)
+
+### 查看系统版本
+* cat /etc/lsb-release 查看版本
+
+[回到顶部](#readme)
+
+## git无法拉取chromium等仓库的代码
+
+需要设置 shadowsocks 以及设置 git 代理
+```Shell
+vim ~/.gitconfig
+[http]
+        proxy = socks5://127.0.0.1:1080
+```
 
 [回到顶部](#readme)

@@ -56,6 +56,9 @@ class IAVHandler; // Callback handle for getting A/V data
 class IAVData;
 # endline
 ```
+
+## Miniapp准备工作
+
 * ~docker 的安装和配置(不影响打包) // done~
 
   * [doc使用手册](https://yeasy.gitbook.io/docker_practice/install/mac)
@@ -80,6 +83,10 @@ class IAVData;
     media_build
     --media_server_library
     --AgoraDynamicKey
+    git clone ssh://git@git.agoralab.co/cloud/media_build.git
+    git clone ssh://git@git.agoralab.co/cloud/media_server_library.git
+    git clone ssh://git@git.agoralab.co/cloud/media_server_miniapp.git
+
     # 运行脚本
     $ ./setup_env.sh --no-auto-install  64
     # gperf会报错，autogen.sh 脚本不存在，需要单独从原始 github 仓库下载，解压，运行这个脚本，然后在继续 py 脚本后续的工作
@@ -126,17 +133,89 @@ class IAVData;
   ./cp_binary.sh
   exit && 再进入打包发布目录， /Users/szw/believe/project/bitbucket/cloudPlatform/media_build/media_server_miniapp/docker/new/mini_app/app-worker，
   执行 ./build.sh
-  登陆 https://braum.agoralab.co/luna/?_=1604571260 然后 docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201111_5_1a124caa0105
-  docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201111_5_1a124caa0105 hub.agoralab.co/uap/mini_app/mini_app-worker:latest
+  # 登陆 https://braum.agoralab.co/luna/?_=1604571260 然后
+  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201119_1_62308e34192a
+  docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201119_1_62308e34192a hub.agoralab.co/uap/mini_app/mini_app-worker:latest
+
+  # manager
+  docker tag hub.agoralab.co/uap/mini_app/mini_app-manager:release_20200831_1_6a1547a33f42 hub.agoralab.co/uap/mini_app/mini_app-manager:latest
+
+  docker run -d --network=host --pid=host -v `pwd`/manager_log:/var/log/uap/ --name mini_app.manager  -v /var/run/docker.sock:/var/run/docker.sock hub.agoralab.co/uap/mini_app/mini_app-manager:release_20200831_1_6a1547a33f42
+
+  # 原来 release_20201022_4_c10922a0d92c
+  hub.agoralab.co/uap/mini_app/mini_app-worker                        release_20201022_8_f990be8ad911   f990be8ad911        3 weeks ago         626MB
+
+  release_20200421_1_5aaa0d834f68
+
   docker images | grep latest
-  docker ps|grep mini_app.worker|awk '{print $1}'|xargs docker rm -f 删除原来在运行的镜像，他会自动拉取最新的
-  docker ps 查看正在运行的ports
+  # 删除原来在运行的镜像，他会自动拉取最新的
+  docker ps|grep mini_app.worker|awk '{print $1}'|xargs docker rm -f
+  # 查看正在运行的ports
+  docker ps
   # 查看日志
   cd /data/uap/mini_app/log
   grep "sdktest" mini_app.worker.log
   grep "mini_app.worker\[7775\]" worker-manager.log
+  运行完了之后需要还原，找到最新的 latest，记录 id ，还原时重打 tag
+  # 删除日志后需要执行
+  sudo service rsyslog restart
+  # 日志目录下执行，查看更多信息
+  tail -f worker-manager.log|grep idleW
+  # 先拷贝，再从文件服务器下载
+  cp file /tmp/.
   # end
 ```
+
+* 日志分析
+```Shell
+# 通过 cname 找到 pid
+grep sdktest mini_app.worker.log
+
+2020-11-18 09:02:14 info mini_app.worker[27022]: media_server_library/universal_app/worker_manager_agent.cpp:44: Reveived from worker-manager: {"appId":"0c0b4b61adf94de1befd7cdd78a50444","clientAddress":"rJKDiTVW","clientRequest":{"action":"join","appId":"0c0b4b61adf94de1befd7cdd78a50444","channel_name":"sdktest111816","clientType":"wechat","key_vocs":"0c0b4b61adf94de1befd7cdd78a50444","key_vos":"0c0b4b61adf94de1befd7cdd78a50444","role":"broadcaster","uid":"0"},"cname":"sdktest111816","command":"request","gatewayType":"ws","requestId":3,"sdkAddress":"182.92.60.22:50884","sdkVersion":"1.1.0","seq":2,"sid":"35D38FE97C5141FFA1D3BA86D1BDD391","ts":1605690131,"uid":"0"}
+
+# 通过 pid 查找
+grep "\[27022\]" mini_app.worker.log
+
+2020-11-18 09:02:14 info mini_app.worker[27022]: media_server_library/universal_app/worker_manager_agent.cpp:44: Reveived from worker-manager: {"appId":"0c0b4b61adf94de1befd7cdd78a50444","clientAddress":"rJKDiTVW","clientRequest":{"action":"join","appId":"0c0b4b61adf94de1befd7cdd78a50444","channel_name":"sdktest111816","clientType":"wechat","key_vocs":"0c0b4b61adf94de1befd7cdd78a50444","key_vos":"0c0b4b61adf94de1befd7cdd78a50444","role":"broadcaster","uid":"0"},"cname":"sdktest111816","command":"request","gatewayType":"ws","requestId":3,"sdkAddress":"182.92.60.22:50884","sdkVersion":"1.1.0","seq":2,"sid":"35D38FE97C5141FFA1D3BA86D1BDD391","ts":1605690131,"uid":"0"}
+
+# 通过 publish or rtmp 找到 srs 端口
+grep publish mini_app.worker.log
+
+2020-11-18 09:18:46 info mini_app.worker[29971]: media_server_library/universal_app/worker_manager_agent.cpp:136: app-worker send message: {"gatewayType":"ws","appId":"e26dbe532a5b44359481cf169ef6eaf5","cname":"fda3c8eb8d3f20bc8b162e2fa127a552","uid":"4330","sid":"3C36F12E4BF94170AE84A1095E73B8D6","seq":2,"ts":1605691126800,"requestId":4,"code":200,"reason":"Success","command":"response","serverResponse":{"action":"publish","url":"rtmp://120.131.14.112:7244/live/oHwVhZplV7LQOER76kQF77VxqGT2omUu"}}
+
+# 通过 端口 查看 srs 日志
+ vim miniapp_srs_7244.log
+```
+
+* gdb 调试程序
+```Shell
+# 登陆 web 控制端
+docker ps
+# 任取一个
+4478f4d01dca        hub.agoralab.co/uap/mini_app/mini_app-worker                                    "./run_worker.sh"       About an hour ago   Up About an hour                        mini_app.worker-1605764111947
+# 进入镜像
+docker exec -it 4478f4d01dca bash
+# 查看具体线程
+ps aux | grep mini_app
+root     31949  0.0  0.0  19124  2392 pts/0    t+   05:35   0:01 ./mini_app.worker -c conf/rtmp-7218.conf
+# attach 线程
+gdb attach 31949
+# bt 可以查看到实时的堆栈信息
+#0  0x00007ff7e5fb36b3 in __epoll_wait_nocancel () at ../sysdeps/unix/syscall-template.S:81
+#1  0x00000000005a55de in _st_epoll_dispatch () at event.c:1236
+#2  0x00000000005a0100 in _st_idle_thread_start (arg=0x0) at sched.c:225
+#3  0x00000000005a050b in _st_thread_main () at sched.c:337
+#4  0x00000000005a0c7b in st_thread_create (start=0xf4240, arg=0x0, joinable=0, stk_size=5903284) at sched.c:616
+#5  0x00000000004be092 in SrsServer::do_cycle (this=0x10538e0) at src/app/srs_app_server.cpp:1129
+#6  0x00000000004bda55 in SrsServer::cycle (this=0x10538e0) at src/app/srs_app_server.cpp:997
+#7  0x000000000059faa1 in run_master (svr=0x10538e0) at src/main/srs_main_server.cpp:486
+#8  0x000000000059f59b in run (svr=0x10538e0) at src/main/srs_main_server.cpp:410
+#9  0x000000000059e1e3 in do_main (argc=3, argv=0x7fff18761288) at src/main/srs_main_server.cpp:185
+#10 0x000000000059e2e0 in main (argc=3, argv=0x7fff18761288) at src/main/srs_main_server.cpp:193
+# 卡在这里
+
+```
+
 
 * 小程序配置文件在 cat /etc/uap/config/worker-manager.json
 ```Shell
