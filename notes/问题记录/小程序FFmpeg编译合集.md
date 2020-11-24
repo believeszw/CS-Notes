@@ -15,6 +15,12 @@ deb http://cz.archive.ubuntu.com/ubuntu trusty main universe
 未安装或未指定 -lxxx，检查是否存在
 ```
 
+### objs/src/app/srs_app_agora.o: file not recognized: File format not recognized
+
+```Shell
+没有 make clean || 目录权限问题
+```
+
 ### C compiler test failed.
 
 解决办法：

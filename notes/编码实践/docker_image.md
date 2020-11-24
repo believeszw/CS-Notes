@@ -217,22 +217,3 @@ hash -r
 # --enable-gnutls \
 source ~/.profile
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-11111

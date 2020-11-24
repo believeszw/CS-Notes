@@ -69,6 +69,7 @@ vhost __defaultVhost__ {
 }
 ```
 * ./objs/srs -c conf/rtmp.conf
+>系统服务，init.d脚本：SRS提供srs/trunk/etc/init.d/srs脚本，可以作为CentOS或者Ubuntu的系统服务自动启动。
 
 * 启动推流编码器
 ```Shell
@@ -77,7 +78,7 @@ ffmpeg -re -i ./doc/source.200kbps.768x320.flv -vcodec copy -acodec copy -f flv 
 ffmpeg -re -i ./doc/source.200kbps.768x320.flv -c copy -f flv -y rtmp://localhost/live/livestream;
 ```
 
-* 观看RTMP流。（可以通过 VLC 或者 srs 官方 [player](http://ossrs.net/srs.release/trunk/research/players/srs_player.html?vhost=__defaultVhost__&autostart=true&server=192.168.1.170&app=live&stream=livestream&port=1935)）
+* 观看RTMP流。我 server 的 IP 地址为 10.80.0.23 则播放地址为 rtmp://10.80.0.23/live/livestream（可以通过 VLC 或者 srs 官方 [player](http://ossrs.net/srs.release/trunk/research/players/srs_player.html?vhost=__defaultVhost__&autostart=true&server=192.168.1.170&app=live&stream=livestream&port=1935)）
 ```Shell
 rtmp://localhost/live/livestream
 ```  

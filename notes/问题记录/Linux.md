@@ -21,6 +21,9 @@
 * [bitbucket_clone不了](#bitbucket_clone不了)
 * [查看系统版本](#查看系统版本)
 * [git无法拉取chromium等仓库的代码](#git无法拉取chromium等仓库的代码)
+* [ssh_copy_id后还需要密码](#ssh_copy_id后还需要密码)
+* [解决python3.7无法使用ssl模块的问题](#解决python3.7无法使用ssl模块的问题)
+
 
 ### 根据进程名杀死进程
 * ```shell
@@ -681,6 +684,52 @@ deb http://cz.archive.ubuntu.com/ubuntu trusty main universe
 vim ~/.gitconfig
 [http]
         proxy = socks5://127.0.0.1:1080
+```
+
+[回到顶部](#readme)
+
+
+### ssh_copy_id后还需要密码
+
+～/.ssh 目录下文件权限查看
+
+[回到顶部](#readme)
+
+### 解决python3.7无法使用ssl模块的问题
+
+```Shell
+# 1.下载最新版openssl
+wget https://www.openssl.org/source/openssl-1.1.1-pre8.tar.gz
+# 2.编译安装
+cd openssl-1.1.1-pre8
+./config --prefix=/usr/local/openssl
+make
+make install
+# 3.备份原配置
+mv /usr/bin/openssl /usr/bin/openssl.bak
+mv /usr/include/openssl/ /usr/include/openssl.bak
+# 4.新版配置
+#将安装好的openssl 的openssl命令软连到/usr/bin/openssl
+ln -s /usr/local/openssl/include/openssl /usr/include/openssl
+#软链到升级后的libssl.so
+mv /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libssl.so.bak
+ln -s /usr/local/openssl/lib/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so
+#将安装好的openssl命令软连到/usr/bin/openssl
+ln -s /usr/local/openssl/bin/openssl /usr/bin/openssl
+# 5.修改系统配置
+#写入openssl库文件的搜索路径
+echo "/usr/local/openssl/lib" >> /etc/ld.so.conf
+#使修改后的/etc/ld.so.conf生效
+ldconfig -v
+# 6.查看openssl版本
+openssl version
+OpenSSL 1.1.1-pre8 (beta) 20 Jun 2018
+# 7.重新安装python
+./configure --prefix=/usr/local/python37 --with-openssl=/usr/local/openssl
+make
+make install
+# 8. 或者使用 pyenv 安装
+pyenv install 3.7.0
 ```
 
 [回到顶部](#readme)
