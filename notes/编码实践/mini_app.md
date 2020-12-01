@@ -204,6 +204,8 @@ $ .build/x86_64/debug/targets/sketchpad/hello.exe
   # 登陆 https://braum.agoralab.co/luna/?_=1604571260 然后
   docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:$tag && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:$tag hub.agoralab.co/uap/mini_app/mini_app-worker:latest
   # 将上传的镜像tag更新为latest，程序会自动拉取
+  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201130_3_6805186d36d9 && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201130_3_6805186d36d9 hub.agoralab.co/uap/mini_app/mini_app-worker:latest && ./stop.sh
+
 
   # 上次可用的 manager 的镜像
   docker tag hub.agoralab.co/uap/mini_app/mini_app-manager:release_20200831_1_6a1547a33f42 hub.agoralab.co/uap/mini_app/mini_app-manager:latest
@@ -297,5 +299,15 @@ gdb attach 31949
     "checkConnectionClose": true,
     "fullCloseReport": true
   }
+}
+```
+
+* 修改 worker-manger 内 start.sh 脚本，修改启动个数，将 50 改成 0 ，然后自己启动 worker ，方便调试
+
+
+* 一次误操作出现视频，断点发现 srs_app_agora.cpp:497 ，发现 publisher_token_ 被人更新，而 publisher_stream_ 没有同步更新，导致没有画面，定位该问题
+```Shell
+} else if(publisher_token_ != publish_stream_) {
+  return ERROR_CONTROL_RTMP_CLOSE;
 }
 ```

@@ -6,6 +6,7 @@
 * [断点设置](#断点设置)
 * [变量查看](#变量查看)
 * [单步调试](#单步调试)
+* [进程线程](#进程线程)
 * [源码查看](#源码查看)
 
 
@@ -931,6 +932,50 @@ step 也后面也可以跟文件：
 
 本节主要介绍了一些简单情况的单步调试方法或常见命令使用，但这些已经够用了，毕竟大部分程序的执行或停止都在我们的掌控之中了。
 
+### 进程线程
+
+```Shell
+info proc mappings # 相当于 cat /proc/{pid}/maps 查看 maps 内存数据
+
+可以在 pthread_create 处设置断点，当线程创建时会生成提示信息。[New Thread 0xb7e78b70 (LWP 2933)]
+
+info threads # 查看所有线程列表
+
+where # 显示当前线程调用堆栈
+
+thread num # 切换线程 [Switching to thread 1 (Thread 0xb7e796c0 (LWP 2932))]#0 0xb7fe2430 in __kernel_vsyscall ()
+
+调试子进程。 (gdb) set follow-fork-mode child
+
+调试时直接调用函数。 (gdb) call test("abc")
+
+使用 "--tui" 参数，可以在终端窗口上部显示一个源代码查看窗。 $ gdb --tui hello
+
+set scheduler-locking off|on|step 在使用step或者continue命令调试当前被调试线程的时候，其他线程也是同时执行的，怎么只让被调试程序执行呢？通过这个命令就可以实现这个需求。
+off 不锁定任何线程，也就是所有线程都执行，这是默认值。
+on 只有当前被调试程序会执行。
+step 在单步的时候，除了next过一个函数的情况(熟悉情况的人可能知道，这其实是一个设置断点然后continue的行为)以外，只有当前线程会执行。
+
+# 其他
+在 GDB 下，我们无法 print 宏定义，因为宏是预编译的。但是我们还是有办法来调试宏，这个需要 GCC 的配合。在 GCC 编译程序的时候，加上 -ggdb3 参数，这样，你就可以调试宏了。另外，你可以使用下述的 GDB 的宏调试命令 来查看相关的宏。
+
+info macro – 你可以查看这个宏在哪些文件里被引用了，以及宏定义是什么样的。
+macro – 你可以查看宏展开的样子。
+
+提示找不到源文件：
+编译程序员是否加上了-g参数以包含debug信息。
+路径是否设置正确了。使用GDB的directory命令来设置源文件的目录。
+
+如果要打印一个序列化过的结构体，这个序列太长的话，往往会被gdb省略掉，如：
+gdb>p string
+"xxxx",…"" //会有省略号出现，无法看到完整的字符串
+此时可以设置：
+gdb>set print elements 0
+再次：
+gdb>p string
+"xxxx","yyyy",""//显示完整的字符串
+```
+
 ### 源码查看
 
 #### 前言
@@ -1286,6 +1331,22 @@ $ which vim
 ```
 
 这里要注意，为了在 gdb 调试模式下执行 shell 命令，需要在命令之前加上 shell ，表明这是一条 shell 命令。这样就能在不用退出 GDB 调试模式的情况下编译程序了。
+
+
+**layout使用**
+
+layout：用于分割窗口，可以一边查看代码，一边测试。主要有以下几种用法：
+layout src：显示源代码窗口
+layout asm：显示汇编窗口
+layout regs：显示源代码/汇编和寄存器窗口
+layout split：显示源代码和汇编窗口
+layout next：显示下一个layout
+layout prev：显示上一个layout
+Ctrl + L：刷新窗口
+Ctrl + x，再按1：单窗口模式，显示一个窗口
+Ctrl + x，再按2：双窗口模式，显示两个窗口
+Ctrl + x，再按a：回到传统模式，即退出layout，回到执行layout之前的调试窗口。
+
 
 **另外一种模式**
 

@@ -28,7 +28,7 @@ mkdir -p /home/${user}/shadowsocks/shadowsocks.json
   "timeout": 600,
   "method": "aes-256-cfb"
 }
-sudo sslocal -c /home/believe/shadowsocks/shadowsocks.json -d start
+sudo sslocal -c /home/szw/shadowsocks/shadowsocks.json -d start
 # proxy
 sudo apt-get install polipo
 vim /etc/polipo/config
@@ -94,7 +94,7 @@ wget https://www.nasm.us/pub/nasm/releasebuilds/2.14.02/nasm-2.14.02.tar.bz2 && 
 tar xjvf nasm-2.14.02.tar.bz2 && \
 cd nasm-2.14.02 && \
 ./autogen.sh && \
-PATH="/home/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/bin" && \
+PATH="/home/believe/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/believe/bin" && \
 make -j16 && \
 make install
 
@@ -104,8 +104,8 @@ sudo apt-get install libx264-dev
 cd /home/believe/ffmpeg/ffmpeg_sources && \
 git -C x264 pull 2> /dev/null || git clone --depth 1 https://code.videolan.org/videolan/x264.git && \
 cd x264 && \
-PATH="/home/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/bin" --enable-static --enable-pic && \
-PATH="/home/bin:$PATH" make -j16 && \
+PATH="/home/believe/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/believe/bin" --enable-static --enable-pic && \
+PATH="/home/believe/bin:$PATH" make -j16 && \
 make install
 
 # libx265
@@ -115,8 +115,8 @@ sudo apt-get install libnuma-dev && \
 cd /home/believe/ffmpeg/ffmpeg_sources && \
 git -C x265_git pull 2> /dev/null || git clone https://bitbucket.org/multicoreware/x265_git && \
 cd x265_git/build/linux && \
-PATH="/home/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off ../../source && \
-PATH="/home/bin:$PATH" make -j16 && \
+PATH="/home/believe/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off ../../source && \
+PATH="/home/believe/bin:$PATH" make -j16 && \
 make install
 
 # libvpx
@@ -125,8 +125,8 @@ sudo apt-get install libvpx-dev
 cd /home/believe/ffmpeg/ffmpeg_sources && \
 git -C libvpx pull 2> /dev/null || git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git && \
 cd libvpx && \
-PATH="/home/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm && \
-PATH="/home/bin:$PATH" make -j16 && \
+PATH="/home/believe/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm && \
+PATH="/home/believe/bin:$PATH" make -j16 && \
 make install
 
 # libfdk-aac
@@ -147,8 +147,8 @@ cd /home/believe/ffmpeg/ffmpeg_sources && \
 wget -O lame-3.100.tar.gz https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz && \
 tar xzvf lame-3.100.tar.gz && \
 cd lame-3.100 && \
-PATH="/home/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/bin" --disable-shared --enable-nasm && \
-PATH="/home/bin:$PATH" make -j16 && \
+PATH="/home/believe/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/believe/bin" --disable-shared --enable-nasm && \
+PATH="/home/believe/bin:$PATH" make -j16 && \
 make install
 
 # libopus
@@ -163,12 +163,12 @@ make -j16 && \
 make install
 
 # libaom
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/szw/ffmpeg/ffmpeg_sources && \
 git -C aom pull 2> /dev/null || git clone --depth 1 https://aomedia.googlesource.com/aom && \
 mkdir -p aom_build && \
 cd aom_build && \
-PATH="/home/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off -DENABLE_NASM=on ../aom && \
-PATH="/home/bin:$PATH" make -j16 && \
+PATH="/home/believe/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off -DENABLE_NASM=on ../aom && \
+PATH="/home/believe/bin:$PATH" make -j16 && \
 make install
 
 # libsvtav1
@@ -176,8 +176,8 @@ cd /home/believe/ffmpeg/ffmpeg_sources && \
 git -C SVT-AV1 pull 2> /dev/null || git clone https://github.com/AOMediaCodec/SVT-AV1.git && \
 mkdir -p SVT-AV1/build && \
 cd SVT-AV1/build && \
-PATH="/home/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DCMAKE_BUILD_TYPE=Release -DBUILD_DEC=OFF -DBUILD_SHARED_LIBS=OFF .. && \
-PATH="/home/bin:$PATH" make -j16 && \
+PATH="/home/believe/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DCMAKE_BUILD_TYPE=Release -DBUILD_DEC=OFF -DBUILD_SHARED_LIBS=OFF .. && \
+PATH="/home/believe/bin:$PATH" make -j16 && \
 make install
 
 # lame-3.99
@@ -188,14 +188,14 @@ cd /home/believe/ffmpeg/ffmpeg_sources && \
 wget -O ffmpeg-4.1.tar.bz2  https://ffmpeg.org/releases/ffmpeg-4.1.tar.bz2  && \
 tar xjvf ffmpeg-4.1.tar.bz2  && \
 cd ffmpeg-4.1 && \
-PATH="/home/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure \
+PATH="/home/believe/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure \
   --enable-gpl --enable-nonfree \
   --prefix="/home/believe/ffmpeg/ffmpeg_build" \
   --pkg-config-flags="--static" \
   --extra-cflags="-I/home/believe/ffmpeg/ffmpeg_build/include" \
   --extra-ldflags="-L/home/believe/ffmpeg/ffmpeg_build/lib" \
   --extra-libs="-lpthread -lm" \
-  --bindir="/home/bin" \
+  --bindir="/home/believe/bin" \
   --enable-static \
   --disable-shared \
   --disable-debug \
@@ -209,7 +209,7 @@ PATH="/home/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_build/lib/pk
   --enable-libx264 --enable-libmp3lame --enable-libfdk-aac --enable-libspeex \
   --enable-pthreads --extra-libs=-lpthread \
   --enable-encoders --enable-decoders --enable-avfilter --enable-muxers --enable-demuxers && \
-PATH="/home/bin:$PATH" make -j16 && \
+PATH="/home/believe/bin:$PATH" make -j16 && \
 make install && \
 hash -r
 # 这几个有问题

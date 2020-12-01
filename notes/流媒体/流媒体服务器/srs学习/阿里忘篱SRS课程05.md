@@ -1,119 +1,79 @@
-# [04 课 11.13.02:40](https://www.bilibili.com/video/BV1az4y1Q7zL/?spm_id_from=trigger_reload)
+# [05 课 11.25.03:00](https://www.bilibili.com/video/BV1mD4y1S7jy)
 
-## SRS 配置
+# SRS 开发
 
-### 配置文件结构
+## Log
 
-* conf 目录下根据场景有很多对应的配置文件
+### 基于连接的可分离日志
 
-* 开发时将日志打印在控制台上 ./objs/srs -c conf/console.conf
+```Shell
+szw@nxiot-server-02:~/my_proj/srs/trunk$ ./objs/srs -c conf/console.conf
+[2020-11-25 02:18:33.842][Trace][27273][396] server main cid=396, pid=27273, ppid=27211, asprocess=0
+# endline
+```
+* 颜色区分日志级别
 
-* 查看 console.conf 文件
-```Cpp
-cat conf/console.conf
-# no-daemon and write log to console config for srs.
-# @see full.conf for detail config.
-listen              1935;
-max_connections     1000;
-daemon              off;
-srs_log_tank        console;
-http_api {
-    enabled         on;
-    listen          1985;
-}
-http_server {
-    enabled         on;
-    listen          8080;
-}
-vhost __defaultVhost__ {
-}
+* 进程 pid 27273
+
+* 服务器本身 id 396 ，用 ffmpeg 推流后会产生一个新的 id
+
+* err 日志，当我们用 ffmpeg 推重复的流，server 会有 err 级别的日志产生，可以看到程序的堆栈信息，方便快速定位问题
+```Shell
+[2020-11-25 02:22:08.610][Error][27273][403][11] serve error code=1028 : service cycle : rtmp: stream service : rtmp: stream /live/livestream is busy
+thread [27273][403]: do_cycle() [src/app/srs_app_rtmp_conn.cpp:210][errno=11]
+thread [27273][403]: service_cycle() [src/app/srs_app_rtmp_conn.cpp:399][errno=11]
+thread [27273][403]: acquire_publish() [src/app/srs_app_rtmp_conn.cpp:931][errno=11](Resource temporarily unavailable)
+# endline
 ```
 
-* srs 默认配置文件，docker 中也会默认使用这个 --- conf/srs.conf
-```Cpp
-[root@48891d1136d8 trunk]# cat conf/srs.conf
-# main config for srs.
-# @see full.conf for detail config.
-listen              1935;
-max_connections     1000;
-srs_log_tank        file;
-srs_log_file        ./objs/srs.log;
-daemon              on;
-http_api {
-    enabled         on;
-    listen          1985;
-}
-http_server {
-    enabled         on;
-    listen          8080;
-    dir             ./objs/nginx/html;
-}
-stats {
-    network         0;
-    disk            sda sdb xvda xvdb;
-}
-vhost __defaultVhost__ {
-    hls {
-        enabled         on;
-    }
-    http_remux {
-        enabled     on;
-        mount       [vhost]/[app]/[stream].flv;
-    }
-}
+### 错误日志、错误码和堆栈
+
+```Shell
+[2020-11-25 02:22:08.610][Error][27273][403][11] serve error code=1028 : service cycle : rtmp: stream service : rtmp: stream /live/livestream is busy
+thread [27273][403]: do_cycle() [src/app/srs_app_rtmp_conn.cpp:210][errno=11]
+thread [27273][403]: service_cycle() [src/app/srs_app_rtmp_conn.cpp:399][errno=11]
+thread [27273][403]: acquire_publish() [src/app/srs_app_rtmp_conn.cpp:931][errno=11](Resource temporarily unavailable)
+# endline
+```
+刚刚产生的 err 日志，会有详细的信息，包括错误码，可以到 **src/kernel/srs_kernel_error.hpp** 去查看产生的错误吗的原因，这里的 1028 对应 **#define ERROR_SYSTEM_STREAM_BUSY 1028**，还有堆栈的信息，对应的文件和行数
+
+
+### 崩溃时的 coredump
+
+```Shell
+szw@nxiot-server-02:~/my_proj/srs/trunk$ ulimit -a
+core file size          (blocks, -c) 0   # 关注下这一行，需要 ulimit -c unlimited 打开
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 127892
+max locked memory       (kbytes, -l) 65536
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 127892
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+```
+拿到 core 文件后，执行对应的可执行文件
+```Shell
+gdb objs/srs -c core.29487
+bt 打印堆栈
+#1  0x000000000...
+#2  0x........
+#3  0x........
+f 3 可以进入到第三行函数
+p 打印局部变量
 ```
 
-* srs 所有配置项 conf/full.conf
+### WebRTC 客户端日志
 
-* srs 服务器 main 函数 ----  src/main/srs_main_server.cpp
+```Shell
+在 chrome 地址栏输入 chrome://webrtc-internals
+一般可以找到 xxRTPVideoStream ，点击查看详细信息
 
-* main 中有这么一个函数 SrsConfig::parse_options 可以通过 gdb 来行进调试
-```CPP
-[root@48891d1136d8 trunk]# gdb --args ./objs/srs -c conf/console.conf
-[root@48891d1136d8 trunk]# b SrsConfig::parse_options
 ```
-
-### 隔离，应用到不同的客户
-
-*  通过 vhost 实现不同的流用不同的配置
-```Cpp
-[root@48891d1136d8 trunk]# vim conf/console.conf
-...
-http_server {
-  ...
-}
-vhost sport.ossrs.net {
-  drv {
-    ...
-  }
-}
-vhost tv.orrsr.net {
-  hls {
-    ...  
-  }
-  drv {
-    ...
-  }
-}
-```
-
-* 推流的时候指定 vhost
-```Cpp
-// err serve error code=2014 : service cycle : rtmp : stream service : check vhost : rtmp : nohost 127.0.0.1
-[root@48891d1136d8 trunk]# ffmpeg -re -i ./doc/source.200kbps.768x320.flv -c copy -f flv -y rtmp://127.0.0.1/live/livestream
-// yes 会推到 vhost=sport.ossrs.net
-[root@48891d1136d8 trunk]# ffmpeg -re -i ./doc/source.200kbps.768x320.flv -c copy -f flv -y rtmp://127.0.0.1/live/livestream?vhost=sport.ossrs.net
-// 如果推到 tv 的话，则录制和 hls 都会启用
-```
-
-### Reload 不重启服务生效配置
-
-* 输入 killall -1 srs 就会 reload conf  
-
-* 可以修改 conf/console.conf 中 srs_log_tank 对应值 为 file ，再运行上述命令，可以看到输出到了文件中去
-
-* 可以关注并调试 SrsFastLog::on_reload_log_tank()
-
-### 新增自己的配置
-
-* 参考 srs_app_config.cpp
