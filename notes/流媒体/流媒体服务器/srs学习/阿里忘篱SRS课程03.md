@@ -1,4 +1,4 @@
-# [03 课 11.12.02:45](https://www.bilibili.com/video/BV1az4y1Q7zL/?spm_id_from=trigger_reload)
+# [03 课 11.12](https://www.bilibili.com/video/BV1az4y1Q7zL/?spm_id_from=trigger_reload)
 
 ## SRS 开发
 

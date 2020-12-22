@@ -1,4 +1,4 @@
-# [01 课 11.11.02:30](https://www.bilibili.com/video/BV1M54y1z7jo?from=search&seid=4271973255692090161)
+# [01 课 11.11](https://www.bilibili.com/video/BV1M54y1z7jo?from=search&seid=4271973255692090161)
 
 
 ## Scenario:互联网直播和连麦

@@ -184,18 +184,18 @@ make install
 # speex-1.2rc1
 
 # FFmpeg
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/szw/ffmpeg/ffmpeg_sources && \
 wget -O ffmpeg-4.1.tar.bz2  https://ffmpeg.org/releases/ffmpeg-4.1.tar.bz2  && \
 tar xjvf ffmpeg-4.1.tar.bz2  && \
 cd ffmpeg-4.1 && \
-PATH="/home/believe/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure \
+PATH="/home/szw/bin:$PATH" PKG_CONFIG_PATH="/home/szw/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure \
   --enable-gpl --enable-nonfree \
-  --prefix="/home/believe/ffmpeg/ffmpeg_build" \
+  --prefix="/home/szw/ffmpeg/ffmpeg_build" \
   --pkg-config-flags="--static" \
-  --extra-cflags="-I/home/believe/ffmpeg/ffmpeg_build/include" \
-  --extra-ldflags="-L/home/believe/ffmpeg/ffmpeg_build/lib" \
+  --extra-cflags="-I/home/szw/ffmpeg/ffmpeg_build/include" \
+  --extra-ldflags="-L/home/szw/ffmpeg/ffmpeg_build/lib" \
   --extra-libs="-lpthread -lm" \
-  --bindir="/home/believe/bin" \
+  --bindir="/home/szw/bin" \
   --enable-static \
   --disable-shared \
   --disable-debug \
@@ -206,10 +206,12 @@ PATH="/home/believe/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_buil
   --enable-bzlib \
   --enable-zlib \
   --enable-parsers \
-  --enable-libx264 --enable-libmp3lame --enable-libfdk-aac --enable-libspeex \
+  --enable-libx264 --enable-libmp3lame --enable-libfdk-aac \
+  --enable-encoder=libfdk_aac --enable-decoder=libfdk_aac \
+  --enable-muxer=adts \
   --enable-pthreads --extra-libs=-lpthread \
   --enable-encoders --enable-decoders --enable-avfilter --enable-muxers --enable-demuxers && \
-PATH="/home/believe/bin:$PATH" make -j16 && \
+PATH="/home/szw/bin:$PATH" make -j16 && \
 make install && \
 hash -r
 # 这几个有问题

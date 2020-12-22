@@ -204,7 +204,7 @@ $ .build/x86_64/debug/targets/sketchpad/hello.exe
   # 登陆 https://braum.agoralab.co/luna/?_=1604571260 然后
   docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:$tag && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:$tag hub.agoralab.co/uap/mini_app/mini_app-worker:latest
   # 将上传的镜像tag更新为latest，程序会自动拉取
-  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201130_3_6805186d36d9 && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201130_3_6805186d36d9 hub.agoralab.co/uap/mini_app/mini_app-worker:latest && ./stop.sh
+  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201222_1_cc7a99d87689 && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201222_1_cc7a99d87689 hub.agoralab.co/uap/mini_app/mini_app-worker:latest && ./stop.sh
 
 
   # 上次可用的 manager 的镜像
@@ -213,6 +213,7 @@ $ .build/x86_64/debug/targets/sketchpad/hello.exe
   # 原始 release_20201022_4_c10922a0d92c
   hub.agoralab.co/uap/mini_app/mini_app-worker                        release_20201022_8_f990be8ad911   f990be8ad911        3 weeks ago         626MB
   44de568db97d        hub.agoralab.co/uap/mini_app/mini_app-manager:release_20200421_1_5aaa0d834f68   "/usr/src/run_app.sh"   5 hours ago         Up 5 hours                              worker-manager
+  docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201022_8_f990be8ad911 hub.agoralab.co/uap/mini_app/mini_app-worker:latest
 
   docker images | grep latest
   # 删除原来在运行的镜像，他会自动拉取最新的
@@ -311,3 +312,19 @@ gdb attach 31949
   return ERROR_CONTROL_RTMP_CLOSE;
 }
 ```
+
+* 编译 serversdk2 报错
+编译报错 vdpau 被开启了，disable 掉
+```shell
+libavcodec/h264.c:2015:63: error: 'AV_CODEC_CAP_HWACCEL_VDPAU' undeclared here (not in a function)
+     .capabilities   = AV_CODEC_CAP_DR1 | AV_CODEC_CAP_DELAY | AV_CODEC_CAP_HWACCEL_VDPAU,
+```                
+
+* serversdk 环境
+```Shell
+docker login https://hub-master.agoralab.co/
+username:shenzewei@agora.io pwd:xxxxxxx
+docker run --name serversdk2 -itd -v /home/szw/bitbucket/:/mnt hub-master.agoralab.co/server-sdk2/builder:ubuntu14.04-cuda10.1
+```
+
+2020-12-07 06:25:47 info worker-manager.exe[10746]: universal-app-platform/edge-server/worker-manager/worker_center.cpp:201: |app-worker pid:4233389253, key: (appId:2a89a275a9fe442784041d0468b0fa5b) (cname:10798643) (uid:10112957)  (address:127.0.0.1:48872)  (state:active) (user_count:1)  (ingress:1)  | key string 2a89a275a9fe442784041d0468b0fa5b1079864310112957

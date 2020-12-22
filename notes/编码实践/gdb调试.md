@@ -426,7 +426,7 @@ clear   #删除当前行所有breakpoints
 clear function  #删除函数名为function处的断点
 clear filename:function #删除文件filename中函数function处的断点
 clear lineNum #删除行号为lineNum处的断点
-clear f:lename：lineNum #删除文件filename中行号为lineNum处的断点
+clear filename：lineNum #删除文件filename中行号为lineNum处的断点
 delete  #删除所有breakpoints,watchpoints和catchpoints
 delete bnum #删除断点号为bnum的断点
 ```
@@ -615,7 +615,7 @@ $2 = 1000
 examine (简写为 x )可以用来查看内存地址中的值。语法如下：
 
 ```shell
-x/[n][f][u] addr
+x/[n][u][f] addr
 ```
 
 其中：
@@ -1365,3 +1365,5 @@ gdb main -tuiGDB-TUI
 ### 总结
 
 本文介绍了 GDB 最常见的用法，了解这些之后能够使用 GDB 定位大部分问题。但是 GDB 的使用远不止如此，这些当你遇到更加复杂的情况的时候再去学习吧。
+
+[传送门](https://wizardforcel.gitbooks.io/100-gdb-tips/content/info-function.html)

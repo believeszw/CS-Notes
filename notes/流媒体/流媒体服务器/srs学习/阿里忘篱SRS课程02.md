@@ -1,4 +1,4 @@
-# [02 课 11.12.01:30](https://www.bilibili.com/video/BV19A411v7Zz)
+# [02 课 11.12](https://www.bilibili.com/video/BV19A411v7Zz)
 
 ## SRS 使用
 

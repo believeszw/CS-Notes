@@ -1,4 +1,4 @@
-# [05 课 11.25.03:00](https://www.bilibili.com/video/BV1mD4y1S7jy)
+# [05 课 11.25](https://www.bilibili.com/video/BV1mD4y1S7jy)
 
 # SRS 开发
 
