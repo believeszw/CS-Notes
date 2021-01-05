@@ -34,6 +34,7 @@ rtmp://10.80.0.23/live/livestream
 
 ### Docker：开发和运行
 
+[docker仓库](https://github.com/ossrs/srs-docker/tree/rtc) 可以参考 README 其中仓库的 tag 也是 docker 镜像的 tag，存在与之对应的镜像
 
 ### 为什么黑屏
 
@@ -103,17 +104,12 @@ env | grep CANDIDATE
 
 ### 代码结构
 
+ RTC 配置分为 2 部分，一部分是 RTC ，一部分是 RTMP。
 
+ RTMP 推流 RTC 也能播； RTC 推流， RTMP 也能播。
 
+* 推 RTMP 流在 srs_app_source 中
 
+* 推 RTC 在 srs_app_rtc_source 中
 
-
-
-
-
-
-
-
-
-
-11126491
+其中 SrsRtcFromRtmpBridger : public  ISrsourceBridger 可以把 RTMP 流转成 RTC 送到 srs_app_rtc_source
