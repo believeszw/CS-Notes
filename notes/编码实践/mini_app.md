@@ -294,6 +294,8 @@ gdb attach 31949
   },
   "keyList": ["appId", "cname", "uid"],
   "appCenter": {
+    "host": [ "120.92.139.240", "120.131.1.101" ],
+    "port": 4317
   },
   "sdk": {
     "aliveTimeoutSeconds": 10,
