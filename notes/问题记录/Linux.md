@@ -23,7 +23,7 @@
 * [git无法拉取chromium等仓库的代码](#git无法拉取chromium等仓库的代码)
 * [ssh_copy_id后还需要密码](#ssh_copy_id后还需要密码)
 * [解决python3.7无法使用ssl模块的问题](#解决python3.7无法使用ssl模块的问题)
-
+* [安装zsh](#安装zsh)
 
 ### 根据进程名杀死进程
 * ```shell
@@ -730,6 +730,54 @@ make
 make install
 # 8. 或者使用 pyenv 安装
 pyenv install 3.7.0
+```
+
+[回到顶部](#readme)
+
+### 安装zsh
+
+```Shell
+# 查看系统当前使用的shell
+echo $SHELL
+# 查看系统自带哪些shell
+cat /etc/shells
+# 安装 zsh
+apt install zsh -y
+# 将 zsh 设置为系统默认 shell
+sudo chsh -s /bin/zsh
+# 自动安装，如果你没安装 git 需要先安装 git
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+# 或者也可以选择手动安装
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+# 安装插件
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# 配置 zshrc
+plugins=(
+    autojump
+    git
+    extract
+    vi-mode
+    vscode
+    z
+    zsh-navigation-tools
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    python
+    docker
+    docker-compose
+    osx
+    brew
+    github
+    colorize
+    colored-man-pages
+)
+HIST_STAMPS="mm/dd/yyyy"
+zsh /home/shadowsocks/run.sh
+/etc/init.d/polipo restart
+export all_proxy="http://127.0.0.1:8123"
+#export https_proxy="http://127.0.0.1:8123"
 ```
 
 [回到顶部](#readme)

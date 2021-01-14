@@ -44,23 +44,32 @@ serverSlots = 16
 serverSlots1 = 32
 sudo /etc/init.d/polipo restart
 # start
-sudo sslocal -c /home/believe/shadowsocks/shadowsocks.json -d start
+sudo sslocal -c /home/shadowsocks/shadowsocks.json -d start
 export http_proxy="http://127.0.0.1:8123/"
 curl www.google.com
+```
+
+* 配置 git 代理
+
+```Shell
+# git config --global http.proxy 'socks5://127.0.0.1:8123'
+# git config --global https.proxy 'socks5://127.0.0.1:8123'
+git config --global http.proxy 'http://127.0.0.1:8123'
+git config --global https.proxy 'http://127.0.0.1:8123'
+注意端口号也设置代理的端口号，不同vpn，不同系统端口号可能不同。
 ```
 
 * ffmpeg
 
 ```Cpp
 # Get the Dependencies
-sudo apt-get update -qq && sudo apt-get -y install \
+apt-get update -qq && apt-get -y install \
   git  \
   aptitude  \
   libsdl2-2.0-0  \
   libegl1-mesa-dev  \
   libgles2-mesa-dev  \
   libglu1-mesa-dev  \
-  libva-glx1  \
   autoconf \
   automake \
   build-essential \
@@ -82,120 +91,122 @@ sudo apt-get update -qq && sudo apt-get -y install \
   wget \
   yasm \
   lzma \
+  libbz2-dev \
+  liblzma-dev \
   zlib1g-dev
 # out_dir
-mkdir -p /home/believe/ffmpeg/ffmpeg_sources /home/believe/bin
+mkdir -p /home/ffmpeg/ffmpeg_sources /home/bin
 
 # NASM
-sudo apt-get install nasm
+apt-get install nasm
 # or
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 wget https://www.nasm.us/pub/nasm/releasebuilds/2.14.02/nasm-2.14.02.tar.bz2 && \
 tar xjvf nasm-2.14.02.tar.bz2 && \
 cd nasm-2.14.02 && \
 ./autogen.sh && \
-PATH="/home/believe/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/believe/bin" && \
+PATH="/home/bin:$PATH" ./configure --prefix="/home/ffmpeg/ffmpeg_build" --bindir="/home/bin" && \
 make -j16 && \
 make install
 
 # libx264
-sudo apt-get install libx264-dev
+apt-get install libx264-dev
 # or
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 git -C x264 pull 2> /dev/null || git clone --depth 1 https://code.videolan.org/videolan/x264.git && \
 cd x264 && \
-PATH="/home/believe/bin:$PATH" PKG_CONFIG_PATH="/home/believe/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/believe/bin" --enable-static --enable-pic && \
-PATH="/home/believe/bin:$PATH" make -j16 && \
+PATH="/home/bin:$PATH" PKG_CONFIG_PATH="/home/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure --prefix="/home/ffmpeg/ffmpeg_build" --bindir="/home/bin" --enable-static --enable-pic && \
+PATH="/home/bin:$PATH" make -j16 && \
 make install
 
 # libx265
-sudo apt-get install libx265-dev libnuma-dev
+apt-get install libx265-dev libnuma-dev
 # or
-sudo apt-get install libnuma-dev && \
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+apt-get install libnuma-dev && \
+cd /home/ffmpeg/ffmpeg_sources && \
 git -C x265_git pull 2> /dev/null || git clone https://bitbucket.org/multicoreware/x265_git && \
 cd x265_git/build/linux && \
-PATH="/home/believe/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off ../../source && \
-PATH="/home/believe/bin:$PATH" make -j16 && \
+PATH="/home/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off ../../source && \
+PATH="/home/bin:$PATH" make -j16 && \
 make install
 
 # libvpx
-sudo apt-get install libvpx-dev
+apt-get install libvpx-dev
 # or
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 git -C libvpx pull 2> /dev/null || git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git && \
 cd libvpx && \
-PATH="/home/believe/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm && \
-PATH="/home/believe/bin:$PATH" make -j16 && \
+PATH="/home/bin:$PATH" ./configure --prefix="/home/ffmpeg/ffmpeg_build" --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm && \
+PATH="/home/bin:$PATH" make -j16 && \
 make install
 
 # libfdk-aac
-sudo apt-get install libfdk-aac-dev
+apt-get install libfdk-aac-dev
 # or
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 git -C fdk-aac pull 2> /dev/null || git clone --depth 1 https://github.com/mstorsjo/fdk-aac && \
 cd fdk-aac && \
 autoreconf -fiv && \
-./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --disable-shared && \
+./configure --prefix="/home/ffmpeg/ffmpeg_build" --disable-shared && \
 make -j16 && \
 make install
 
 # libmp3lame
-sudo apt-get install libmp3lame-dev
+apt-get install libmp3lame-dev
 # or
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 wget -O lame-3.100.tar.gz https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz && \
 tar xzvf lame-3.100.tar.gz && \
 cd lame-3.100 && \
-PATH="/home/believe/bin:$PATH" ./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --bindir="/home/believe/bin" --disable-shared --enable-nasm && \
-PATH="/home/believe/bin:$PATH" make -j16 && \
+PATH="/home/bin:$PATH" ./configure --prefix="/home/ffmpeg/ffmpeg_build" --bindir="/home/bin" --disable-shared --enable-nasm && \
+PATH="/home/bin:$PATH" make -j16 && \
 make install
 
 # libopus
-sudo apt-get install libopus-dev
+apt-get install libopus-dev
 # or
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 git -C opus pull 2> /dev/null || git clone --depth 1 https://github.com/xiph/opus.git && \
 cd opus && \
 ./autogen.sh && \
-./configure --prefix="/home/believe/ffmpeg/ffmpeg_build" --disable-shared && \
+./configure --prefix="/home/ffmpeg/ffmpeg_build" --disable-shared && \
 make -j16 && \
 make install
 
 # libaom
-cd /home/szw/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 git -C aom pull 2> /dev/null || git clone --depth 1 https://aomedia.googlesource.com/aom && \
 mkdir -p aom_build && \
 cd aom_build && \
-PATH="/home/believe/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off -DENABLE_NASM=on ../aom && \
-PATH="/home/believe/bin:$PATH" make -j16 && \
+PATH="/home/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/ffmpeg/ffmpeg_build" -DENABLE_SHARED=off -DENABLE_NASM=on ../aom && \
+PATH="/home/bin:$PATH" make -j16 && \
 make install
 
 # libsvtav1
-cd /home/believe/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 git -C SVT-AV1 pull 2> /dev/null || git clone https://github.com/AOMediaCodec/SVT-AV1.git && \
 mkdir -p SVT-AV1/build && \
 cd SVT-AV1/build && \
-PATH="/home/believe/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/believe/ffmpeg/ffmpeg_build" -DCMAKE_BUILD_TYPE=Release -DBUILD_DEC=OFF -DBUILD_SHARED_LIBS=OFF .. && \
-PATH="/home/believe/bin:$PATH" make -j16 && \
+PATH="/home/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/home/ffmpeg/ffmpeg_build" -DCMAKE_BUILD_TYPE=Release -DBUILD_DEC=OFF -DBUILD_SHARED_LIBS=OFF .. && \
+PATH="/home/bin:$PATH" make -j16 && \
 make install
 
 # lame-3.99
 # speex-1.2rc1
 
 # FFmpeg
-cd /home/szw/ffmpeg/ffmpeg_sources && \
+cd /home/ffmpeg/ffmpeg_sources && \
 wget -O ffmpeg-4.1.tar.bz2  https://ffmpeg.org/releases/ffmpeg-4.1.tar.bz2  && \
 tar xjvf ffmpeg-4.1.tar.bz2  && \
 cd ffmpeg-4.1 && \
-PATH="/home/szw/bin:$PATH" PKG_CONFIG_PATH="/home/szw/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure \
+PATH="/home/bin:$PATH" PKG_CONFIG_PATH="/home/ffmpeg/ffmpeg_build/lib/pkgconfig" ./configure \
   --enable-gpl --enable-nonfree \
-  --prefix="/home/szw/ffmpeg/ffmpeg_build" \
+  --prefix="/home/ffmpeg/ffmpeg_build" \
   --pkg-config-flags="--static" \
-  --extra-cflags="-I/home/szw/ffmpeg/ffmpeg_build/include" \
-  --extra-ldflags="-L/home/szw/ffmpeg/ffmpeg_build/lib" \
+  --extra-cflags="-I/home/ffmpeg/ffmpeg_build/include" \
+  --extra-ldflags="-L/home/ffmpeg/ffmpeg_build/lib" \
   --extra-libs="-lpthread -lm" \
-  --bindir="/home/szw/bin" \
+  --bindir="/home/bin" \
   --enable-static \
   --disable-shared \
   --disable-debug \
@@ -211,7 +222,7 @@ PATH="/home/szw/bin:$PATH" PKG_CONFIG_PATH="/home/szw/ffmpeg/ffmpeg_build/lib/pk
   --enable-muxer=adts \
   --enable-pthreads --extra-libs=-lpthread \
   --enable-encoders --enable-decoders --enable-avfilter --enable-muxers --enable-demuxers && \
-PATH="/home/szw/bin:$PATH" make -j16 && \
+PATH="/home/bin:$PATH" make -j16 && \
 make install && \
 hash -r
 # 这几个有问题
