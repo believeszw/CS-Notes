@@ -189,9 +189,9 @@ Video Tag 包含 VideoTagHeader 和 VideoTagBody 两部分。
 
 |字段|类型|说明|
 |---|---|---|
-|FrameType|UB [4]|帧类型：1: keyframe (for AVC, a seekable frame) 2: inter frame (for AVC, a non-seekable frame)3: disposable inter frame (H.263 only)4: generated keyframe (reserved for server use only)5: video info/command frame|
-|CodecID|UB [4]|编解码器标识：1: JPEG (currently unused) 2: Sorenson H.2633: Screen video4: On2 VP65: On2 VP6 with alpha channel6: Screen video version 27: AVC|
-|IF CodecID == 7　AVCPacketType|UI8|AVC帧类型：0 = AVC sequence header1 = AVC NALU2 = AVC end of sequence (lower level NALU sequence ender is not required or supported)|
+|FrameType|UB [4]|帧类型：1: keyframe (for AVC, a seekable frame) 2: inter frame (for AVC, a non-seekable frame) 3: disposable inter frame (H.263 only) 4: generated keyframe (reserved for server use only) 5: video info/command frame|
+|CodecID|UB [4]|编解码器标识：1: JPEG (currently unused) 2: Sorenson H.263 3: Screen video 4: On2 VP6 5: On2 VP6 with alpha channel 6: Screen video version 2 7: AVC|
+|IF CodecID == 7　AVCPacketType|UI8|AVC帧类型：0 = AVC sequence header 1 = AVC NALU 2 = AVC end of sequence (lower level NALU sequence ender is not required or supported)|
 |IF CodecID == 7　CompositionTime|UI24|PTS 与 DTS 的时间偏移值，单位 ms，记作 CTS。参考 "ISO 14496-12, 8.15.3"|
 
 H.264 的命名遵循了 ITU-T 的命名约定，它是 VCEG 视频编码标准 H.26x 线中的一员；MPEG-4 AVC 的命名来自 ISO/IEC MPEG 的命名约定，它是 ISO/IEC 14496 的第 10 部分，该协议族被称为 MPEG-4。
