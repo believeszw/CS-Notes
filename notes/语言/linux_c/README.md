@@ -12,3 +12,7 @@
 - [全局变量](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/linux_c/globalvar.md)
 
   全局变量与局部变量在访问方式上有什么不同
+
+- [函数调用](https://github.com/believeszw/CS-Notes/blob/master/notes/语言/linux_c/call.md)
+
+  调用一个函数的前前后后
