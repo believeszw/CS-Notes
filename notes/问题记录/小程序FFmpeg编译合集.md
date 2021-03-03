@@ -28,7 +28,7 @@ deb http://cz.archive.ubuntu.com/ubuntu trusty main universe
   如果你不是因为没有安装gcc导致的问题，那么你很可能和我一样，某个地方写错了导致gcc编译没过去，你可以查看misc_src/ffmpeg-4.2.2/ffbuild/config.log文件，看下你哪里写错了。相信你可以的。
   或者使用 clang 编译
 
-### xxx not found using pkg-config
+### xxx not found using pkg-config | ERROR: libmp3lame >= 3.98.3 not found
 
 ```Shell
 export PKG_CONFIG_PATH=/mnt/media_build/media_server_miniapp/srs/objs/ffmpeg.sr

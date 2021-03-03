@@ -204,7 +204,7 @@ $ .build/x86_64/debug/targets/sketchpad/hello.exe
   # 登陆 https://braum.agoralab.co/luna/?_=1604571260 然后
   docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:$tag && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:$tag hub.agoralab.co/uap/mini_app/mini_app-worker:latest
   # 将上传的镜像tag更新为latest，程序会自动拉取
-  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201230_3_11f90311ed8f && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20201230_3_11f90311ed8f hub.agoralab.co/uap/mini_app/mini_app-worker:latest && ./stop.sh
+  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20210301_3_752eb559220b && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20210301_3_752eb559220b hub.agoralab.co/uap/mini_app/mini_app-worker:latest && ./stop.sh
 
 
   # 上次可用的 manager 的镜像
@@ -218,6 +218,7 @@ $ .build/x86_64/debug/targets/sketchpad/hello.exe
   docker images | grep latest
   # 删除原来在运行的镜像，他会自动拉取最新的
   docker ps|grep mini_app.worker|awk '{print $1}'|xargs docker rm -f
+  docker images|grep "7 weeks ago" |awk '{print $3}'|xargs docker rmi -f
   # 查看正在运行的
   docker ps
 ```
@@ -294,7 +295,8 @@ gdb attach 31949
   },
   "keyList": ["appId", "cname", "uid"],
   "appCenter": {
-    "host": [ "120.92.139.240", "120.131.1.101" ],
+    "host": [ "120.92.139.239", "120.131.1.100" ],
+    #"host": [ "120.92.139.240", "120.131.1.101" ],测试服务器上的是这个
     "port": 4317
   },
   "sdk": {

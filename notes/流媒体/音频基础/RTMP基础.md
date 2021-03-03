@@ -191,7 +191,7 @@ ffmpeg -re -i test.mp4 -c copy -f flv rtmp://192.168.0.103:1935/live/test
 图二：
 <div align="center"> <img src="pic/flv_tag_02.jpg" width="900px"> </div><br>
 
-这个图是一个 RTMP Chunk 消息，消息体是一个 Video FLV Tag，字段名称后面的数字表示长度，单位是 bit。这几个字段消息描述，可以参考[《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/流媒体服务器/FLV文件格式分析.md)一文。
+这个图是一个 RTMP Chunk 消息，消息体是一个 Video FLV Tag，字段名称后面的数字表示长度，单位是 bit。这几个字段消息描述，可以参考[《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/音视频基础/FLV文件格式分析.md)一文。
 
 * FrameType 是 4 个 bit。取值 1：keyframe，2：inter frame
 
@@ -201,7 +201,7 @@ ffmpeg -re -i test.mp4 -c copy -f flv rtmp://192.168.0.103:1935/live/test
 
 * Composition Time 是 24 个 bit。表示时间，暂且不用关注。
 
-AVCDecorderConfigurationRecord 结构的详细说明，参考[《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/流媒体服务器/FLV文件格式分析.md)一文。AVCDecorderConfigurationRecord 结构中包含了 H264 SPS/PPS 信息。
+AVCDecorderConfigurationRecord 结构的详细说明，参考[《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/音视频基础/FLV文件格式分析.md)一文。AVCDecorderConfigurationRecord 结构中包含了 H264 SPS/PPS 信息。
 
 现在我们通过 Wireshark 抓包来分析一下图一和图二中所展示的数据格式。
 
@@ -212,7 +212,7 @@ AVCDecorderConfigurationRecord 结构的详细说明，参考[《FLV 文件格�
 
 RTMP body 是从 0440 行，内容为 0x17 的数值开始的。0x17 的高 4个 bit 等于 1，表示 keyFrame，低 4 个 bit 等于 7，表示是 H264 codec。
 
-0x17 后面的一个字节 0x00 表示 AVCPacketType。紧接 AVCPacketType 着后面的三个字节是 CompositionTime。由于 AVCPacketType 等于 0，所以 CompositionTime 后面的内容是 AVCDecorderConfigurationRecord 结构，这个结构需要参考 [《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/流媒体服务器/FLV文件格式分析.md)一文。
+0x17 后面的一个字节 0x00 表示 AVCPacketType。紧接 AVCPacketType 着后面的三个字节是 CompositionTime。由于 AVCPacketType 等于 0，所以 CompositionTime 后面的内容是 AVCDecorderConfigurationRecord 结构，这个结构需要参考 [《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/音视频基础/FLV文件格式分析.md)一文。
 
 其中 SPS 是 0450 行，0x67 开头的 9 个字节的内容。PPS 的内容是 0460 行，0x68 开头的 4 个字节的内容。
 
@@ -250,7 +250,7 @@ NALU 是从 00010 行的 0x65 开始的，0x65 二进制是 01101001，后面 5 
 
 * AACPacketType: 8 个 bit。取值 0，表示 AACPacketType 后面内容是 AudioSpecificConfig 格式；取值 1，表示 AACPacketType 后面内容是 AAC 编码格式。
 
-AudioSpecificConfig 格式可以参考[《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/流媒体服务器/FLV文件格式分析.md)一文。
+AudioSpecificConfig 格式可以参考[《FLV 文件格式分析》](https://github.com/believeszw/CS-Notes/blob/master/notes/流媒体/音视频基础/FLV文件格式分析.md)一文。
 
 下面，我们通过 Wireshark 抓包来分析一下，AAC FLV 两种格式。
 
