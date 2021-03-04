@@ -194,6 +194,9 @@ Dump of assembler code for function bar:
 End of assembler dump.
 (gdb) si
 0x0000555555554607	2	int e = c + d;
+(gdb) frame
+#0  0x0000555555554607 in bar (c=2, d=3) at call.c:2
+2	int e = c + d;
 (gdb) si
 0x000055555555460a	2	int e = c + d;
 (gdb) si
@@ -280,31 +283,203 @@ int main(void) {
 int foo(int a,int b) {
  614:    55                       push   %rbp
  615:    48 89 e5                 mov    %rsp,%rbp
- 618:    48 83 ec 08              sub    $0x8,%rsp # 申请 8 字节空间
+ 618:    48 83 ec 08              sub    $0x8,%rsp # 栈顶指针减 8，申请 8 字节空间
  61c:    89 7d fc                 mov    %edi,-0x4(%rbp) # 第一个参数放入栈底向下偏移 4 个字节的位置
  61f:    89 75 f8                 mov    %esi,-0x8(%rbp) # 第二个参数放入栈底向下偏移 8 个字节的位置
   return bar(a, b);
  622:    8b 55 f8                 mov    -0x8(%rbp),%edx # 将 b 赋值给第三个参数
- 625:    8b 45 fc                 mov    -0x4(%rbp),%eax # 将 a 赋值给第返回值
- 628:    89 d6                    mov    %edx,%esi # 将第三个参数赋值给 bar 第二哥参数
- 62a:    89 c7                    mov    %eax,%edi # 将第四个参数赋值给第一个参数
- 62c:    e8 c9 ff ff ff           callq  5fa <bar>
+ 625:    8b 45 fc                 mov    -0x4(%rbp),%eax # 将 a 赋值给寄存器 eax （代码没有优化，寄存器临时借用）
+ 628:    89 d6                    mov    %edx,%esi # 将第三个参数赋值给 bar 第二个参数
+ 62a:    89 c7                    mov    %eax,%edi # 将寄存器 eax 赋值给 bar 第一个参数
+ 62c:    e8 c9 ff ff ff           callq  5fa <bar> # 调用 bar
 }
  631:    c9                       leaveq
  632:    c3                       retq
 ```
-push %rbp 指令把 rbp 寄存器的值压栈，同时把 rsp 的值减 8。rsp 的值现在是 0x7fffffffe190，下一条指令把这个值传送给 rbp 寄存器。这两条指令合起来是把原来 rbp 的值保存在栈上，然后又给 rbp 赋了新值。在每个函数的栈帧中，rbp 指向栈底，而 rsp 指向栈顶，在函数执行过程中 rsp 随着压栈和出栈操作随时变化，而 rbp 是不动的，函数的参数和局部变量都是通过 rbp 的值加上一个偏移量来访问，例如 foo 函数的参数 a 和 b 分别通过 ebp+4 和 ebp+8 来访问。所以下面的指令把参数 a 和 b 再次压栈，为调用 bar 函数做准备，然后把返回地址压栈，调用 bar 函数：
+push %rbp 指令把 rbp 寄存器的值压栈，同时把 rsp 的值减 8。rsp 的值现在是 0x7fffffffe190，下一条指令把这个值传送给 rbp 寄存器。这两条指令合起来是把原来 rbp 的值保存在栈上，然后又给 rbp 赋了新值。在每个函数的栈帧中，rbp 指向栈底，而 rsp 指向栈顶，在函数执行过程中 rsp 随着压栈和出栈操作随时变化，而 rbp 是不动的，函数的参数和局部变量都是通过 rbp 的值加上一个偏移量来访问，例如 foo 函数的参数 a 和 b 分别通过 rbp-4 和 rbp-8 来访问。所以下面的指令把参数 a 和 b 再次压栈，为调用 bar 函数做准备，然后把返回地址压栈，调用 bar 函数。
 
+现在看 bar 函数的指令：
 
+```shell
+00000000000005fa <bar>:
+int bar(int c,int d) {
+ 5fa:	55                   	push   %rbp
+ 5fb:	48 89 e5             	mov    %rsp,%rbp
+ 5fe:	89 7d ec             	mov    %edi,-0x14(%rbp) # 中间浪费了 16 字节干嘛了
+ 601:	89 75 e8             	mov    %esi,-0x18(%rbp) # 第二个参数赋值
+int e = c + d;
+ 604:	8b 55 ec             	mov    -0x14(%rbp),%edx # c 压入第三个寄存器
+ 607:	8b 45 e8             	mov    -0x18(%rbp),%eax # d 压入 eax 寄存器用于 累加
+ 60a:	01 d0                	add    %edx,%eax # c + d
+ 60c:	89 45 fc             	mov    %eax,-0x4(%rbp) # 保存 c 的值
+```
 
+这次又把 foo 函数的 rbp 压栈保存，然后给 rbp 赋了新值，指向 bar 函数栈帧的栈底，通过 rbp-14 和 rbp-18 分别可以访问参数 c 和 d 。bar 函数还有一个局部变量 e，可以通过 rbp-4 来访问。所以后面几条指令的意思是把参数 c 和 d 取出来存在寄存器中做加法，计算结果保存在 eax 寄存器中，再把 eax 寄存器存回局部变量 e 的内存单元。
 
+在 gdb 中可以用 bt 命令和 frame 命令查看每层栈帧上的参数和局部变量，现在可以解释它的工作原理了：如果我当前在 bar 函数中，我可以通过 rbp 找到 bar 函数的参数和局部变量，也可以找到 foo 函数的 rbp 保存在栈上的值，有了 foo 函数的 rbp，又可以找到它的参数和局部变量，也可以找到 main 函数的 rbp 保存在栈上的值，因此各层函数栈帧通过保存在栈上的 rbp 的值串起来了。
 
+现在看 bar 函数的返回指令：
 
+```Shell
+return e;
+60f:	8b 45 fc             	mov    -0x4(%rbp),%eax
+}
+612:	5d                   	pop    %rbp
+613:	c3                   	retq
+```
+bar 函数有一个 int 型的返回值，这个返回值是通过 rax 寄存器传递的，所以首先把 e 的值读到 rax 寄存器中。然后 pop rbp 压出 rbp，此时所处函数的栈底为 foo 函数的栈底，又回到了 foo，栈顶指针向上偏移了 1 个字节
 
+```Shell
+(gdb) p $rbp
+$13 = (void *) 0x7fffffffe178
+(gdb) p $rsp
+$14 = (void *) 0x7fffffffe178
+(gdb) si
+0x0000555555554613	4	}
+(gdb) p $rbp
+$15 = (void *) 0x7fffffffe190
+(gdb) p $rsp
+$16 = (void *) 0x7fffffffe180
+```
+/*
+现在 rsp 所指向的栈顶保存着 foo 函数栈帧的 rbp，把这个值恢复给 rbp，同时 rsp 增加 4，rsp 的值变成 0xbf822d08。
+*/
 
+最后是 retq 指令，它是 call 指令的逆操作：
 
+现在 rsp 所指向的栈顶保存着返回地址，把这个值恢复给 eip，同时 rsp 增加4，rsp 的值变成 0xbf822d0c。
 
+修改了程序计数器 eip，因此跳转到返回地址 0x80483c2 继续执行。
 
+地址 0x80483c2 处是 foo 函数的返回指令：
+
+重复同样的过程，又返回到了 main 函数。注意函数调用和返回过程中的这些规则：
+
+参数压栈传递，并且是从右向左依次压栈。
+
+rbp 总是指向当前栈帧的栈底。
+
+返回值通过 rax 寄存器传递。
+
+这些规则并不是体系结构所强加的，rbp 寄存器并不是必须这么用，函数的参数和返回值也不是必须这么传，只是操作系统和编译器选择了以这样的方式实现 C 代码中的函数调用，这称为 Calling Convention，Calling Convention 是操作系统二进制接口规范（ABI，Application Binary Interface）的一部分。
+
+```shell
+(gdb) si
+3	  return e;
+(gdb) si
+4	}
+(gdb) disassemble
+Dump of assembler code for function bar:
+   0x00005555555545fa <+0>:	push   %rbp
+   0x00005555555545fb <+1>:	mov    %rsp,%rbp
+   0x00005555555545fe <+4>:	mov    %edi,-0x14(%rbp)
+   0x0000555555554601 <+7>:	mov    %esi,-0x18(%rbp)
+   0x0000555555554604 <+10>:	mov    -0x14(%rbp),%edx
+   0x0000555555554607 <+13>:	mov    -0x18(%rbp),%eax
+   0x000055555555460a <+16>:	add    %edx,%eax
+   0x000055555555460c <+18>:	mov    %eax,-0x4(%rbp)
+   0x000055555555460f <+21>:	mov    -0x4(%rbp),%eax
+=> 0x0000555555554612 <+24>:	pop    %rbp
+   0x0000555555554613 <+25>:	retq
+End of assembler dump.
+(gdb) p $rbp
+$13 = (void *) 0x7fffffffe178
+(gdb) p $rsp
+$14 = (void *) 0x7fffffffe178
+(gdb) si
+0x0000555555554613	4	}
+(gdb) p $rbp
+$15 = (void *) 0x7fffffffe190
+(gdb) p $rsp
+$16 = (void *) 0x7fffffffe180
+(gdb) si
+foo (a=2, b=3) at call.c:7
+7	}
+(gdb) p $rsp
+$17 = (void *) 0x7fffffffe188
+(gdb) disassemble
+Dump of assembler code for function foo:
+   0x0000555555554614 <+0>:	push   %rbp
+   0x0000555555554615 <+1>:	mov    %rsp,%rbp
+   0x0000555555554618 <+4>:	sub    $0x8,%rsp
+   0x000055555555461c <+8>:	mov    %edi,-0x4(%rbp)
+   0x000055555555461f <+11>:	mov    %esi,-0x8(%rbp)
+   0x0000555555554622 <+14>:	mov    -0x8(%rbp),%edx
+   0x0000555555554625 <+17>:	mov    -0x4(%rbp),%eax
+   0x0000555555554628 <+20>:	mov    %edx,%esi
+   0x000055555555462a <+22>:	mov    %eax,%edi
+   0x000055555555462c <+24>:	callq  0x5555555545fa <bar>
+=> 0x0000555555554631 <+29>:	leaveq
+   0x0000555555554632 <+30>:	retq
+End of assembler dump.
+(gdb) p $rbp
+$18 = (void *) 0x7fffffffe190
+(gdb) p $rsp
+$19 = (void *) 0x7fffffffe188
+(gdb) si
+0x0000555555554632	7	}
+(gdb) p $rsp
+$20 = (void *) 0x7fffffffe198
+(gdb) p $rbp
+$21 = (void *) 0x7fffffffe1a0
+(gdb) disassemble
+Dump of assembler code for function foo:
+   0x0000555555554614 <+0>:	push   %rbp
+   0x0000555555554615 <+1>:	mov    %rsp,%rbp
+   0x0000555555554618 <+4>:	sub    $0x8,%rsp
+   0x000055555555461c <+8>:	mov    %edi,-0x4(%rbp)
+   0x000055555555461f <+11>:	mov    %esi,-0x8(%rbp)
+   0x0000555555554622 <+14>:	mov    -0x8(%rbp),%edx
+   0x0000555555554625 <+17>:	mov    -0x4(%rbp),%eax
+   0x0000555555554628 <+20>:	mov    %edx,%esi
+   0x000055555555462a <+22>:	mov    %eax,%edi
+   0x000055555555462c <+24>:	callq  0x5555555545fa <bar>
+   0x0000555555554631 <+29>:	leaveq
+=> 0x0000555555554632 <+30>:	retq
+End of assembler dump.
+(gdb) si
+main () at call.c:10
+10	  return 0;
+(gdb) p $rbp
+$22 = (void *) 0x7fffffffe1a0
+(gdb) p $rsp
+$23 = (void *) 0x7fffffffe1a0
+(gdb) disassemble
+Dump of assembler code for function main:
+   0x0000555555554633 <+0>:	push   %rbp
+   0x0000555555554634 <+1>:	mov    %rsp,%rbp
+   0x0000555555554637 <+4>:	mov    $0x3,%esi
+   0x000055555555463c <+9>:	mov    $0x2,%edi
+   0x0000555555554641 <+14>:	callq  0x555555554614 <foo>
+=> 0x0000555555554646 <+19>:	mov    $0x0,%eax
+   0x000055555555464b <+24>:	pop    %rbp
+   0x000055555555464c <+25>:	retq
+End of assembler dump.
+(gdb) si
+11	}
+(gdb) p $rsp
+$24 = (void *) 0x7fffffffe1a0
+(gdb) p $rbp
+$25 = (void *) 0x7fffffffe1a0
+(gdb) si
+0x000055555555464c	11	}
+(gdb) p $rsp
+$26 = (void *) 0x7fffffffe1a8
+(gdb) p $rbp
+$27 = (void *) 0x555555554650 <__libc_csu_init>
+(gdb) disassemble
+Dump of assembler code for function main:
+   0x0000555555554633 <+0>:	push   %rbp
+   0x0000555555554634 <+1>:	mov    %rsp,%rbp
+   0x0000555555554637 <+4>:	mov    $0x3,%esi
+   0x000055555555463c <+9>:	mov    $0x2,%edi
+   0x0000555555554641 <+14>:	callq  0x555555554614 <foo>
+   0x0000555555554646 <+19>:	mov    $0x0,%eax
+   0x000055555555464b <+24>:	pop    %rbp
+=> 0x000055555555464c <+25>:	retq
+End of assembler dump.
+(gdb) si
+```
 
 
 
