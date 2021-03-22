@@ -204,8 +204,9 @@ $ .build/x86_64/debug/targets/sketchpad/hello.exe
   # 登陆 https://braum.agoralab.co/luna/?_=1604571260 然后
   docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:$tag && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:$tag hub.agoralab.co/uap/mini_app/mini_app-worker:latest
   # 将上传的镜像tag更新为latest，程序会自动拉取
-  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20210301_3_752eb559220b && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20210301_3_752eb559220b hub.agoralab.co/uap/mini_app/mini_app-worker:latest && ./stop.sh
+  docker pull hub.agoralab.co/uap/mini_app/mini_app-worker:release_20210321_2_b984efabd056 && docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20210321_2_b984efabd056 hub.agoralab.co/uap/mini_app/mini_app-worker:latest && ./stop.sh
 
+docker tag hub.agoralab.co/uap/mini_app/mini_app-worker:release_20210307_1_48e6309d00ae hub.agoralab.co/uap/mini_app/mini_app-worker:latest
 
   # 上次可用的 manager 的镜像
   docker tag hub.agoralab.co/uap/mini_app/mini_app-manager:release_20200831_1_6a1547a33f42 hub.agoralab.co/uap/mini_app/mini_app-manager:latest

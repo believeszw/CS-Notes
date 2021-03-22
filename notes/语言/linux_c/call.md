@@ -255,13 +255,13 @@ gs             0x0	0
 
 ```shell
 0000000000000633 <main>:
-int main(void) {
+int main(void) { # $rsp = $rbp = 0x7fffffffe1a0
  633:    55                       push   %rbp # 将 rbp 压入栈
  634:    48 89 e5                 mov    %rsp,%rbp # 将 rsp 的值给 rbp
   foo(2,3);
  637:    be 03 00 00 00           mov    $0x3,%esi # 立即数 3 赋值给第二个参数
  63c:    bf 02 00 00 00           mov    $0x2,%edi # 立即数 2 赋值给第一个参数
- 641:    e8 ce ff ff ff           callq  614 <foo> # 调用 foo 函数
+ 641:    e8 ce ff ff ff           callq  614 <foo> # 调用 foo 函数 $rsp 0x7fffffffe1a0 -> 0x7fffffffe198
   return 0;
  646:    b8 00 00 00 00           mov    $0x0,%eax # 返回值 0
 }
@@ -281,9 +281,9 @@ int main(void) {
 ```shell
 0000000000000614 <foo>:
 int foo(int a,int b) {
- 614:    55                       push   %rbp
- 615:    48 89 e5                 mov    %rsp,%rbp
- 618:    48 83 ec 08              sub    $0x8,%rsp # 栈顶指针减 8，申请 8 字节空间
+ 614:    55                       push   %rbp # $rsp 0x7fffffffe198 -> 0x7fffffffe190
+ 615:    48 89 e5                 mov    %rsp,%rbp # $rbp 0x7fffffffe1a0 -> 0x7fffffffe190
+ 618:    48 83 ec 08              sub    $0x8,%rsp # 栈顶指针减 8，申请 8 字节空间 $rsp 0x7fffffffe190 -> 0x7fffffffe188
  61c:    89 7d fc                 mov    %edi,-0x4(%rbp) # 第一个参数放入栈底向下偏移 4 个字节的位置
  61f:    89 75 f8                 mov    %esi,-0x8(%rbp) # 第二个参数放入栈底向下偏移 8 个字节的位置
   return bar(a, b);
@@ -291,7 +291,7 @@ int foo(int a,int b) {
  625:    8b 45 fc                 mov    -0x4(%rbp),%eax # 将 a 赋值给寄存器 eax （代码没有优化，寄存器临时借用）
  628:    89 d6                    mov    %edx,%esi # 将第三个参数赋值给 bar 第二个参数
  62a:    89 c7                    mov    %eax,%edi # 将寄存器 eax 赋值给 bar 第一个参数
- 62c:    e8 c9 ff ff ff           callq  5fa <bar> # 调用 bar
+ 62c:    e8 c9 ff ff ff           callq  5fa <bar> # 调用 bar $rsp 0x7fffffffe188 -> 0x7fffffffe180
 }
  631:    c9                       leaveq
  632:    c3                       retq
@@ -303,9 +303,9 @@ push %rbp 指令把 rbp 寄存器的值压栈，同时把 rsp 的值减 8。rsp 
 ```shell
 00000000000005fa <bar>:
 int bar(int c,int d) {
- 5fa:	55                   	push   %rbp
- 5fb:	48 89 e5             	mov    %rsp,%rbp
- 5fe:	89 7d ec             	mov    %edi,-0x14(%rbp) # 中间浪费了 16 字节干嘛了
+ 5fa:	55                   	push   %rbp # rbp 入栈 $rsp 0x7fffffffe180 -> 0x7fffffffe178
+ 5fb:	48 89 e5             	mov    %rsp,%rbp # 更新栈底 $rbp 0x7fffffffe190 -> 0x7fffffffe178
+ 5fe:	89 7d ec             	mov    %edi,-0x14(%rbp) # 中间浪费了 12 字节干嘛了，x/32 ($rbp-0x30) 显示中间有部分垃圾数据
  601:	89 75 e8             	mov    %esi,-0x18(%rbp) # 第二个参数赋值
 int e = c + d;
  604:	8b 55 ec             	mov    -0x14(%rbp),%edx # c 压入第三个寄存器
@@ -324,79 +324,16 @@ int e = c + d;
 return e;
 60f:	8b 45 fc             	mov    -0x4(%rbp),%eax
 }
-612:	5d                   	pop    %rbp
-613:	c3                   	retq
+612:	5d                   	pop    %rbp # $rbp 0x7fffffffe178 -> 0x7fffffffe190 $rsp 0x7fffffffe178 -> 0x7fffffffe180
+613:	c3                   	retq # $rsp 0x7fffffffe180 -> 0x7fffffffe188
 ```
-bar 函数有一个 int 型的返回值，这个返回值是通过 rax 寄存器传递的，所以首先把 e 的值读到 rax 寄存器中。然后 pop rbp 压出 rbp，此时所处函数的栈底为 foo 函数的栈底，又回到了 foo，栈顶指针向上偏移了 1 个字节
-
-```Shell
-(gdb) p $rbp
-$13 = (void *) 0x7fffffffe178
-(gdb) p $rsp
-$14 = (void *) 0x7fffffffe178
-(gdb) si
-0x0000555555554613	4	}
-(gdb) p $rbp
-$15 = (void *) 0x7fffffffe190
-(gdb) p $rsp
-$16 = (void *) 0x7fffffffe180
-```
-/*
-现在 rsp 所指向的栈顶保存着 foo 函数栈帧的 rbp，把这个值恢复给 rbp，同时 rsp 增加 4，rsp 的值变成 0xbf822d08。
-*/
+bar 函数有一个 int 型的返回值，这个返回值是通过 rax 寄存器传递的，所以首先把 e 的值读到 rax 寄存器中。然后 pop rbp 压出 rbp，此时所处函数的栈底为 foo 函数的栈底，又回到了 foo
 
 最后是 retq 指令，它是 call 指令的逆操作：
 
-现在 rsp 所指向的栈顶保存着返回地址，把这个值恢复给 eip，同时 rsp 增加4，rsp 的值变成 0xbf822d0c。
+现在 rsp 所指向的栈顶保存着返回地址，把这个值恢复给 eip，同时 rsp 增加 8，rsp 的值变成 0x7fffffffe188。
 
-修改了程序计数器 eip，因此跳转到返回地址 0x80483c2 继续执行。
-
-地址 0x80483c2 处是 foo 函数的返回指令：
-
-重复同样的过程，又返回到了 main 函数。注意函数调用和返回过程中的这些规则：
-
-参数压栈传递，并且是从右向左依次压栈。
-
-rbp 总是指向当前栈帧的栈底。
-
-返回值通过 rax 寄存器传递。
-
-这些规则并不是体系结构所强加的，rbp 寄存器并不是必须这么用，函数的参数和返回值也不是必须这么传，只是操作系统和编译器选择了以这样的方式实现 C 代码中的函数调用，这称为 Calling Convention，Calling Convention 是操作系统二进制接口规范（ABI，Application Binary Interface）的一部分。
-
-```shell
-(gdb) si
-3	  return e;
-(gdb) si
-4	}
-(gdb) disassemble
-Dump of assembler code for function bar:
-   0x00005555555545fa <+0>:	push   %rbp
-   0x00005555555545fb <+1>:	mov    %rsp,%rbp
-   0x00005555555545fe <+4>:	mov    %edi,-0x14(%rbp)
-   0x0000555555554601 <+7>:	mov    %esi,-0x18(%rbp)
-   0x0000555555554604 <+10>:	mov    -0x14(%rbp),%edx
-   0x0000555555554607 <+13>:	mov    -0x18(%rbp),%eax
-   0x000055555555460a <+16>:	add    %edx,%eax
-   0x000055555555460c <+18>:	mov    %eax,-0x4(%rbp)
-   0x000055555555460f <+21>:	mov    -0x4(%rbp),%eax
-=> 0x0000555555554612 <+24>:	pop    %rbp
-   0x0000555555554613 <+25>:	retq
-End of assembler dump.
-(gdb) p $rbp
-$13 = (void *) 0x7fffffffe178
-(gdb) p $rsp
-$14 = (void *) 0x7fffffffe178
-(gdb) si
-0x0000555555554613	4	}
-(gdb) p $rbp
-$15 = (void *) 0x7fffffffe190
-(gdb) p $rsp
-$16 = (void *) 0x7fffffffe180
-(gdb) si
-foo (a=2, b=3) at call.c:7
-7	}
-(gdb) p $rsp
-$17 = (void *) 0x7fffffffe188
+```Shell
 (gdb) disassemble
 Dump of assembler code for function foo:
    0x0000555555554614 <+0>:	push   %rbp
@@ -412,16 +349,26 @@ Dump of assembler code for function foo:
 => 0x0000555555554631 <+29>:	leaveq
    0x0000555555554632 <+30>:	retq
 End of assembler dump.
-(gdb) p $rbp
-$18 = (void *) 0x7fffffffe190
-(gdb) p $rsp
-$19 = (void *) 0x7fffffffe188
 (gdb) si
-0x0000555555554632	7	}
-(gdb) p $rsp
-$20 = (void *) 0x7fffffffe198
-(gdb) p $rbp
-$21 = (void *) 0x7fffffffe1a0
+
+Watchpoint 2: $rsp
+
+Old value = (void *) 0x7fffffffe188
+New value = (void *) 0x7fffffffe198
+
+Watchpoint 3: $rbp
+
+Old value = (void *) 0x7fffffffe190
+New value = (void *) 0x7fffffffe1a0
+0x0000555555554632 in foo (a=2, b=3) at call.c:7
+7	}
+```
+
+修改了程序计数器 eip，因此跳转到返回地址 0x7fffffffe188 继续执行。
+
+地址 0x7fffffffe188 处是 foo 函数的 leaveq 指令.
+
+```Shell
 (gdb) disassemble
 Dump of assembler code for function foo:
    0x0000555555554614 <+0>:	push   %rbp
@@ -438,35 +385,20 @@ Dump of assembler code for function foo:
 => 0x0000555555554632 <+30>:	retq
 End of assembler dump.
 (gdb) si
+
+Watchpoint 2: $rsp
+
+Old value = (void *) 0x7fffffffe198
+New value = (void *) 0x7fffffffe1a0
 main () at call.c:10
 10	  return 0;
-(gdb) p $rbp
-$22 = (void *) 0x7fffffffe1a0
-(gdb) p $rsp
-$23 = (void *) 0x7fffffffe1a0
-(gdb) disassemble
-Dump of assembler code for function main:
-   0x0000555555554633 <+0>:	push   %rbp
-   0x0000555555554634 <+1>:	mov    %rsp,%rbp
-   0x0000555555554637 <+4>:	mov    $0x3,%esi
-   0x000055555555463c <+9>:	mov    $0x2,%edi
-   0x0000555555554641 <+14>:	callq  0x555555554614 <foo>
-=> 0x0000555555554646 <+19>:	mov    $0x0,%eax
-   0x000055555555464b <+24>:	pop    %rbp
-   0x000055555555464c <+25>:	retq
-End of assembler dump.
-(gdb) si
-11	}
-(gdb) p $rsp
-$24 = (void *) 0x7fffffffe1a0
-(gdb) p $rbp
-$25 = (void *) 0x7fffffffe1a0
-(gdb) si
-0x000055555555464c	11	}
-(gdb) p $rsp
-$26 = (void *) 0x7fffffffe1a8
-(gdb) p $rbp
-$27 = (void *) 0x555555554650 <__libc_csu_init>
+```
+
+执行完 foo 中的 retq 命令又重新回到了 main 函数中，栈顶指针从 0x7fffffffe198 变成 0x7fffffffe1a0
+
+重复同样的过程，又返回到了 main 函数。压出栈底指针
+
+``` shell
 (gdb) disassemble
 Dump of assembler code for function main:
    0x0000555555554633 <+0>:	push   %rbp
@@ -475,20 +407,38 @@ Dump of assembler code for function main:
    0x000055555555463c <+9>:	mov    $0x2,%edi
    0x0000555555554641 <+14>:	callq  0x555555554614 <foo>
    0x0000555555554646 <+19>:	mov    $0x0,%eax
-   0x000055555555464b <+24>:	pop    %rbp
-=> 0x000055555555464c <+25>:	retq
+=> 0x000055555555464b <+24>:	pop    %rbp
+   0x000055555555464c <+25>:	retq
 End of assembler dump.
 (gdb) si
+
+Watchpoint 2: $rsp
+
+Old value = (void *) 0x7fffffffe1a0
+New value = (void *) 0x7fffffffe1a8
+
+Watchpoint 3: $rbp
+
+Old value = (void *) 0x7fffffffe1a0
+New value = (void *) 0x555555554650 <__libc_csu_init>
+0x000055555555464c in main () at call.c:11
+11	}
+(gdb) si # retq
+
+Watchpoint 2: $rsp
+
+Old value = (void *) 0x7fffffffe1a8
+New value = (void *) 0x7fffffffe1b0
+__libc_start_main (main=0x555555554633 <main>, argc=1, argv=0x7fffffffe288, init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>,
+    stack_end=0x7fffffffe278) at ../csu/libc-start.c:344
+344	../csu/libc-start.c: No such file or directory.
 ```
+注意函数调用和返回过程中的这些规则：
 
+参数压栈传递，并且是从右向左依次压栈。
 
+rbp 总是指向当前栈帧的栈底。
 
+返回值通过 rax 寄存器传递。
 
-
-
-
-
-
-
-
-11126491
+这些规则并不是体系结构所强加的，rbp 寄存器并不是必须这么用，函数的参数和返回值也不是必须这么传，只是操作系统和编译器选择了以这样的方式实现 C 代码中的函数调用，这称为 Calling Convention，Calling Convention 是操作系统二进制接口规范（ABI，Application Binary Interface）的一部分。

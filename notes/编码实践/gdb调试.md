@@ -394,6 +394,11 @@ Old value =
 New value =
 ```
 
+查看所有观察点
+```shell
+info watchpoints
+```
+
 但是这里要特别注意的是，程序必须运行起来，否则会出现：
 
 ```shell
