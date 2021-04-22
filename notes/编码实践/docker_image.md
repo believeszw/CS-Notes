@@ -15,11 +15,12 @@ source ~/.bashrc && cmake --version
 * shadowsocks
 ```Shell
 # install
-sudo apt-get install python
-sudo apt-get install python-pip
-sudo pip install shadowsocks
+$ sudo apt-get install python
+$ sudo apt-get install python-pip
+$ sudo pip install shadowsocks
 # config
-mkdir -p /home/${user}/shadowsocks/shadowsocks.json
+$ mkdir -p /home/${user}/shadowsocks/
+$ vim shadowsocks.json
 {
   "server": "{your-server}",
   "server_port": 40002,
@@ -28,10 +29,10 @@ mkdir -p /home/${user}/shadowsocks/shadowsocks.json
   "timeout": 600,
   "method": "aes-256-cfb"
 }
-sudo sslocal -c /home/szw/shadowsocks/shadowsocks.json -d start
+$ sudo sslocal -c /home/${user}/shadowsocks/shadowsocks.json -d start
 # proxy
-sudo apt-get install polipo
-vim /etc/polipo/config
+$ sudo apt-get install polipo
+$ vim /etc/polipo/config
 logSyslog = true
 logFile = /var/log/polipo/polipo.log
 proxyAddress = "0.0.0.0"
@@ -42,11 +43,11 @@ objectHighMark = 16384
 serverMaxSlots = 64
 serverSlots = 16
 serverSlots1 = 32
+$ vim ~/.bashrc
 sudo /etc/init.d/polipo restart
-# start
-sudo sslocal -c /home/shadowsocks/shadowsocks.json -d start
+sslocal -c /home/szw/shadowsocks/shadowsocks.json -d restart
 export http_proxy="http://127.0.0.1:8123/"
-curl www.google.com
+$ curl www.google.com
 ```
 
 * 配置 git 代理

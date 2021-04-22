@@ -742,7 +742,7 @@ echo $SHELL
 # 查看系统自带哪些shell
 cat /etc/shells
 # 安装 zsh
-apt install zsh -y
+brew install zsh # apt install zsh -y
 # 将 zsh 设置为系统默认 shell
 sudo chsh -s /bin/zsh
 # 自动安装，如果你没安装 git 需要先安装 git
@@ -755,23 +755,22 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 # 配置 zshrc
 plugins=(
-    autojump
-    git
-    extract
-    vi-mode
-    vscode
-    z
-    zsh-navigation-tools
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    python
-    docker
-    docker-compose
-    osx
-    brew
-    github
-    colorize
-    colored-man-pages
+  autojump
+  git
+  extract
+  vscode
+  z
+  zsh-navigation-tools
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  python
+  docker
+  docker-compose
+  osx
+  brew
+  github
+  colorize
+  colored-man-pages
 )
 HIST_STAMPS="mm/dd/yyyy"
 zsh /home/shadowsocks/run.sh
@@ -779,5 +778,28 @@ zsh /home/shadowsocks/run.sh
 export all_proxy="http://127.0.0.1:8123"
 #export https_proxy="http://127.0.0.1:8123"
 ```
+
+* autojump
+
+```shell
+# 打开 muisc 文件夹
+jo music
+# 多个参数一起使用 打开 /home/user/work/inbox
+j w in
+```
+
+* z
+
+```shell
+# 如果你不想额外安装 autojump, 和 autojump 除了名字不一样，基本雷同。
+z 路径
+```
+
+* bat 代替 cat
+
+```shell
+brew install bat
+```
+
 
 [回到顶部](#readme)
