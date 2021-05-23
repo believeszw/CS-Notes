@@ -31,8 +31,7 @@ deb http://cz.archive.ubuntu.com/ubuntu trusty main universe
 ### xxx not found using pkg-config | ERROR: libmp3lame >= 3.98.3 not found
 
 ```Shell
-export PKG_CONFIG_PATH=/mnt/media_build/media_server_miniapp/srs/objs/ffmpeg.sr
-c/_release/lib/pkgconfig
+export PKG_CONFIG_PATH=/mnt/media_build/media_server_miniapp/srs/objs/ffmpeg.src/_release/lib/pkgconfig
 ```
 
 ### srs 编译 librtmp 库
